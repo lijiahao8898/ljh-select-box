@@ -14,20 +14,20 @@
 
 ## 引用：
 js:
-```ruby
+```
 <script type="text/javascript" src="../src/plugin/select-plugin/select-plugin.js"></script>
 ```
 css:
-```ruby
+```
 <link rel="stylesheet" href="../style/css/selectplugin.css">
 ```
 
 ## 调用：
-```ruby
+```
 ('#plugin').selectPlugin({})
 ```
 ## 传参
-```ruby
+```
 /**
  * 插件的默认配置项
  * single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
