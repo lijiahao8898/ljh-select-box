@@ -1,0 +1,18 @@
+.select-goods.select-group-goods{
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    text-align: center;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+}
+.popup-g-name,.g-name{
+    width: 250px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

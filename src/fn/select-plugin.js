@@ -4,7 +4,7 @@
  * 默认情况下是商品的多选
  */
 
-;(function ($, cobra, window, document) {
+;(function ($, window, document) {
 
     // 定义构造函数
     /**
@@ -48,24 +48,24 @@
          * init: 初始化
          */
         init: function () {
-            this.typeArr = [0];                                                    // 类型数据
-            this.search_key = {};                                                  // 搜索配置
-            this.pageConfig = {                                                    // 翻页配置
+            this.typeArr = [0];                                                     // 类型数据
+            this.search_key = {};                                                   // 搜索配置
+            this.pageConfig = {                                                     // 翻页配置
                 pageSize: 20,
                 visiblePages: 6,
                 pageId: 1
             };
-            this.renderOption = {};                                                // 渲染的option条件 example: item:data.data
+            this.renderOption = {};                                                 // 渲染的option条件 example: item:data.data
             this.body = 'body';
-            this.selectPluginBox = 'j-select-plugin-box';                 // 一条商品
-            this.selectPluginSaveBtn = 'j-select-plugin-save';                // 确定使用按钮
-            this.selectPluginSelectAllBtn = 'j-select-plugin-gsa';                 // 全选本页按钮
-            this.selectPluginCancelAllBtn = 'j-select-plugin-gca';                 // 取消全选按钮
-            this.selectPluginSearchBtn = 'j-select-plugin-search';              // 搜索按钮
-            this.selectPluginSelectBtn = 'j-select-plugin-g';                   // 选择按钮
+            this.selectPluginBox = 'j-select-plugin-box';                           // 一条商品
+            this.selectPluginSaveBtn = 'j-select-plugin-save';                      // 确定使用按钮
+            this.selectPluginSelectAllBtn = 'j-select-plugin-gsa';                  // 全选本页按钮
+            this.selectPluginCancelAllBtn = 'j-select-plugin-gca';                  // 取消本页全选按钮
+            this.selectPluginSearchBtn = 'j-select-plugin-search';                  // 搜索按钮
+            this.selectPluginSelectBtn = 'j-select-plugin-g';                       // 选择按钮
 
-            this.templateRenderArea = 'j-select-plugin-render';              // 模板渲染的地方
-            this.inputKeyword = 'select-plugin-keyword';               // 关键字
+            this.templateRenderArea = 'j-select-plugin-render';                     // 模板渲染的地方
+            this.inputKeyword = 'select-plugin-keyword';                            // 关键字
 
             /**
              * 商品部分
@@ -407,7 +407,7 @@
             var selectBtn = $('.' + this.selectPluginSelectBtn);
             var selectBtn1 = $('.' + this.selectPluginSelectBtn + '[data-status=1]');
             if ((selectBtn1.length == selectBtn.length) && selectBtn.length != 0) {
-                $('.' + this.selectPluginSelectAllBtn).text('取消全选').addClass(this.selectPluginCancelAllBtn)
+                $('.' + this.selectPluginSelectAllBtn).text('取消本页全选').addClass(this.selectPluginCancelAllBtn)
             } else {
                 $('.' + this.selectPluginSelectAllBtn).text('全选本页').removeClass(this.selectPluginCancelAllBtn)
             }
@@ -512,4 +512,4 @@
         thePlugin.init();
     }
 
-})(jQuery, cobra, window, document);
+})(jQuery, window, document);

@@ -1,0 +1,126 @@
+<!--------------------------- 选择弹框selectPlugin模板 ---------------------------------->
+<!-- 弹窗模板 0 商品 -->
+<script type="text/template" id="j-select-plugin-popup-goods">
+    <div class="ui-box" style="height: 328px;overflow: scroll">
+        <div class="ui-box form-inline">
+            <!--<div class="form-group">-->
+            <!--<select class="form-control form-control-sm j-category-one" name="cate_key" cb-node="cate_key">-->
+            <!--<option value="">请选择类目</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--&nbsp;-->
+            <!--<div class="form-group" style="display: none">-->
+            <!--<select class=" form-control form-control-md" name="category_two" cb-node="category_two">-->
+            <!--<option value="">请选择二级类目</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--&nbsp;-->
+            <!--<div class="form-group">-->
+            <!--<select class="form-control form-control-sm" name="brand_key" cb-node="brand_key">-->
+            <!--<option value="">请选择品牌</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            &nbsp;
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-md" id="select-plugin-keyword" placeholder="请输入关键词">
+                    <div class="input-group-btn"><a class="btn btn-sm btn-default" id="j-select-plugin-search">搜索</a></div>
+                </div>
+            </div>
+        </div>
+        <table class="ui-table">
+            <thead>
+            <tr>
+                <th class="tc">图片</th>
+                <th>标题<a href="javascript:;" class="j-refresh">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                <th class="tc">创建时间</th>
+                <th class="tc">状态</th>
+                <th class="tc">类型</th>
+                <th class="tc">操作</th>
+            </tr>
+            </thead>
+            <tbody id="j-select-plugin-render">
+            <tr>
+                <td colspan="18" class="tc">没有任何记录!</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 页码开始 -->
+    <div class="ui-box">
+        <div class="widget-list">
+            <div>
+                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-gsa" style="display: none">全选本页</a>
+                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-save" style="display: none">确定使用</a>
+                <span style="margin-left: 20px;">提示：滚动鼠标查看隐藏部分</span>
+            </div>
+            <div class="list-page">
+                <div class="ui-pagination selectPluginPagination"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 页码结束 -->
+</script>
+
+<!-- 弹窗 商品列表模板 -->
+<!-- 根据type类型进行判断：type=1选择的是sku级别，没有type选择的是商品级别 -->
+<script type="text/template" id="j-select-plugin-goods">
+    <% _.each(items,function(item,index){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><span><img src="<%= item.icon_url %>" style="width: 50px;height: 50px;"></span></td>
+        <td><span class="popup-g-name"><%= item.item_name %></span></td>
+        <td class="tc"><span><%= item.gmt_created %></span></td>
+        <td class="tc">
+            <% if( item.item_status == 4 ){ %>
+            <span class="green"><%= item.status_name || '-' %></span>
+            <% }else if( item.item_status == 1 ){ %>
+            <span class="red"><%= item.status_name || '-' %></span>
+            <% }else{ %>
+                <span class="black"><%= item.status_name || '-' %>
+            </span>
+            <% } %>
+        </td>
+        <td class="tc"><%= ['国内','跨境'][item.higo_mark] %></td>
+        <% if( type && type === true ){ %>
+        <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
+        <% }else{ %>
+        <td><a class="select-goods select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <% } %>
+    </tr>
+    <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
+        <td colspan="20">
+            <table class="ui-table">
+                <thead>
+                <tr>
+                    <th class="tc">图片</th>
+                    <th class="tc">sku_id</th>
+                    <th class="tc">sku属性</th>
+                    <th class="tc">原价</th>
+                    <th class="tc">现价</th>
+                    <th class="tc">库存</th>
+                    <th class="tc">操作</th>
+                </tr>
+                </thead>
+                <tbody class="sku-item-<%= item.id %>">
+
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <% }) %>
+</script>
+
+<!-- 弹窗 展开商品对应的sku -->
+<script type="text/template" id="j-select-plugin-sku">
+    <% _.each(items,function(item,index){ %>
+    <tr>
+        <td class="tc"><img src="<%= item.image_url %>"></td>
+        <td class="tc"><span><%= item.sku_id %></span></td>
+        <td class="tc"><span><%= item.prop[0].prop_name || '-' %></span>:<span><%= item.prop[0].value_name || '-' %></span></td>
+        <td class="tc"><span><%= Number(item.origin_price/100).toFixed(2) %></span></td>
+        <td class="tc"><span><%= Number(item.price/100).toFixed(2) %></span></td>
+        <td class="tc"><span><%= item.num %></span></td>
+        <td class="tc"><a href="javascript:;" class="select-goods select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.sku_id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% }) %>
+</script>
