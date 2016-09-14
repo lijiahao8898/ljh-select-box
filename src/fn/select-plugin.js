@@ -71,12 +71,12 @@
              * 商品部分
              * @type {string}
              */
-            this.templatePopupGoods = 'j-select-plugin-popup-goods';         // 弹窗模板
-            this.templateGoods = 'j-select-plugin-goods';               // 商品模板
-            this.templateGoodsSku = 'j-select-plugin-sku';                 // sku模板
-            this.goodsCheckboxType4 = 'j-select-plugin-checkbox';            // 确定只要上架
-            this.goodsOpenSku = 'j-open-sku';                          // 展开sku
-            this.selectPluginSkuBox = 'j-select-plugin-sku-box';             // 一条sku
+            this.templatePopupGoods = 'j-select-plugin-popup-goods';                // 弹窗模板
+            this.templateGoods = 'j-select-plugin-goods';                           // 商品模板
+            this.templateGoodsSku = 'j-select-plugin-sku';                          // sku模板
+            this.goodsCheckboxType4 = 'j-select-plugin-checkbox';                   // 确定只要上架
+            this.goodsOpenSku = 'j-open-sku';                                       // 展开sku
+            this.selectPluginSkuBox = 'j-select-plugin-sku-box';                    // 一条sku
 
             // 在单选的情况下 不能全选本页
             if (this.options.single === true && this.options.isSelectAll === true) {
@@ -104,6 +104,17 @@
                     this.goodsAddEvent();
                     this.selected_list_goods = [];
                     break;
+            }
+
+            //this.ajaxApi = {
+            //    item: 'http://boss.mockuai.net:8080/bossmanager/item/query.do',
+            //    item_sku:'http://boss.mockuai.net:8080/bossmanager/item/sku/query.do'
+            //}
+
+            //  todo dome json数据
+            this.ajaxApi = {
+                item: '../stub/demo.json',
+                item_sku:'../stub/demo_sku.json'
             }
 
         },
@@ -338,9 +349,9 @@
         ajaxGoods: function (callback) {
             var that = this;
             $.ajax({
-                url: 'http://boss.mockuai.net:8080/bossmanager/item/query.do',
-                type: 'get',
-                dataType: 'jsonp',
+                url: that.ajaxApi.item,
+                type: 'post',
+                dataType: 'json',
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
@@ -371,9 +382,9 @@
             var $skuItem = $('.sku-item-' + item_id);
 
             $.ajax({
-                url: 'http://boss.mockuai.net:8080/bossmanager/item/sku/query.do',
-                type: 'get',
-                dataType: 'jsonp',
+                url: that.ajaxApi.item_sku,
+                type: 'post',
+                dataType: 'json',
                 data: {
                     item_id: item_id
                 },

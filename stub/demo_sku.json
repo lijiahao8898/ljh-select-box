@@ -1,0 +1,26 @@
+{
+  "code": 10000,
+  "msg": "请求处理成功",
+  "data": {
+    "new_seller_warn": 0,
+    "skus": [
+      {
+        "sku_id": 66312,
+        "prop": [
+          {
+            "prop_id": "0",
+            "prop_name": "",
+            "value_id": "666",
+            "value_name": ""
+          }
+        ],
+        "origin_price": "1100",
+        "price": "1100",
+        "num": "111",
+        "barcode": "",
+        "image_url": "http://img.mockuai.com/images/20160912/17/20160912172502967.png",
+        "sku_url": "http://waptest.m.mockuai.net/order-confirm-direct.html?sku_uid=38699_66312"
+      }
+    ]
+  }
+}
