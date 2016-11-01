@@ -457,16 +457,17 @@
             if (selectedList.length > 0) {
                 if (selectedList[0].sku_id) {
                     // 如果是sku的时候
+                    // 将list重新定义到sku的tab上去
                     list = $('#' + that.templateRenderArea).find('.' + that.selectPluginSkuBox);
                 }
-            }
-            for (var i = 0; i < selectedList.length; i++) {
-                for (var n = 0; n < list.length; n++) {
-                    var selectedDom = list.eq(n).find('.' + that.selectPluginSelectBtn);
-                    if ((selectedList[i].id || selectedList[i].sku_id) == selectedDom.attr('data-id')) {
-                        selectedDom.attr('data-status', '1');
-                        selectedDom.text('取消');
-                        selectedDom.css({'background': '#5cb85c', 'border-color': '#5cb85c', 'color': '#fff'})
+                for (var i = 0; i < selectedList.length; i++) {
+                    for (var n = 0; n < list.length; n++) {
+                        var selectedDom = list.eq(n).find('.' + that.selectPluginSelectBtn);
+                        if ((selectedList[i].id || selectedList[i].sku_id) == selectedDom.attr('data-id')) {
+                            selectedDom.attr('data-status', '1');
+                            selectedDom.text('取消');
+                            selectedDom.css({'background': '#5cb85c', 'border-color': '#5cb85c', 'color': '#fff'})
+                        }
                     }
                 }
             }
