@@ -11,6 +11,7 @@
      * 插件的默认配置项
      * single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
      * isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
+     * needSkuGoodsName: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
      * type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品)
      * title                        // 商品选择弹窗的title
      * isSelectAll                  // 判断是否显示全选按钮
@@ -26,6 +27,7 @@
 
         this.defaults = {
             selectPluginBtn: ele,
+            needSkuGoodsName: false,
             single: false,
             isSku: false,
             type: 0,
@@ -330,8 +332,13 @@
             // open sku
             $(document).on('click', '.' + that.goodsOpenSku, function () {
                 var item_id = $(this).attr('data-id');
+                // 如果配置为true, 在返回的每个sku里面塞入商品的名称
+                // 因为接口问题,没有返回该项字段
+                if( that.options.needSkuGoodsName === true ){
+                    var item_name = $(this).attr('data-name');
+                }
                 if (!$(this).attr('data-open_type')) {
-                    that.ajaxGoodsSku(item_id);
+                    that.ajaxGoodsSku(item_id,item_name);
                     $(this).text('合拢');
                     $(this).attr('data-open_type', 1)
                 } else {
@@ -374,7 +381,7 @@
          * 商品部分根据item_id请求sku信息
          * @param item_id
          */
-        ajaxGoodsSku: function (item_id) {
+        ajaxGoodsSku: function (item_id, item_name) {
             var that = this;
             //$('.j-sku-box').hide();
 
@@ -390,6 +397,14 @@
                 },
                 success: function (data) {
                     if (data.code == 10000) {
+
+                        // 将商品名称塞入sku里面
+                        if( item_name ){
+                            for( var i = 0 ; i < data.data.skus.length; i ++ ){
+                                data.data.skus[i].item_name = item_name
+                            }
+                        }
+
                         $skuTable.show();
                         if ($skuItem.find('tr').length < 1) {
                             var template = _.template($('#' + that.templateGoodsSku).html());
