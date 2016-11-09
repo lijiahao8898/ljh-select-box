@@ -401,7 +401,8 @@
                         // 将商品名称塞入sku里面
                         if( item_name ){
                             for( var i = 0 ; i < data.data.skus.length; i ++ ){
-                                data.data.skus[i].item_name = item_name
+                                data.data.skus[i].item_name = item_name;
+                                data.data.skus[i].item_id = item_id;
                             }
                         }
 
