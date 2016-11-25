@@ -108,15 +108,22 @@
                     break;
             }
 
-            //this.ajaxApi = {
-            //    item: 'http://boss.mockuai.net:8080/bossmanager/item/query.do',
-            //    item_sku:'http://boss.mockuai.net:8080/bossmanager/item/sku/query.do'
-            //}
-
             //  todo dome json数据
             this.ajaxApi = {
                 item: '../stub/demo.json',
                 item_sku:'../stub/demo_sku.json'
+            };
+
+            if (location.host.indexOf('dev') == 0) {
+                //this.ajaxApi = {
+                //    item: '../stub/demo.json',
+                //    item_sku:'../stub/demo_sku.json'
+                //}
+            } else {
+                //this.ajaxApi = {
+                //    item: '../stub/demo.json',
+                //    item_sku:'../stub/demo_sku.json'
+                //}
             }
 
         },
@@ -332,13 +339,14 @@
             // open sku
             $(document).on('click', '.' + that.goodsOpenSku, function () {
                 var item_id = $(this).attr('data-id');
+                var item_image_url = $(this).attr('data-item_image_url');
                 // 如果配置为true, 在返回的每个sku里面塞入商品的名称
                 // 因为接口问题,没有返回该项字段
                 if( that.options.needSkuGoodsName === true ){
                     var item_name = $(this).attr('data-name');
                 }
                 if (!$(this).attr('data-open_type')) {
-                    that.ajaxGoodsSku(item_id,item_name);
+                    that.ajaxGoodsSku(item_id,item_name,item_image_url);
                     $(this).text('合拢');
                     $(this).attr('data-open_type', 1)
                 } else {
@@ -381,7 +389,7 @@
          * 商品部分根据item_id请求sku信息
          * @param item_id
          */
-        ajaxGoodsSku: function (item_id, item_name) {
+        ajaxGoodsSku: function (item_id, item_name, item_image_url) {
             var that = this;
             //$('.j-sku-box').hide();
 
@@ -398,11 +406,12 @@
                 success: function (data) {
                     if (data.code == 10000) {
 
-                        // 将商品名称塞入sku里面
+                        // todo 将商品名称.商品id.商品主图塞入sku里面
                         if( item_name ){
                             for( var i = 0 ; i < data.data.skus.length; i ++ ){
                                 data.data.skus[i].item_name = item_name;
                                 data.data.skus[i].item_id = item_id;
+                                data.data.skus[i].item_image_url = item_image_url;
                             }
                         }
 
