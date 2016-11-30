@@ -102,8 +102,8 @@ a {
     float: left;
     width: 215px;
     height: 36px;
-    background: url(../../images/common/logo.png) no-repeat;
-    background-size: 100% !important;
+    background: url(../../images/common/logo.png) center no-repeat;
+    background-size: contain !important;
     margin: 25px 0 0 10px;
 }
 .mainnav {
@@ -131,7 +131,7 @@ a {
     color: #000;
     height: 16px;
     line-height: 16px;
-    padding: 0 19px;
+    padding: 0 18px;
 }
 .mainnav li .line {
     display: none;
@@ -335,7 +335,7 @@ a {
     margin-top: 15px;
     background: #fff;
     border: 1px solid #d9dadc;
-    min-height: 750px;
+    min-height: 850px;
 }
 .subnav {
     position: absolute;

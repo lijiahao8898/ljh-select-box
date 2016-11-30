@@ -117,9 +117,9 @@
         </td>
         <td class="tc"><%= ['国内','跨境'][item.higo_mark] %></td>
         <% if( type && type === true ){ %>
-        <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
+        <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-item_image_url="<%= item.icon_url %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
         <% }else{ %>
-        <td><a class="select-goods select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
         <% } %>
     </tr>
     <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
@@ -155,7 +155,7 @@
         <td class="tc"><span><%= Number(item.origin_price/100).toFixed(2) %></span></td>
         <td class="tc"><span><%= Number(item.price/100).toFixed(2) %></span></td>
         <td class="tc"><span><%= item.num %></span></td>
-        <td class="tc"><a href="javascript:;" class="select-goods select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.sku_id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a href="javascript:;" class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.sku_id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }) %>
 </script>
