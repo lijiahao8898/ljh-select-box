@@ -1,6 +1,6 @@
 <!--------------------------- 选择弹框selectPlugin模板 ---------------------------------->
-<!-- 弹窗模板 0 商品 -->
-<script type="text/template" id="j-select-plugin-popup-goods">
+<!-- 弹窗模板 0 商品, 1 用户, 10 合约 -->
+<script type="text/template" id="j-select-plugin-popup-dialog">
     <div class="ui-box" style="height: 328px;overflow: scroll">
         <div class="ui-box form-inline">
             <!--<div class="form-group">-->
@@ -24,20 +24,35 @@
             <div class="form-group">
                 <div class="input-group">
                     <input type="text" class="form-control form-control-md" id="select-plugin-keyword" placeholder="请输入关键词">
-                    <div class="input-group-btn"><a class="btn btn-sm btn-default" id="j-select-plugin-search">搜索</a></div>
+                    <div class="input-group-btn"><a class="btn btn-sm btn-default" id="j-select-plugin-search-<%= type %>">搜索</a></div>
                 </div>
             </div>
         </div>
         <table class="ui-table">
             <thead>
+            <% if( type == 0 ){ %>
             <tr>
                 <th class="tc">图片</th>
-                <th>标题<a href="javascript:;" class="j-refresh">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                <th>标题<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
                 <th class="tc">创建时间</th>
                 <th class="tc">状态</th>
                 <th class="tc">类型</th>
                 <th class="tc">操作</th>
             </tr>
+            <% }else if( type == 1 ){ %>
+            <tr>
+                <th class="tc">用户名</th>
+                <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                <th class="tc">操作</th>
+            </tr>
+            <% }else if( type == 10 ){ %>
+            <tr>
+                <th class="tc">合约名称</th>
+                <th>运营商<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                <th class="tc">城市</th>
+                <th class="tc">操作</th>
+            </tr>
+            <% } %>
             </thead>
             <tbody id="j-select-plugin-render">
             <tr>
@@ -50,8 +65,8 @@
     <div class="ui-box">
         <div class="widget-list">
             <div>
-                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-gsa" style="display: none">全选本页</a>
-                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-save" style="display: none">确定使用</a>
+                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-gsa-<%= type %>" style="display: none">全选本页</a>
+                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-save-<%= type %>" style="display: none">确定使用</a>
                 <span style="margin-left: 20px;">提示：滚动鼠标查看隐藏部分</span>
             </div>
             <div class="list-page">
@@ -64,8 +79,9 @@
 
 <!-- 弹窗 商品列表模板 -->
 <!-- 根据type类型进行判断：type=1选择的是sku级别，没有type选择的是商品级别 -->
-<script type="text/template" id="j-select-plugin-goods">
+<script type="text/template" id="j-select-plugin-table-template">
     <% _.each(items,function(item,index){ %>
+    <% if( type == 0 ){ %>
     <tr class="j-select-plugin-box">
         <td class="tc"><span><img src="<%= item.icon_url %>" style="width: 50px;height: 50px;"></span></td>
         <td><span class="popup-g-name"><%= item.item_name %></span></td>
@@ -76,15 +92,15 @@
             <% }else if( item.item_status == 1 ){ %>
             <span class="red"><%= item.status_name || '-' %></span>
             <% }else{ %>
-                <span class="black"><%= item.status_name || '-' %>
-            </span>
+                        <span class="black"><%= item.status_name || '-' %>
+                    </span>
             <% } %>
         </td>
         <td class="tc"><%= ['国内','跨境'][item.higo_mark] %></td>
-        <% if( type && type === true ){ %>
+        <% if( isSku && isSku === true ){ %>
         <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-item_image_url="<%= item.icon_url %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
         <% }else{ %>
-        <td><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
         <% } %>
     </tr>
     <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
@@ -107,6 +123,19 @@
             </table>
         </td>
     </tr>
+    <% }else if( type == 1 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><span><%= item.user_name %></span></td>
+        <td class="tc"><span><%= item.mobile %></span></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% }else if( type == 10 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><span><%= item.user_name %></span></td>
+        <td class="tc"><span><%= item.mobile %></span></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% } %>
     <% }) %>
 </script>
 
@@ -120,7 +149,7 @@
         <td class="tc"><span><%= Number(item.origin_price/100).toFixed(2) %></span></td>
         <td class="tc"><span><%= Number(item.price/100).toFixed(2) %></span></td>
         <td class="tc"><span><%= item.num %></span></td>
-        <td class="tc"><a href="javascript:;" class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.sku_id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a href="javascript:;" class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.sku_id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }) %>
 </script>
