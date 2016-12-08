@@ -9,15 +9,16 @@
     // 定义构造函数
     /**
      * 插件的默认配置项
-     * single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
-     * isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
-     * needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-     * type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,10:合约)
-     * title                        // 商品选择弹窗的title
-     * isSelectAll                  // 判断是否显示全选按钮
-     * isRefresh                    // 判断是否显示刷新按钮
-     * function selectSuccess       // 成功选择之后的回调
-     * function selectError         // 失败选择之后的回调
+     * @type {{boolean}} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
+     * @type {{boolean}} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
+     * @type {{boolean}} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
+     * @type {{number}}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,10:合约)
+     * @type {{number}}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
+     * @type {{string}}  title                        // 商品选择弹窗的title
+     * @type {{boolean}} isSelectAll                  // 判断是否显示全选按钮
+     * @type {{boolean}} isRefresh                    // 判断是否显示刷新按钮
+     * function selectSuccess                         // 成功选择之后的回调
+     * function selectError                           // 失败选择之后的回调
      */
     var selectPluginFunc = function (ele, opt) {
 
@@ -31,12 +32,13 @@
             single: false,
             isSku: false,
             type: 0,
+            selectLength: 0,
             title: title,
             isSelectAll: true,
             isRefresh: true,
             selectSuccess: function (data, info) {
             },
-            selectError: function (data, info) {
+            selectError: function (info) {
             }
         };
 
@@ -50,8 +52,6 @@
          * init: 初始化
          */
         init: function () {
-            var list;
-
             this.typeArr = [0, 1, 10];                                              // 类型数据
             this.search_key = {};                                                   // 搜索配置
             this.pageConfig = {                                                     // 翻页配置
@@ -80,8 +80,12 @@
             if ($.inArray(this.options.type, this.typeArr) == -1) {
 
                 console.error('type is no found!');
-                this.options.type = 0
+                this.options.type = 0;
 
+            }
+
+            if ( this.options.single === true ){
+                this.options.selectLength = 1;
             }
 
             /**
@@ -180,7 +184,7 @@
                 }
                 that.selected_list = [];
                 that.successAjax();
-            })
+            });
 
             // 确定使用
             $(that.body).on('click', '.' + that.selectPluginSaveBtn, function () {
@@ -205,7 +209,13 @@
                     }
                 } else {
                     for (var m = 0; m < selectBtn0.length; m++) {
-                        selectBtn0.eq(m).click();
+                        if(that.options.selectLength != 0 && (that.options.selectLength <= that.selected_list.length) ){
+                            var info = '选择的数据超出上限了!';
+                            that.options.selectError(info);
+                            return false;
+                        }else{
+                            selectBtn0.eq(m).click();
+                        }
                     }
                 }
                 that.checkGsa()
@@ -220,6 +230,12 @@
 
                 if (status == '0') {
                     // 选择
+                    // 选择的时候判断选择的个数
+                    if( that.options.selectLength != 0 && (that.options.selectLength <= selectedList.length) ){
+                        var info = '选择的数据超出上限了!';
+                        that.options.selectError(info);
+                        return false;
+                    }
                     selectedList.push(data);
                     $(this).attr('data-status', '1');
                     $(this).text('取消');
@@ -475,7 +491,8 @@
                         if ($skuItem.find('tr').length < 1) {
                             var template = _.template($('#' + that.templateGoodsSku).html());
                             $skuItem.html(template({
-                                items: data.data.skus
+                                items: data.data.skus,
+                                type: that.options.type
                             }))
                         } else {
                             // 已经请求过的 不再请求接口

@@ -78,7 +78,8 @@
 </script>
 
 <!-- 弹窗 商品列表模板 -->
-<!-- 根据type类型进行判断：type=1选择的是sku级别，没有type选择的是商品级别 -->
+<!-- 根据isSku类型进行判断：isSku=1选择的是sku级别，没有isSku选择的是商品级别 -->
+<!-- 根据type类型区分插件展示的数据.0 商品, 1 用户, 10 合约 -->
 <script type="text/template" id="j-select-plugin-table-template">
     <% _.each(items,function(item,index){ %>
     <% if( type == 0 ){ %>

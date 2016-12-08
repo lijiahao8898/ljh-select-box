@@ -38,11 +38,14 @@
 //    });
 //
     $('#selectPluginButtonGoods').selectPlugin({
-        isSku:false,
+        isSku:true,
         type:0,
         title:'选择商品',
         selectSuccess: function(data){
             console.log(data)
+        },
+        selectError: function (info) {
+            console.error(info);
         }
     });
 
@@ -50,8 +53,12 @@
         isSku:false,
         type:1,
         title:'选择用户',
+        selectLength: 5,
         selectSuccess: function(data){
             console.log(data)
+        },
+        selectError: function (info) {
+            console.error(info);
         }
     })
 

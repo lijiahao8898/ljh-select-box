@@ -28,17 +28,19 @@ css:
 ```
 ## 传参
 ```
-/**
- * 插件的默认配置项
- * single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
- * isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
- * type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品)
- * title                        // 商品选择弹窗的title
- * isSelectAll                  // 判断是否显示全选按钮
- * isRefresh                    // 判断是否显示刷新按钮（暂未涉及）
- * function selectSuccess       // 成功选择之后的回调
- * function selectError         // 失败选择之后的回调（暂未涉及）
- */
+ /**
+     * 插件的默认配置项
+     * @type {{boolean}} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
+     * @type {{boolean}} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
+     * @type {{boolean}} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
+     * @type {{number}}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,10:合约)
+     * @type {{number}}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
+     * @type {{string}}  title                        // 商品选择弹窗的title
+     * @type {{boolean}} isSelectAll                  // 判断是否显示全选按钮
+     * @type {{boolean}} isRefresh                    // 判断是否显示刷新按钮
+     * function selectSuccess                         // 成功选择之后的回调
+     * function selectError                           // 失败选择之后的回调
+     */
  ```
 ### 需要修改
  1. 支持出商品外的其他数据的选择
