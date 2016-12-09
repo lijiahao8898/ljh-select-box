@@ -17,6 +17,7 @@
      * @type {{string}}  title                        // 商品选择弹窗的title
      * @type {{boolean}} isSelectAll                  // 判断是否显示全选按钮
      * @type {{boolean}} isRefresh                    // 判断是否显示刷新按钮
+     * @type {{arry}}    selectedList                 // 选择的list
      * function selectSuccess                         // 成功选择之后的回调
      * function selectError                           // 失败选择之后的回调
      */
@@ -36,6 +37,7 @@
             title: title,
             isSelectAll: true,
             isRefresh: true,
+            selectedList:[],
             selectSuccess: function (data, info) {
             },
             selectError: function (info) {
@@ -157,6 +159,11 @@
 
             // 显示弹窗
             $(that.body).on('click', that.$element, function () {
+
+                if( that.options.selectedList.length > 0 ){
+                    that.selected_list = that.options.selectedList
+                }
+
                 that.popupDialog();
             });
 
@@ -527,7 +534,7 @@
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
-                    key: that.search_key.user_key
+                    nick_name: that.search_key.user_key
                 },
                 success: function (data) {
                     if (data.code == 10000) {
