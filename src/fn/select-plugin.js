@@ -2,6 +2,8 @@
  * Created by lijiahao on 16/8/16.
  * 选择插件 selectPlugin
  * 默认情况下是商品的多选
+ * todo 最近修改:
+ * 1. id 判断选中 增加了item_id 服务端返回的只有item_id   验证拼团
  */
 
 ;(function ($, window, document) {
@@ -255,8 +257,10 @@
                     }
                 } else {
                     // 取消
+
+                    // item_id  兼容部分商品的id可能是只有item_id的问题
                     for (var i = 0; i < selectedList.length; i++) {
-                        if (id == selectedList[i].id) {
+                        if (id == selectedList[i].id || id == selectedList[i].item_id) {
                             selectedList.splice(i, 1);
                             i--
                         }
@@ -379,7 +383,7 @@
                 case 1:
                     that.theAjaxUsers(function (data) {
                         that.renderOption = {
-                            items: data.data.data,
+                            items: data.data.module,
                             type: that.options.type
                         };
                         that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
@@ -534,7 +538,7 @@
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
-                    nick_name: that.search_key.user_key
+                    key: that.search_key.user_key
                 },
                 success: function (data) {
                     if (data.code == 10000) {
@@ -604,7 +608,8 @@
                     for (var i = 0; i < selectedList.length; i++) {
                         for (var n = 0; n < list.length; n++) {
                             var selectedDom = list.eq(n).find('.' + that.selectPluginSelectBtn);
-                            if ((selectedList[i].id || selectedList[i].sku_id) == selectedDom.attr('data-id')) {
+                            // item_id  兼容部分商品的id可能是只有item_id的问题
+                            if ((selectedList[i].id || selectedList[i].sku_id || selectedList[i].item_id ) == selectedDom.attr('data-id')) {
                                 selectedDom.attr('data-status', '1');
                                 selectedDom.text('取消');
                                 selectedDom.css({'background': '#5cb85c', 'border-color': '#5cb85c', 'color': '#fff'})
