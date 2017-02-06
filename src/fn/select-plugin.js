@@ -4,6 +4,8 @@
  * 默认情况下是商品的多选
  * todo 最近修改:
  * 1. id 判断选中 增加了item_id 服务端返回的只有item_id   验证拼团
+ * 2. 有两个dialog同时出现的展示异常
+ * 3. 增加优惠券的选择
  */
 
 ;(function ($, window, document) {
@@ -14,7 +16,7 @@
      * @type {{boolean}} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
      * @type {{boolean}} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
      * @type {{boolean}} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-     * @type {{number}}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,10:合约)
+     * @type {{number}}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,10:合约)
      * @type {{number}}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
      * @type {{string}}  title                        // 商品选择弹窗的title
      * @type {{boolean}} isSelectAll                  // 判断是否显示全选按钮
@@ -56,7 +58,7 @@
          * init: 初始化
          */
         init: function () {
-            this.typeArr = [0, 1, 10];                                              // 类型数据
+            this.typeArr = [0, 1, 2, 10];                                           // 类型数据
             this.search_key = {};                                                   // 搜索配置
             this.pageConfig = {                                                     // 翻页配置
                 pageSize: 20,
@@ -136,7 +138,8 @@
             this.ajaxApi = {
                 item: '../stub/demo.json',
                 item_sku: '../stub/demo_sku.json',
-                item_users: '../stub/demo_users.json'
+                item_users: '../stub/demo_users.json',
+                item_coupon: '../stub/demo_coupon.json'
             };
 
             if (location.host.indexOf('dev') == 0) {
@@ -327,7 +330,7 @@
         popupDialog: function () {
             var that = this;
             var dialogHtml = that.theDialogRenderHtml();
-            var blankContent = '<div id="select-plugin-dialog-content"></div>'
+            var blankContent = '<div id="select-plugin-dialog-content"></div>';
             that.search_key = {};
             that.pageConfig.pageId = 1;
             that.dialog = jDialog.dialog({
@@ -385,6 +388,15 @@
                     that.theAjaxUsers(function (data) {
                         that.renderOption = {
                             items: data.data.module,
+                            type: that.options.type
+                        };
+                        that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
+                    });
+                    break;
+                case 2:
+                    that.theAjaxCoupon(function (data) {
+                        that.renderOption = {
+                            items: data.data.data,
                             type: that.options.type
                         };
                         that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
@@ -526,8 +538,8 @@
         //用户 start-----------------------------------------------------------------------------
 
         /**
-         * type:0
-         * 商品部分请求的接口获取商品列表
+         * type:1
+         * 用户部分请求的接口获取商品列表
          * @param callback
          */
         theAjaxUsers: function (callback) {
@@ -555,6 +567,39 @@
         },
 
         //用户 end-----------------------------------------------------------------------------
+
+        //优惠券 start-----------------------------------------------------------------------------
+
+        /**
+         * type:2
+         * 优惠券部分请求的接口获取商品列表
+         * @param callback
+         */
+        theAjaxCoupon: function (callback) {
+            var that = this;
+            $.ajax({
+                url: that.ajaxApi.item_coupon,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    current_page: that.pageConfig.pageId || 1,
+                    page_size: that.pageConfig.pageSize,
+                    key: that.search_key.user_key
+                },
+                success: function (data) {
+                    if (data.code == 10000) {
+                        callback && callback(data)
+                    } else {
+                        console.log(data.msg)
+                    }
+                },
+                error: function (data) {
+                    console.log(data.msg)
+                }
+            })
+        },
+
+        //优惠券 end-----------------------------------------------------------------------------
 
         /**
          * 验证是否全选了本页

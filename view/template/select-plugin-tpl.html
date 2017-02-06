@@ -1,5 +1,5 @@
 <!--------------------------- 选择弹框selectPlugin模板 ---------------------------------->
-<!-- 弹窗模板 0 商品, 1 用户, 10 合约 -->
+<!-- 弹窗模板 0 商品, 1 用户, 2 优惠券, 10 合约 -->
 <script type="text/template" id="j-select-plugin-popup-dialog">
     <div class="ui-box" style="height: 328px;overflow: scroll">
         <div class="ui-box form-inline">
@@ -45,6 +45,14 @@
                 <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
                 <th class="tc">操作</th>
             </tr>
+            <% }else if( type == 2 ){ %>
+            <tr>
+                <th class="tc">优惠券名称</th>
+                <th class="tc">创建时间</th>
+                <th class="tc">状态</th>
+                <th class="tc">类型</th>
+                <th class="tc">操作</th>
+            </tr>
             <% }else if( type == 10 ){ %>
             <tr>
                 <th class="tc">合约名称</th>
@@ -78,8 +86,7 @@
 </script>
 
 <!-- 弹窗 商品列表模板 -->
-<!-- 根据isSku类型进行判断：isSku=1选择的是sku级别，没有isSku选择的是商品级别 -->
-<!-- 根据type类型区分插件展示的数据.0 商品, 1 用户, 10 合约 -->
+<!-- 根据type类型进行判断：type=1选择的是sku级别，没有type选择的是商品级别 -->
 <script type="text/template" id="j-select-plugin-table-template">
     <% _.each(items,function(item,index){ %>
     <% if( type == 0 ){ %>
@@ -126,8 +133,32 @@
     </tr>
     <% }else if( type == 1 ){ %>
     <tr class="j-select-plugin-box">
-        <td class="tc"><span><%= item.name %></span></td>
+        <td class="tc"><span><%= item.user_name %></span></td>
         <td class="tc"><span><%= item.mobile %></span></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% }else if( type == 2 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><span><%= item.name %></span></td>
+        <td class="tc"><span><%= item.gmt_created %></span></td>
+        <td class="tc"><% if( item.status == 2 ){ %>
+            <span>已失效</span>
+            <% }else if( item.status == 1 ){ %>
+            <% if( item.market_activity.lifecycle == 1 ){ %>
+            <span>未开始</span>
+            <% }else if( item.market_activity.lifecycle == 2 ){ %>
+            <span>已开始</span>
+            <% }else if( item.market_activity.lifecycle == 3){ %>
+            <span>已结束</span>
+            <% } %>
+            <% } %></td>
+        <td class="tc">
+            <% if( item.valid_duration ){ %>
+            <span>领取日期</span>
+            <% }else{ %>
+            <span>固定时间</span>
+            <% } %>
+        </td>
         <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }else if( type == 10 ){ %>
