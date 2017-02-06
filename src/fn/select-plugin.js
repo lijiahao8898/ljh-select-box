@@ -327,16 +327,17 @@
         popupDialog: function () {
             var that = this;
             var dialogHtml = that.theDialogRenderHtml();
+            var blankContent = '<div id="select-plugin-dialog-content"></div>'
             that.search_key = {};
             that.pageConfig.pageId = 1;
             that.dialog = jDialog.dialog({
                 title: that.options.title,
-                content: '',
+                content: blankContent,
                 width: 850,
                 height: 450,
                 draggable: false
             });
-            $('.j-dialog-body').html(dialogHtml.content({
+            $('#select-plugin-dialog-content').html(dialogHtml.content({
                 type: that.options.type
             }));
             that.checkSingle();
@@ -536,7 +537,7 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    current_page: that.pageConfig.pageId || 1,
+                    offset: that.pageConfig.pageId <= 1 ? '0' : (that.pageConfig.pageId - 1) * 20,
                     page_size: that.pageConfig.pageSize,
                     key: that.search_key.user_key
                 },
