@@ -2,7 +2,7 @@
   "code": 10000,
   "msg": "请求处理成功",
   "data": {
-    "data": [
+    "module": [
       {
         "id": 321,
         "biz_code": "mockuai_demo",

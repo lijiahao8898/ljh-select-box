@@ -122,6 +122,11 @@
             this.goodsOpenSku = 'j-open-sku';                                       // 展开sku
             this.selectPluginSkuBox = 'j-select-plugin-sku-box';                    // 一条sku
 
+            /**
+             * coupon
+             */
+            this.coupon_lifecycle = 'j-select-plugin-coupon_lifecycle';
+
             this.addEvent();
 
             // 根据type 进行初始化设置
@@ -189,6 +194,10 @@
                         break;
                     case 1:
                         that.search_key.user_key = value;
+                        break;
+                    case 2:
+                        that.search_key.coupon_key = value;
+                        that.search_key.coupon_lifecycle = $('#' + that.coupon_lifecycle).find('option:selected').attr('data-value');
                         break;
                     case 10:
                         that.search_key.contract_key = value;
@@ -584,7 +593,9 @@
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
-                    key: that.search_key.user_key
+                    has_code: 0,
+                    name: that.search_key.coupon_key,
+                    lifecycle: that.search_key.coupon_lifecycle || 0
                 },
                 success: function (data) {
                     if (data.code == 10000) {
