@@ -17,6 +17,8 @@
         <button id="selectPluginButtonUsers">选择用户</button>
 
         <button id="selectPluginButtonCoupon">选择优惠券</button>
+
+        <button id="selectPluginButtonWarehouse">选择仓库</button>
 </body>
 <script type="text/javascript" src="../src/plugin/jq.js"></script>
 <script type="text/javascript" src="../src/plugin/underscore.js"></script>
@@ -63,7 +65,7 @@
         selectError: function (info) {
             console.error(info);
         }
-    })
+    });
 
     $('#selectPluginButtonCoupon').selectPlugin({
         single:true,
@@ -78,13 +80,28 @@
         selectError: function (info) {
             console.error(info);
         }
+    });
+
+    $('#selectPluginButtonWarehouse').selectPlugin({
+        single:false,
+        isSku:false,
+        isSelectAll:true,
+        type:3,
+        title:'选择仓库',
+        selectLength: 5,
+        selectSuccess: function(data){
+            console.log(data)
+        },
+        selectError: function (info) {
+            console.error(info);
+        }
     })
 
 })();
 </script>
 
 <!--------------------------- 选择弹框selectPlugin模板 ---------------------------------->
-<!-- 弹窗模板 0 商品, 1 用户, 2 优惠券, 10 合约 -->
+<!-- 弹窗模板 0 商品, 1 用户, 2 优惠券 , 3 仓库, 10 合约 -->
 <script type="text/template" id="j-select-plugin-popup-dialog">
     <div class="ui-box" style="height: 328px;overflow: scroll">
         <div class="ui-box form-inline">
@@ -114,6 +131,12 @@
                     <option data-value="2">已开始</option>
                     <option data-value="3">已过期</option>
                 </select>
+            </div>
+            <% } %>
+            <% if( type == 3 ){ %>
+            <div class="form-group">
+                <input type="checkbox" id="warehouse">
+                <label class="ui-label ui-label-lg" for="warehouse">只显示开放仓库</label>
             </div>
             <% } %>
             <div class="form-group">
@@ -148,6 +171,15 @@
                     <th class="tc">类型</th>
                     <th class="tc">操作</th>
                 </tr>
+            <% }else if( type == 3 ){ %>
+            <tr>
+                <th class="tc">ID</th>
+                <th class="tc">简称</th>
+                <th class="tc">全称</th>
+                <th class="tc">地址</th>
+                <th class="tc">状态</th>
+                <th class="tc">操作</th>
+            </tr>
             <% }else if( type == 10 ){ %>
                 <tr>
                     <th class="tc">合约名称</th>
@@ -254,6 +286,15 @@
                         <span>固定时间</span>
                     <% } %>
                 </td>
+                <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+            </tr>
+        <% }else if( type == 3 ){ %>
+            <tr class="j-select-plugin-box">
+                <td class="tc"><%= item.id %></td>
+                <td class="tc"><%= item.sname %></td>
+                <td class="tc"><%= item.name %></td>
+                <td class="tc"><%= item.address %></td>
+                <td class="tc"><%= ['关闭','开放'][item.status] %></td>
                 <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
             </tr>
         <% }else if( type == 10 ){ %>

@@ -41,7 +41,7 @@
             title: title,
             isSelectAll: true,
             isRefresh: true,
-            selectedList:[],
+            selectedList: [],
             selectSuccess: function (data, info) {
             },
             selectError: function (info) {
@@ -58,7 +58,7 @@
          * init: 初始化
          */
         init: function () {
-            this.typeArr = [0, 1, 2, 10];                                           // 类型数据
+            this.typeArr = [0, 1, 2, 3, 10];                                        // 类型数据
             this.search_key = {};                                                   // 搜索配置
             this.pageConfig = {                                                     // 翻页配置
                 pageSize: 20,
@@ -90,7 +90,7 @@
 
             }
 
-            if ( this.options.single === true ){
+            if (this.options.single === true) {
                 this.options.selectLength = 1;
             }
 
@@ -102,7 +102,7 @@
             this.body = 'body';
             this.selectPluginBox = 'j-select-plugin-box';                                // 一条商品
             this.templatePopupDialog = 'j-select-plugin-popup-dialog';                   // 弹窗模板
-            this.selectPluginSaveBtn = 'j-select-plugin-save-'+ this.options.type;       // 确定使用按钮
+            this.selectPluginSaveBtn = 'j-select-plugin-save-' + this.options.type;       // 确定使用按钮
             this.selectPluginSelectAllBtn = 'j-select-plugin-gsa-' + this.options.type;  // 全选本页按钮
             this.selectPluginCancelAllBtn = 'j-select-plugin-gca-' + this.options.type;  // 取消本页全选按钮
             this.selectPluginSearchBtn = 'j-select-plugin-search-' + this.options.type;  // 搜索按钮
@@ -144,7 +144,8 @@
                 item: '../stub/demo.json',
                 item_sku: '../stub/demo_sku.json',
                 item_users: '../stub/demo_users.json',
-                item_coupon: '../stub/demo_coupon.json'
+                item_coupon: '../stub/demo_coupon.json',
+                item_warehouse: '../stub/demo_warehouse.json'
             };
 
             if (location.host.indexOf('dev') == 0) {
@@ -170,7 +171,7 @@
             // 显示弹窗
             $(that.body).on('click', that.$element, function () {
 
-                if( that.options.selectedList.length > 0 ){
+                if (that.options.selectedList.length > 0) {
                     that.selected_list = that.options.selectedList
                 }
 
@@ -199,6 +200,9 @@
                         that.search_key.coupon_key = value;
                         that.search_key.coupon_lifecycle = $('#' + that.coupon_lifecycle).find('option:selected').attr('data-value');
                         break;
+                    case 3:
+                        that.search_key.warehouse_key = value;
+                        break;
                     case 10:
                         that.search_key.contract_key = value;
                         break;
@@ -209,7 +213,7 @@
 
             // 确定使用
             $(that.body).on('click', '.' + that.selectPluginSaveBtn, function () {
-                if( that.dialog ){
+                if (that.dialog) {
                     that.dialog.close();
                 }
                 selectedInfo = that.selected_list;
@@ -230,11 +234,11 @@
                     }
                 } else {
                     for (var m = 0; m < selectBtn0.length; m++) {
-                        if(that.options.selectLength != 0 && (that.options.selectLength <= that.selected_list.length) ){
+                        if (that.options.selectLength != 0 && (that.options.selectLength <= that.selected_list.length)) {
                             var info = '选择的数据超出上限了!';
                             that.options.selectError(info);
                             return false;
-                        }else{
+                        } else {
                             selectBtn0.eq(m).click();
                         }
                     }
@@ -252,7 +256,7 @@
                 if (status == '0') {
                     // 选择
                     // 选择的时候判断选择的个数
-                    if( that.options.selectLength != 0 && (that.options.selectLength <= selectedList.length) ){
+                    if (that.options.selectLength != 0 && (that.options.selectLength <= selectedList.length)) {
                         var info = '选择的数据超出上限了!';
                         that.options.selectError(info);
                         return false;
@@ -402,8 +406,18 @@
                         that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
                     });
                     break;
+                // 优惠券
                 case 2:
                     that.theAjaxCoupon(function (data) {
+                        that.renderOption = {
+                            items: data.data.data,
+                            type: that.options.type
+                        };
+                        that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
+                    });
+                    break;
+                case 3:
+                    that.theAjaxWarehouse(function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             type: that.options.type
@@ -611,6 +625,40 @@
         },
 
         //优惠券 end-----------------------------------------------------------------------------
+
+        //仓库 start-----------------------------------------------------------------------------
+
+        /**
+         * type:3
+         * 仓库部分请求的接口获取商品列表
+         * @param callback
+         */
+        theAjaxWarehouse: function (callback) {
+            var that = this;
+            $.ajax({
+                url: that.ajaxApi.item_warehouse,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    current_page: that.pageConfig.pageId || 1,
+                    page_size: that.pageConfig.pageSize,
+                    has_code: 0,
+                    name: that.search_key.warehouse_key
+                },
+                success: function (data) {
+                    if (data.code == 10000) {
+                        callback && callback(data)
+                    } else {
+                        console.log(data.msg)
+                    }
+                },
+                error: function (data) {
+                    console.log(data.msg)
+                }
+            })
+        },
+
+        //仓库 end-----------------------------------------------------------------------------
 
         /**
          * 验证是否全选了本页
