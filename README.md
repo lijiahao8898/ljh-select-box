@@ -33,7 +33,7 @@ css:
      * @type {{boolean}} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
      * @type {{boolean}} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
      * @type {{boolean}} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-     * @type {{number}}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,10:合约)
+     * @type {{number}}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,10:合约)
      * @type {{number}}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
      * @type {{string}}  title                        // 商品选择弹窗的title
      * @type {{boolean}} isSelectAll                  // 判断是否显示全选按钮
