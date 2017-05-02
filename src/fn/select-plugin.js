@@ -21,7 +21,7 @@
      * @type {{string}}  title                        // 商品选择弹窗的title
      * @type {{boolean}} isSelectAll                  // 判断是否显示全选按钮
      * @type {{boolean}} isRefresh                    // 判断是否显示刷新按钮
-     * @type {{arry}}    selectedList                 // 选择的list
+     * @type {{arr}}    selectedList                  // 选择的列表
      * function selectSuccess                         // 成功选择之后的回调
      * function selectError                           // 失败选择之后的回调
      */
