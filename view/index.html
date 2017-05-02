@@ -149,28 +149,31 @@
         <table class="ui-table">
             <thead>
             <% if( type == 0 ){ %>
-                <tr>
-                    <th class="tc">图片</th>
-                    <th>标题<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
-                    <th class="tc">创建时间</th>
-                    <th class="tc">状态</th>
-                    <th class="tc">类型</th>
-                    <th class="tc">操作</th>
-                </tr>
+            <tr>
+                <th class="tc">图片</th>
+                <th>标题<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                <th class="tc">创建时间</th>
+                <th class="tc">状态</th>
+                <th class="tc">类型</th>
+                <th class="tc">操作</th>
+            </tr>
             <% }else if( type == 1 ){ %>
-                <tr>
-                    <th class="tc">用户名</th>
-                    <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
-                    <th class="tc">操作</th>
-                </tr>
+            <tr>
+                <th class="tc">ID</th>
+                <th class="tc">用户名</th>
+                <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                <th class="tc">注册时间</th>
+                <th class="tc">操作</th>
+            </tr>
             <% }else if( type == 2 ){ %>
-                <tr>
-                    <th class="tc">优惠券名称</th>
-                    <th class="tc">创建时间</th>
-                    <th class="tc">状态</th>
-                    <th class="tc">类型</th>
-                    <th class="tc">操作</th>
-                </tr>
+            <tr>
+                <th class="tc">优惠券名称</th>
+                <th class="tc">面值（元）</th>
+                <th class="tc">创建时间</th>
+                <th class="tc">状态</th>
+                <th class="tc">类型</th>
+                <th class="tc">操作</th>
+            </tr>
             <% }else if( type == 3 ){ %>
             <tr>
                 <th class="tc">ID</th>
@@ -181,12 +184,12 @@
                 <th class="tc">操作</th>
             </tr>
             <% }else if( type == 10 ){ %>
-                <tr>
-                    <th class="tc">合约名称</th>
-                    <th>运营商<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
-                    <th class="tc">城市</th>
-                    <th class="tc">操作</th>
-                </tr>
+            <tr>
+                <th class="tc">合约名称</th>
+                <th>运营商<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                <th class="tc">城市</th>
+                <th class="tc">操作</th>
+            </tr>
             <% } %>
             </thead>
             <tbody id="j-select-plugin-render">
@@ -216,94 +219,97 @@
 <!-- 根据type类型进行判断：type=1选择的是sku级别，没有type选择的是商品级别 -->
 <script type="text/template" id="j-select-plugin-table-template">
     <% _.each(items,function(item,index){ %>
-        <% if( type == 0 ){ %>
-            <tr class="j-select-plugin-box">
-                <td class="tc"><span><img src="<%= item.icon_url %>" style="width: 50px;height: 50px;"></span></td>
-                <td><span class="popup-g-name"><%= item.item_name %></span></td>
-                <td class="tc"><span><%= item.gmt_created %></span></td>
-                <td class="tc">
-                    <% if( item.item_status == 4 ){ %>
-                    <span class="green"><%= item.status_name || '-' %></span>
-                    <% }else if( item.item_status == 1 ){ %>
-                    <span class="red"><%= item.status_name || '-' %></span>
-                    <% }else{ %>
+    <% if( type == 0 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><span><img src="<%= item.icon_url %>" style="width: 50px;height: 50px;"></span></td>
+        <td><span class="popup-g-name"><%= item.item_name %></span></td>
+        <td class="tc"><span><%= item.gmt_created %></span></td>
+        <td class="tc">
+            <% if( item.item_status == 4 ){ %>
+            <span class="green"><%= item.status_name || '-' %></span>
+            <% }else if( item.item_status == 1 ){ %>
+            <span class="red"><%= item.status_name || '-' %></span>
+            <% }else{ %>
                         <span class="black"><%= item.status_name || '-' %>
                     </span>
-                    <% } %>
-                </td>
-                <td class="tc"><%= ['国内','跨境'][item.higo_mark] %></td>
-                <% if( isSku && isSku === true ){ %>
-                <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-item_image_url="<%= item.icon_url %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
-                <% }else{ %>
-                <td><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
-                <% } %>
-            </tr>
-            <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
-                <td colspan="20">
-                    <table class="ui-table">
-                        <thead>
-                        <tr>
-                            <th class="tc">图片</th>
-                            <th class="tc">sku_id</th>
-                            <th class="tc">sku属性</th>
-                            <th class="tc">原价</th>
-                            <th class="tc">现价</th>
-                            <th class="tc">库存</th>
-                            <th class="tc">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody class="sku-item-<%= item.id %>">
-
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        <% }else if( type == 1 ){ %>
-            <tr class="j-select-plugin-box">
-                <td class="tc"><span><%= item.user_name %></span></td>
-                <td class="tc"><span><%= item.mobile %></span></td>
-                <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
-            </tr>
-        <% }else if( type == 2 ){ %>
-            <tr class="j-select-plugin-box">
-                <td class="tc"><span><%= item.name %></span></td>
-                <td class="tc"><span><%= item.gmt_created %></span></td>
-                <td class="tc"><% if( item.status == 2 ){ %>
-                    <span>已失效</span>
-                <% }else if( item.status == 1 ){ %>
-                    <% if( item.market_activity.lifecycle == 1 ){ %>
-                        <span>未开始</span>
-                    <% }else if( item.market_activity.lifecycle == 2 ){ %>
-                        <span>已开始</span>
-                    <% }else if( item.market_activity.lifecycle == 3){ %>
-                        <span>已过期</span>
-                    <% } %>
-                <% } %></td>
-                <td class="tc">
-                    <% if( item.valid_duration ){ %>
-                        <span>领取日期</span>
-                     <% }else{ %>
-                        <span>固定时间</span>
-                    <% } %>
-                </td>
-                <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
-            </tr>
-        <% }else if( type == 3 ){ %>
-            <tr class="j-select-plugin-box">
-                <td class="tc"><%= item.id %></td>
-                <td class="tc"><%= item.sname %></td>
-                <td class="tc"><%= item.name %></td>
-                <td class="tc"><%= item.address %></td>
-                <td class="tc"><%= ['关闭','开放'][item.status] %></td>
-                <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
-            </tr>
-        <% }else if( type == 10 ){ %>
-            <tr class="j-select-plugin-box">
-                <td class="tc"><span><%= item.user_name %></span></td>
-                <td class="tc"><span><%= item.mobile %></span></td>
-                <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
-            </tr>
+            <% } %>
+        </td>
+        <td class="tc"><%= ['国内','跨境'][item.higo_mark] %></td>
+        <% if( isSku && isSku === true ){ %>
+        <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-item_image_url="<%= item.icon_url %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
+        <% }else{ %>
+        <td><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
         <% } %>
+    </tr>
+    <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
+        <td colspan="20">
+            <table class="ui-table">
+                <thead>
+                <tr>
+                    <th class="tc">图片</th>
+                    <th class="tc">sku_id</th>
+                    <th class="tc">sku属性</th>
+                    <th class="tc">原价</th>
+                    <th class="tc">现价</th>
+                    <th class="tc">库存</th>
+                    <th class="tc">操作</th>
+                </tr>
+                </thead>
+                <tbody class="sku-item-<%= item.id %>">
+
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <% }else if( type == 1 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><span><%= item.id %></span></td>
+        <td class="tc"><span><%= item.name %></span></td>
+        <td class="tc"><span><%= item.mobile %></span></td>
+        <td class="tc"><span><%= item.gmt_created %></span></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% }else if( type == 2 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><span><%= item.name %></span></td>
+        <td class="tc"><span><%= (item.discount_amount / 100).toFixed(2) %></span></td>
+        <td class="tc"><span><%= item.gmt_created %></span></td>
+        <td class="tc"><% if( item.status == 2 ){ %>
+            <span>已失效</span>
+            <% }else if( item.status == 1 ){ %>
+            <% if( item.market_activity.lifecycle == 1 ){ %>
+            <span>未开始</span>
+            <% }else if( item.market_activity.lifecycle == 2 ){ %>
+            <span>已开始</span>
+            <% }else if( item.market_activity.lifecycle == 3){ %>
+            <span>已结束</span>
+            <% } %>
+            <% } %></td>
+        <td class="tc">
+            <% if( item.valid_duration ){ %>
+            <span>领取日期</span>
+            <% }else{ %>
+            <span>固定时间</span>
+            <% } %>
+        </td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% }else if( type == 3 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><%= item.id %></td>
+        <td class="tc"><%= item.sname %></td>
+        <td class="tc"><%= item.name %></td>
+        <td class="tc"><%= item.address %></td>
+        <td class="tc"><%= ['关闭','开放'][item.status] %></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% }else if( type == 10 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><span><%= item.user_name %></span></td>
+        <td class="tc"><span><%= item.mobile %></span></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% } %>
     <% }) %>
 </script>
 

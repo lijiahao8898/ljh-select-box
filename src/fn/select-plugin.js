@@ -41,8 +41,8 @@
             title: title,
             isSelectAll: true,
             isRefresh: true,
-            selectedList: [],
-            selectSuccess: function (data, info) {
+            selectedList:[],
+            selectSuccess: function (data, target) {
             },
             selectError: function (info) {
             }
@@ -174,7 +174,7 @@
                 if (that.options.selectedList.length > 0) {
                     that.selected_list = that.options.selectedList
                 }
-
+                that.target = $(this);
                 that.popupDialog();
             });
 
@@ -217,7 +217,7 @@
                     that.dialog.close();
                 }
                 selectedInfo = that.selected_list;
-                that.options.selectSuccess(selectedInfo)
+                that.options.selectSuccess(selectedInfo, that.target)
             });
 
             // 弹窗 全选本页
@@ -267,7 +267,7 @@
                     $(this).css({'background': '#5cb85c', 'border-color': '#5cb85c', 'color': '#fff'});
                     // 判断是单选还是多选
                     if (that.options.single === true) {
-                        that.options.selectSuccess(selectedList);
+                        that.options.selectSuccess(selectedList,that.target);
                         that.dialog.close();
 
                     }
