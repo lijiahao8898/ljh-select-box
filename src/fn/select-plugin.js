@@ -2,10 +2,6 @@
  * Created by lijiahao on 16/8/16.
  * 选择插件 selectPlugin
  * 默认情况下是商品的多选
- * todo 最近修改:
- * 1. id 判断选中 增加了item_id 服务端返回的只有item_id   验证拼团
- * 2. 有两个dialog同时出现的展示异常
- * 3. 增加优惠券的选择
  */
 
 ;(function ($, window, document) {
@@ -13,21 +9,24 @@
     // 定义构造函数
     /**
      * 插件的默认配置项
-     * @type {{boolean}} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
-     * @type {{boolean}} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
-     * @type {{boolean}} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-     * @type {{number}}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,10:合约)
-     * @type {{number}}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
-     * @type {{string}}  title                        // 商品选择弹窗的title
-     * @type {{boolean}} isSelectAll                  // 判断是否显示全选按钮
-     * @type {{boolean}} isRefresh                    // 判断是否显示刷新按钮
-     * @type {{arr}}    selectedList                  // 选择的列表
-     * function selectSuccess                         // 成功选择之后的回调
-     * function selectError                           // 失败选择之后的回调
+     * @type {boolean} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
+     * @type {boolean} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
+     * @type {boolean} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
+     * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,10:合约)
+     * @type {number}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
+     * @type {string}  title                        // 商品选择弹窗的title
+     * @type {boolean} isSelectAll                  // 判断是否显示全选按钮
+     * @type {boolean} isRefresh                    // 判断是否显示刷新按钮
+     * @type {Array}   selectedList                 // 选择的列表
+     * @type {string}  ajaxType                     // ajax的请求类型默认 post
+     * @type {string}  ajaxDataType                 // ajax的请求数据类型默认 json
+     * function selectSuccess                       // 成功选择之后的回调
+     * function selectError                         // 失败选择之后的回调
      */
     var selectPluginFunc = function (ele, opt) {
 
-        var title = '全部商品&nbsp;|&nbsp;<a href="goods.html">新建商品</a><label>&nbsp;&nbsp;&nbsp;<input data-type="4" type="checkbox" class="j-select-plugin-checkbox"/>&nbsp;只要上架商品</label>';
+        var title = '全部商品&nbsp;|&nbsp;<a href="goods.html">新建商品</a><label>&nbsp;&nbsp;&nbsp;' +
+            '<input data-type="4" type="checkbox" class="j-select-plugin-checkbox"/>&nbsp;只要上架商品</label>';
 
         this.$element = ele.selector;        // 点击弹窗的element
 
@@ -41,7 +40,9 @@
             title: title,
             isSelectAll: true,
             isRefresh: true,
-            selectedList:[],
+            selectedList: [],
+            ajaxType: 'post',
+            ajaxDataType: 'json',
             selectSuccess: function (data, target) {
             },
             selectError: function (info) {
@@ -267,7 +268,7 @@
                     $(this).css({'background': '#5cb85c', 'border-color': '#5cb85c', 'color': '#fff'});
                     // 判断是单选还是多选
                     if (that.options.single === true) {
-                        that.options.selectSuccess(selectedList,that.target);
+                        that.options.selectSuccess(selectedList, that.target);
                         that.dialog.close();
 
                     }
@@ -483,8 +484,8 @@
             var that = this;
             $.ajax({
                 url: that.ajaxApi.item,
-                type: 'get',
-                dataType: 'jsonp',
+                type: that.ajaxType,
+                dataType: that.ajaxDataType,
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
@@ -507,6 +508,8 @@
          * type:0
          * 商品部分根据item_id请求sku信息
          * @param item_id
+         * @param item_name
+         * @param item_image_url
          */
         ajaxGoodsSku: function (item_id, item_name, item_image_url) {
             var that = this;
@@ -517,8 +520,8 @@
 
             $.ajax({
                 url: that.ajaxApi.item_sku,
-                type: 'get',
-                dataType: 'jsonp',
+                type: that.ajaxType,
+                dataType: that.ajaxDataType,
                 data: {
                     item_id: item_id
                 },
@@ -569,8 +572,8 @@
             var that = this;
             $.ajax({
                 url: that.ajaxApi.item_users,
-                type: 'get',
-                dataType: 'jsonp',
+                type: that.ajaxType,
+                dataType: that.ajaxDataType,
                 data: {
                     offset: that.pageConfig.pageId <= 1 ? '0' : (that.pageConfig.pageId - 1) * 20,
                     page_size: that.pageConfig.pageSize,
@@ -602,8 +605,8 @@
             var that = this;
             $.ajax({
                 url: that.ajaxApi.item_coupon,
-                type: 'get',
-                dataType: 'jsonp',
+                type: that.ajaxType,
+                dataType: that.ajaxDataType,
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
@@ -637,8 +640,8 @@
             var that = this;
             $.ajax({
                 url: that.ajaxApi.item_warehouse,
-                type: 'get',
-                dataType: 'jsonp',
+                type: that.ajaxType,
+                dataType: that.ajaxDataType,
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
