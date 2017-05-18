@@ -14,6 +14,8 @@
 
         <button id="selectPluginButtonGoods">选择商品</button>
 
+        <button id="selectPluginButtonGoodsSku">选择商品sku</button>
+
         <button id="selectPluginButtonUsers">选择用户</button>
 
         <button id="selectPluginButtonCoupon">选择优惠券</button>
@@ -39,11 +41,26 @@
 //        }
 //    });
 //
-    $('#selectPluginButtonGoods').selectPlugin({
+//    $('#selectPluginButtonGoods').selectPlugin({
+//        isSku:false,
+//        isSelectAll:true,
+//        type:0,
+//        title:'选择商品',
+//        ajaxType: 'get',
+//        ajaxDataType: 'json',
+//        selectSuccess: function(data){
+//            console.log(data)
+//        },
+//        selectError: function (info) {
+//            console.error(info);
+//        }
+//    });
+
+    $('#selectPluginButtonGoodsSku').selectPlugin({
         isSku:true,
         isSelectAll:false,
         type:0,
-        title:'选择商品',
+        title:'选择商品sku',
         ajaxType: 'get',
         ajaxDataType: 'json',
         selectSuccess: function(data){

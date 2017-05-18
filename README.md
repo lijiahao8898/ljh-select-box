@@ -34,22 +34,23 @@ css:
 ```
 ## 传参
 ```
- /**
-     * 插件的默认配置项
-     * @type {boolean} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
-     * @type {boolean} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
-     * @type {boolean} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-     * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,10:合约)
-     * @type {number}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
-     * @type {string}  title                        // 商品选择弹窗的title
-     * @type {boolean} isSelectAll                  // 判断是否显示全选按钮
-     * @type {boolean} isRefresh                    // 判断是否显示刷新按钮
-     * @type {Array}   selectedList                 // 选择的列表
-     * @type {string}  ajaxType                     // ajax的请求类型默认 post
-     * @type {string}  ajaxDataType                 // ajax的请求数据类型默认 json
-     * function selectSuccess                       // 成功选择之后的回调
-     * function selectError                         // 失败选择之后的回调
-     */
+     /**
+         * 插件的默认配置项
+         * @type {boolean} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
+         * @type {boolean} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
+         * @type {boolean} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
+         * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,10:合约)
+         * @type {number}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
+         * @type {string}  title                        // 商品选择弹窗的title
+         * @type {boolean} isSelectAll                  // 判断是否显示全选按钮
+         * @type {boolean} isRefresh                    // 判断是否显示刷新按钮
+         * @type {Array}   selectedList                 // 选择的列表
+         * @type {string}  ajaxType                     // ajax的请求类型默认 post
+         * @type {string}  ajaxDataType                 // ajax的请求数据类型默认 json
+         * function selectSuccess                       // 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针
+         * function selectError                         // 失败选择之后的回调 返回一条错误信息info
+         * function ajaxError                           // 接口请求报错后的回调
+         */
  ```
 ### 需要修改
  1. 支持出商品外的其他数据的选择
@@ -57,7 +58,12 @@ css:
 
 > update
 
-1. id 判断选中 增加了item_id 服务端返回的只有item_id   验证拼团
-2. 修复有两个dialog同时出现的展示异常
-3. 增加优惠券的选择
+2017.5.18
+1. 增加了ajaxType的类型
+2. 增加了ajaxDataType的类型
+3. 增加接口请求错误后的回调ajaxError
+4. 相关优化
+
+> bug
+同一个type类型不能同时出现2个或者以上的bug 导致选择的时候多次点击
  

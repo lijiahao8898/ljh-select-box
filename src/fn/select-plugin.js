@@ -1,7 +1,6 @@
 /**
  * Created by lijiahao on 16/8/16.
  * 选择插件 selectPlugin
- * 默认情况下是商品的多选
  */
 
 ;(function ($, window, document) {
@@ -20,35 +19,37 @@
      * @type {Array}   selectedList                 // 选择的列表
      * @type {string}  ajaxType                     // ajax的请求类型默认 post
      * @type {string}  ajaxDataType                 // ajax的请求数据类型默认 json
-     * function selectSuccess                       // 成功选择之后的回调
-     * function selectError                         // 失败选择之后的回调
+     * function selectSuccess                       // 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针
+     * function selectError                         // 失败选择之后的回调 返回一条错误信息info
+     * function ajaxError                           // 接口请求报错后的回调
      */
     var selectPluginFunc = function (ele, opt) {
 
         var title = '全部商品&nbsp;|&nbsp;<a href="goods.html">新建商品</a><label>&nbsp;&nbsp;&nbsp;' +
             '<input data-type="4" type="checkbox" class="j-select-plugin-checkbox"/>&nbsp;只要上架商品</label>';
 
-        this.$element = ele.selector;        // 点击弹窗的element
+        this.$element = ele.selector;                   // 点击弹窗的element
 
         this.defaults = {
-            selectPluginBtn: ele,
-            needSkuGoodsInfo: false,
-            single: false,
-            isSku: false,
-            type: 0,
-            selectLength: 0,
-            title: title,
-            isSelectAll: true,
-            isRefresh: true,
-            selectedList: [],
-            ajaxType: 'post',
-            ajaxDataType: 'json',
-            selectSuccess: function (data, target) {
+            needSkuGoodsInfo: false,                    // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
+            single: false,                              // 判断 selectPlugin 是单选还是多选 默认是多选
+            isSku: false,                               // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
+            type: 0,                                    // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,10:合约)
+            selectLength: 0,                            // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
+            title: title,                               // 商品选择弹窗的title
+            isSelectAll: true,                          // 判断是否显示全选按钮
+            isRefresh: true,                            // 判断是否显示刷新按钮
+            selectedList: [],                           // 选择的列表
+            ajaxType: 'post',                           // ajax的请求类型默认 post
+            ajaxDataType: 'json',                       // ajax的请求数据类型默认 json
+            selectSuccess: function (data, target) {    // 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针
             },
-            selectError: function (info) {
+            selectError: function (info) {              // 失败选择之后的回调 返回一条错误信息info
+            },
+            ajaxError: function (data) {                // 接口请求报错后的回调
+
             }
         };
-
         this.options = $.extend({}, this.defaults, opt);
     };
 
@@ -69,59 +70,52 @@
 
             // 在单选的情况下 不能全选本页
             if (this.options.single === true && this.options.isSelectAll === true) {
-
                 console.error('error: single and isSelectAll is conflict !');
                 this.options.isSelectAll = false;
 
             } else {
-
                 // 在sku多选的情况下,不能全选本页
                 if (this.options.isSku === true && this.options.isSelectAll === true) {
                     console.error('error: isSku and isSelectAll is conflict !');
                     this.options.isSelectAll = false;
                 }
-
             }
 
             // 如果选择的类型不存在则默认为第一个
             if ($.inArray(this.options.type, this.typeArr) == -1) {
-
                 console.error('type is no found!');
                 this.options.type = 0;
-
             }
-
             if (this.options.single === true) {
                 this.options.selectLength = 1;
             }
-
             /**
              * 通用配置
              * @type {{}}
              */
-            this.renderOption = {};                                                      // 渲染的option条件 example: item:data.data
+            this.renderOption = {};                                                         // 渲染的option条件 example: item:data.data
             this.body = 'body';
-            this.selectPluginBox = 'j-select-plugin-box';                                // 一条商品
-            this.templatePopupDialog = 'j-select-plugin-popup-dialog';                   // 弹窗模板
-            this.selectPluginSaveBtn = 'j-select-plugin-save-' + this.options.type;       // 确定使用按钮
-            this.selectPluginSelectAllBtn = 'j-select-plugin-gsa-' + this.options.type;  // 全选本页按钮
-            this.selectPluginCancelAllBtn = 'j-select-plugin-gca-' + this.options.type;  // 取消本页全选按钮
-            this.selectPluginSearchBtn = 'j-select-plugin-search-' + this.options.type;  // 搜索按钮
-            this.selectPluginSelectBtn = 'j-select-plugin-g-' + this.options.type;       // 选择按钮
-            this.refreshBtn = 'j-select-plugin-refresh-' + this.options.type;            // 刷新
+            this.selectPluginBox = 'j-select-plugin-box';                                   // 一条商品
+            this.templatePopupDialog = 'j-select-plugin-popup-dialog';                      // 弹窗模板
+            this.selectPluginSaveBtn = 'j-select-plugin-save-' + this.options.type;         // 确定使用按钮
+            this.selectPluginSelectAllBtn = 'j-select-plugin-gsa-' + this.options.type;     // 全选本页按钮
+            this.selectPluginCancelAllBtn = 'j-select-plugin-gca-' + this.options.type;     // 取消本页全选按钮
+            this.selectPluginSearchBtn = 'j-select-plugin-search-' + this.options.type;     // 搜索按钮
+            this.selectPluginSelectBtn = 'j-select-plugin-g-' + this.options.type;          // 选择按钮
+            this.refreshBtn = 'j-select-plugin-refresh-' + this.options.type;               // 刷新
 
-            this.templateRenderArea = 'j-select-plugin-render';                          // 模板渲染的地方
-            this.inputKeyword = 'select-plugin-keyword';                                 // 关键字
-            this.template = 'j-select-plugin-table-template';                           // 商品模板
+            this.templateRenderArea = 'j-select-plugin-render';                             // 模板渲染的地方
+            this.inputKeyword = 'select-plugin-keyword';                                    // 关键字
+            this.template = 'j-select-plugin-table-template';                               // 商品模板
 
             /**
              * 商品部分 type——0
              * 特殊功能: 确定只要上架/展开sku/一条sku
              */
-            this.templateGoodsSku = 'j-select-plugin-sku';                          // sku模板
-            this.goodsCheckboxType4 = 'j-select-plugin-checkbox';                   // 确定只要上架
-            this.goodsOpenSku = 'j-open-sku';                                       // 展开sku
-            this.selectPluginSkuBox = 'j-select-plugin-sku-box';                    // 一条sku
+            this.templateGoodsSku = 'j-select-plugin-sku';                                  // sku模板
+            this.goodsCheckboxType4 = 'j-select-plugin-checkbox';                           // 确定只要上架
+            this.goodsOpenSku = 'j-open-sku';                                               // 展开sku
+            this.selectPluginSkuBox = 'j-select-plugin-sku-box';                            // 一条sku
 
             /**
              * coupon
@@ -171,7 +165,6 @@
 
             // 显示弹窗
             $(that.body).on('click', that.$element, function () {
-
                 if (that.options.selectedList.length > 0) {
                     that.selected_list = that.options.selectedList
                 }
@@ -335,18 +328,16 @@
         /**
          * 点击弹窗后重新赋值 搜索数据search_key 和 翻页数据pageId
          * 即:在页面不刷新的情况下重置搜索条件和翻页数据.
-         *
          * checkSingle():                   判断是否单选
          * checkSelectAllButton():          判断是否需要有全选按钮
          * prepareHttpRequest():            准备请求数据
-         *
          */
         popupDialog: function () {
             var that = this;
             var dialogHtml = that.theDialogRenderHtml();
             var blankContent = '<div id="select-plugin-dialog-content"></div>';
-            that.search_key = {};
-            that.pageConfig.pageId = 1;
+            that.search_key = {};               // 在页面不刷新的情况下重置搜索条件.
+            that.pageConfig.pageId = 1;         // 在页面不刷新的情况下重置翻页数据.
             that.dialog = jDialog.dialog({
                 title: that.options.title,
                 content: blankContent,
@@ -364,7 +355,9 @@
 
         /**
          * 弹窗出来前 判断渲染的模板和content
-         * @returns {{content: '渲染弹窗的内容html', template: '渲染数据列表的html'}}
+         * @returns {object} object - 返回一个对象
+         * @returns {object} object.content - 渲染弹窗的内容html
+         * @returns {object} object.template - 渲染数据列表的html
          */
         theDialogRenderHtml: function () {
             var that = this;
@@ -381,14 +374,23 @@
 
         /**
          * 弹窗出来后 判断类型请求数据
-         * @param template:传入要渲染的模板内容.
+         * @param {string} template - 传入要渲染的模板内容.
          */
         prepareHttpRequest: function (template) {
             var that = this;
+            var obj, api;
             switch (that.options.type) {
                 // 商品
                 case 0:
-                    that.theAjaxGoods(function (data) {
+                    api = that.ajaxApi.item;
+                    obj = {
+                        current_page: that.pageConfig.pageId || 1,
+                        page_size: that.pageConfig.pageSize,
+                        item_status: that.statusKey || '',
+                        key: that.search_key.key
+                    };
+
+                    that.ajax(api, obj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             isSku: that.options.isSku,
@@ -399,7 +401,13 @@
                     break;
                 // 用户
                 case 1:
-                    that.theAjaxUsers(function (data) {
+                    api = that.ajaxApi.item_users;
+                    obj = {
+                        offset: that.pageConfig.pageId <= 1 ? '0' : (that.pageConfig.pageId - 1) * 20,
+                        page_size: that.pageConfig.pageSize,
+                        key: that.search_key.user_key
+                    };
+                    that.ajax(api, obj, function (data) {
                         that.renderOption = {
                             items: data.data.module,
                             type: that.options.type
@@ -409,7 +417,15 @@
                     break;
                 // 优惠券
                 case 2:
-                    that.theAjaxCoupon(function (data) {
+                    api = that.ajaxApi.item_coupon;
+                    obj = {
+                        current_page: that.pageConfig.pageId || 1,
+                        page_size: that.pageConfig.pageSize,
+                        has_code: 0,
+                        name: that.search_key.coupon_key,
+                        lifecycle: that.search_key.coupon_lifecycle || 0
+                    };
+                    that.ajax(api, obj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             type: that.options.type
@@ -418,7 +434,14 @@
                     });
                     break;
                 case 3:
-                    that.theAjaxWarehouse(function (data) {
+                    api = that.ajaxApi.item_warehouse;
+                    obj = {
+                        current_page: that.pageConfig.pageId || 1,
+                        page_size: that.pageConfig.pageSize,
+                        has_code: 0,
+                        name: that.search_key.warehouse_key
+                    };
+                    that.ajax(api, obj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             type: that.options.type
@@ -427,16 +450,16 @@
                     });
                     break;
                 // 合约
-                case 10:
-                    that.theAjaxContracts(function (data) {
-                        that.renderOption = {
-                            items: data.data.data,
-                            isSku: that.options.isSku,
-                            type: that.options.type
-                        };
-                        that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
-                    });
-                    break;
+                //case 10:
+                //    that.theAjaxContracts(function (data) {
+                //        that.renderOption = {
+                //            items: data.data.data,
+                //            isSku: that.options.isSku,
+                //            type: that.options.type
+                //        };
+                //        that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
+                //    });
+                //    break;
             }
         },
 
@@ -474,33 +497,30 @@
             this.prepareHttpRequest(template)
         },
 
-        //商品 start-----------------------------------------------------------------------------
         /**
-         * type:0
-         * 商品部分请求的接口获取商品列表
-         * @param callback
+         * 接口请求
+         * @param {string} api - 接口请求的api地址
+         * @param {object} obj - 请求接口提交给服务端的数据
+         * @param {function} callback - 接口请求成功后的回调
          */
-        theAjaxGoods: function (callback) {
+        ajax: function (api, obj, callback) {
             var that = this;
             $.ajax({
-                url: that.ajaxApi.item,
+                url: api,
                 type: that.ajaxType,
                 dataType: that.ajaxDataType,
-                data: {
-                    current_page: that.pageConfig.pageId || 1,
-                    page_size: that.pageConfig.pageSize,
-                    item_status: that.statusKey || '',
-                    key: that.search_key.key
-                },
+                data: obj,
                 success: function (data) {
                     if (data.code == 10000) {
                         callback && callback(data)
                     } else {
-                        console.log(data.msg)
+                        console.log(data.msg);
+                        that.ajaxError(data);
                     }
                 },
                 error: function (data) {
-                    console.log(data.msg)
+                    console.log(data.msg);
+                    that.ajaxError(data);
                 }
             })
         },
@@ -518,151 +538,37 @@
             var $skuTable = $('.sku-box-' + item_id);
             var $skuItem = $('.sku-item-' + item_id);
 
-            $.ajax({
-                url: that.ajaxApi.item_sku,
-                type: that.ajaxType,
-                dataType: that.ajaxDataType,
-                data: {
-                    item_id: item_id
-                },
-                success: function (data) {
-                    if (data.code == 10000) {
+            that.ajax(that.ajaxApi.item_sku, {
+                item_id: item_id
+            }, function (data) {
+                if (data.code == 10000) {
 
-                        // todo 将商品名称.商品id.商品主图塞入sku里面
-                        if (item_name) {
-                            for (var i = 0; i < data.data.skus.length; i++) {
-                                data.data.skus[i].item_name = item_name;
-                                data.data.skus[i].item_id = item_id;
-                                data.data.skus[i].item_image_url = item_image_url;
-                            }
+                    // todo 将商品名称.商品id.商品主图塞入sku里面
+                    if (item_name) {
+                        for (var i = 0; i < data.data.skus.length; i++) {
+                            data.data.skus[i].item_name = item_name;
+                            data.data.skus[i].item_id = item_id;
+                            data.data.skus[i].item_image_url = item_image_url;
                         }
-
-                        $skuTable.show();
-                        if ($skuItem.find('tr').length < 1) {
-                            var template = _.template($('#' + that.templateGoodsSku).html());
-                            $skuItem.html(template({
-                                items: data.data.skus,
-                                type: that.options.type
-                            }))
-                        } else {
-                            // 已经请求过的 不再请求接口
-                            $skuItem.show();
-                        }
-                        that.checkSelected(that.selected_list);
-                    } else {
-                        console.log(data.msg)
                     }
-                },
-                error: function () {
+
+                    $skuTable.show();
+                    if ($skuItem.find('tr').length < 1) {
+                        var template = _.template($('#' + that.templateGoodsSku).html());
+                        $skuItem.html(template({
+                            items: data.data.skus,
+                            type: that.options.type
+                        }))
+                    } else {
+                        // 已经请求过的 不再请求接口
+                        $skuItem.show();
+                    }
+                    that.checkSelected(that.selected_list);
+                } else {
                     console.log(data.msg)
                 }
             });
         },
-
-        //商品 end-----------------------------------------------------------------------------
-
-        //用户 start-----------------------------------------------------------------------------
-
-        /**
-         * type:1
-         * 用户部分请求的接口获取商品列表
-         * @param callback
-         */
-        theAjaxUsers: function (callback) {
-            var that = this;
-            $.ajax({
-                url: that.ajaxApi.item_users,
-                type: that.ajaxType,
-                dataType: that.ajaxDataType,
-                data: {
-                    offset: that.pageConfig.pageId <= 1 ? '0' : (that.pageConfig.pageId - 1) * 20,
-                    page_size: that.pageConfig.pageSize,
-                    key: that.search_key.user_key
-                },
-                success: function (data) {
-                    if (data.code == 10000) {
-                        callback && callback(data)
-                    } else {
-                        console.log(data.msg)
-                    }
-                },
-                error: function (data) {
-                    console.log(data.msg)
-                }
-            })
-        },
-
-        //用户 end-----------------------------------------------------------------------------
-
-        //优惠券 start-----------------------------------------------------------------------------
-
-        /**
-         * type:2
-         * 优惠券部分请求的接口获取商品列表
-         * @param callback
-         */
-        theAjaxCoupon: function (callback) {
-            var that = this;
-            $.ajax({
-                url: that.ajaxApi.item_coupon,
-                type: that.ajaxType,
-                dataType: that.ajaxDataType,
-                data: {
-                    current_page: that.pageConfig.pageId || 1,
-                    page_size: that.pageConfig.pageSize,
-                    has_code: 0,
-                    name: that.search_key.coupon_key,
-                    lifecycle: that.search_key.coupon_lifecycle || 0
-                },
-                success: function (data) {
-                    if (data.code == 10000) {
-                        callback && callback(data)
-                    } else {
-                        console.log(data.msg)
-                    }
-                },
-                error: function (data) {
-                    console.log(data.msg)
-                }
-            })
-        },
-
-        //优惠券 end-----------------------------------------------------------------------------
-
-        //仓库 start-----------------------------------------------------------------------------
-
-        /**
-         * type:3
-         * 仓库部分请求的接口获取商品列表
-         * @param callback
-         */
-        theAjaxWarehouse: function (callback) {
-            var that = this;
-            $.ajax({
-                url: that.ajaxApi.item_warehouse,
-                type: that.ajaxType,
-                dataType: that.ajaxDataType,
-                data: {
-                    current_page: that.pageConfig.pageId || 1,
-                    page_size: that.pageConfig.pageSize,
-                    has_code: 0,
-                    name: that.search_key.warehouse_key
-                },
-                success: function (data) {
-                    if (data.code == 10000) {
-                        callback && callback(data)
-                    } else {
-                        console.log(data.msg)
-                    }
-                },
-                error: function (data) {
-                    console.log(data.msg)
-                }
-            })
-        },
-
-        //仓库 end-----------------------------------------------------------------------------
-
         /**
          * 验证是否全选了本页
          */
