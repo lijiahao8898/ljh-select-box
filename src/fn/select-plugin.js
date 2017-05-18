@@ -483,8 +483,8 @@
             var that = this;
             $.ajax({
                 url: that.ajaxApi.item,
-                type: 'post',
-                dataType: 'json',
+                type: 'get',
+                dataType: 'jsonp',
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
@@ -517,8 +517,8 @@
 
             $.ajax({
                 url: that.ajaxApi.item_sku,
-                type: 'post',
-                dataType: 'json',
+                type: 'get',
+                dataType: 'jsonp',
                 data: {
                     item_id: item_id
                 },
@@ -569,8 +569,8 @@
             var that = this;
             $.ajax({
                 url: that.ajaxApi.item_users,
-                type: 'post',
-                dataType: 'json',
+                type: 'get',
+                dataType: 'jsonp',
                 data: {
                     offset: that.pageConfig.pageId <= 1 ? '0' : (that.pageConfig.pageId - 1) * 20,
                     page_size: that.pageConfig.pageSize,
@@ -602,8 +602,8 @@
             var that = this;
             $.ajax({
                 url: that.ajaxApi.item_coupon,
-                type: 'post',
-                dataType: 'json',
+                type: 'get',
+                dataType: 'jsonp',
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
@@ -637,8 +637,8 @@
             var that = this;
             $.ajax({
                 url: that.ajaxApi.item_warehouse,
-                type: 'post',
-                dataType: 'json',
+                type: 'get',
+                dataType: 'jsonp',
                 data: {
                     current_page: that.pageConfig.pageId || 1,
                     page_size: that.pageConfig.pageSize,
