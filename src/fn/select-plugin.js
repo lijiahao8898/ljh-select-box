@@ -1,6 +1,7 @@
 /**
  * Created by lijiahao on 16/8/16.
  * 选择插件 selectPlugin
+ * 当前使用到的地方: 拼团.幸运大抽奖.直播.分享合伙人
  */
 
 ;(function ($, window, document) {
@@ -19,6 +20,7 @@
      * @type {Array}   selectedList                 // 选择的列表
      * @type {string}  ajaxType                     // ajax的请求类型默认 post
      * @type {string}  ajaxDataType                 // ajax的请求数据类型默认 json
+     * @type {boolean} needFailureInfo              // 是否展示已经失效的东西-垃圾数据 ( 默认情况下是展示 )
      * function selectSuccess                       // 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针
      * function selectError                         // 失败选择之后的回调 返回一条错误信息info
      * function ajaxError                           // 接口请求报错后的回调
@@ -42,6 +44,7 @@
             selectedList: [],                           // 选择的列表
             ajaxType: 'post',                           // ajax的请求类型默认 post
             ajaxDataType: 'json',                       // ajax的请求数据类型默认 json
+            needFailureInfo: true,                      // 是否展示已经失效的东西-垃圾数据 ( 默认情况下是展示 )
             selectSuccess: function (data, target) {    // 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针
             },
             selectError: function (info) {              // 失败选择之后的回调 返回一条错误信息info
@@ -346,7 +349,8 @@
                 draggable: false
             });
             $('#select-plugin-dialog-content').html(dialogHtml.content({
-                type: that.options.type
+                type: that.options.type,
+                needFailureInfo: that.options.needFailureInfo
             }));
             that.checkSingle();
             that.checkSelectAllButton();
@@ -383,10 +387,18 @@
                 // 商品
                 case 0:
                     api = that.ajaxApi.item;
+                    var itemStatus;
+                    if( that.options.needFailureInfo == true ){
+                        // 需要下架商品
+                        itemStatus = that.statusKey || ''
+                    }else{
+                        // 不需要下架商品
+                        itemStatus = that.statusKey || 4
+                    }
                     obj = {
                         current_page: that.pageConfig.pageId || 1,
                         page_size: that.pageConfig.pageSize,
-                        item_status: that.statusKey || '',
+                        item_status: itemStatus,
                         key: that.search_key.key
                     };
 
@@ -418,17 +430,26 @@
                 // 优惠券
                 case 2:
                     api = that.ajaxApi.item_coupon;
+                    var coupon_lifecycle;
+                    if( that.options.needFailureInfo === true ){
+                        // 需要展示过期信息
+                        coupon_lifecycle = that.search_key.coupon_lifecycle || 0
+                    }else{
+                        // 不展示过期信息
+                        coupon_lifecycle = that.search_key.coupon_lifecycle || 2
+                    }
                     obj = {
                         current_page: that.pageConfig.pageId || 1,
                         page_size: that.pageConfig.pageSize,
                         has_code: 0,
                         name: that.search_key.coupon_key,
-                        lifecycle: that.search_key.coupon_lifecycle || 0
+                        lifecycle: coupon_lifecycle
                     };
                     that.ajax(api, obj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
-                            type: that.options.type
+                            type: that.options.type,
+                            needFailureInfo: that.options.needFailureInfo
                         };
                         that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
                     });
@@ -507,20 +528,22 @@
             var that = this;
             $.ajax({
                 url: api,
-                type: that.ajaxType,
-                dataType: that.ajaxDataType,
+                type: that.options.ajaxType,
+                dataType: that.options.ajaxDataType,
                 data: obj,
                 success: function (data) {
                     if (data.code == 10000) {
                         callback && callback(data)
-                    } else {
+                    } else if( data.code == 40000 ) {
+                       location.href = '../seller_info/seller_login.html'
+                    } else{
                         console.log(data.msg);
-                        that.ajaxError(data);
+                        that.options.ajaxError(data);
                     }
                 },
                 error: function (data) {
                     console.log(data.msg);
-                    that.ajaxError(data);
+                    that.options.ajaxError(data);
                 }
             })
         },

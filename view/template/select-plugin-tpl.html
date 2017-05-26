@@ -24,10 +24,18 @@
             <% if( type == 2 ){ %>
             <div class="form-group">
                 <select class="form-control" id="j-select-plugin-coupon_lifecycle">
+                    <% if( needFailureInfo === true ){ %>
                     <option data-value="0">全部</option>
+                    <% } %>
                     <option data-value="1">未开始</option>
+                    <% if( needFailureInfo === true ){ %>
                     <option data-value="2">已开始</option>
-                    <option data-value="3">已过期</option>
+                    <% }else{ %>
+                    <option data-value="2" selected="selected">已开始</option>
+                    <% } %>
+                    <% if( needFailureInfo === true ){ %>
+                    <option data-value="3">已结束</option>
+                    <% } %>
                 </select>
             </div>
             <% } %>
