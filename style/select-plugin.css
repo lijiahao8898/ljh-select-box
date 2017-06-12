@@ -1,4 +1,4 @@
-.selectDialogPlugin.select-group-goods{
+.selectDialogPlugin.select-group-goods {
     display: inline-block;
     width: 50px;
     height: 20px;
@@ -9,10 +9,30 @@
     color: #333;
     cursor: pointer;
 }
-.popup-g-name,.g-name{
+
+.popup-g-name, .g-name {
     width: 250px;
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.select-plugin-search {
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 2px 1px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 10;
+}
+
+.select-plugin-table-wrapper {
+    height: 320px;
+    overflow: scroll;
+}
+.select-plugin-brand-wrapper,.select-plugin-category-wrapper{
+    width: 150px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 31px;
 }

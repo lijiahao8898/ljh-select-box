@@ -1,25 +1,26 @@
 <!--------------------------- 选择弹框selectPlugin模板 ---------------------------------->
 <!-- 弹窗模板 0 商品, 1 用户, 2 优惠券 , 3 仓库, 10 合约 -->
 <script type="text/template" id="j-select-plugin-popup-dialog">
-    <div class="ui-box" style="height: 328px;overflow: scroll">
-        <div class="ui-box form-inline">
-            <!--<div class="form-group">-->
-            <!--<select class="form-control form-control-sm j-category-one" name="cate_key" cb-node="cate_key">-->
-            <!--<option value="">请选择类目</option>-->
-            <!--</select>-->
-            <!--</div>-->
-            <!--&nbsp;-->
-            <!--<div class="form-group" style="display: none">-->
-            <!--<select class=" form-control form-control-md" name="category_two" cb-node="category_two">-->
-            <!--<option value="">请选择二级类目</option>-->
-            <!--</select>-->
-            <!--</div>-->
-            <!--&nbsp;-->
-            <!--<div class="form-group">-->
-            <!--<select class="form-control form-control-sm" name="brand_key" cb-node="brand_key">-->
-            <!--<option value="">请选择品牌</option>-->
-            <!--</select>-->
-            <!--</div>-->
+    <div class="ui-box mb10">
+        <div class="ui-box form-inline select-plugin-search">
+            <% if( type == 0 && showCateAndBrand === true ){ %>
+            &nbsp;
+            <div class="form-group">
+                <div class="select-plugin-category-wrapper">
+                    <select id="select-plugin-category-selectize">
+
+                    </select>
+                </div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                <div class="select-plugin-brand-wrapper">
+                    <select id="select-plugin-brand-selectize">
+
+                    </select>
+                </div>
+            </div>
+            <% } %>
             &nbsp;
             <% if( type == 2 ){ %>
             <div class="form-group">
@@ -52,68 +53,70 @@
                 </div>
             </div>
         </div>
-        <table class="ui-table">
-            <thead>
-            <% if( type == 0 ){ %>
-            <tr>
-                <th class="tc">图片</th>
-                <th>标题<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
-                <th class="tc">创建时间</th>
-                <th class="tc">状态</th>
-                <th class="tc">类型</th>
-                <th class="tc">操作</th>
-            </tr>
-            <% }else if( type == 1 ){ %>
-            <tr>
-                <th class="tc">ID</th>
-                <th class="tc">用户名</th>
-                <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
-                <th class="tc">注册时间</th>
-                <th class="tc">操作</th>
-            </tr>
-            <% }else if( type == 2 ){ %>
-            <tr>
-                <th class="tc">优惠券名称</th>
-                <th class="tc">面值（元）</th>
-                <th class="tc">创建时间</th>
-                <th class="tc">状态</th>
-                <th class="tc">类型</th>
-                <th class="tc">操作</th>
-            </tr>
-            <% }else if( type == 3 ){ %>
-            <tr>
-                <th class="tc">ID</th>
-                <th class="tc">简称</th>
-                <th class="tc">全称</th>
-                <th class="tc">地址</th>
-                <th class="tc">状态</th>
-                <th class="tc">操作</th>
-            </tr>
-            <% }else if( type == 10 ){ %>
-            <tr>
-                <th class="tc">合约名称</th>
-                <th>运营商<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
-                <th class="tc">城市</th>
-                <th class="tc">操作</th>
-            </tr>
-            <% } %>
-            </thead>
-            <tbody id="j-select-plugin-render">
-            <tr>
-                <td colspan="18" class="tc">没有任何记录!</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="select-plugin-table-wrapper">
+            <table class="table table-striped jambo_table bulk_action table-bordered">
+                <thead>
+                <% if( type == 0 ){ %>
+                <tr>
+                    <th class="tc">图片</th>
+                    <th>标题<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                    <th class="tc">创建时间</th>
+                    <th class="tc">状态</th>
+                    <th class="tc">类型</th>
+                    <th class="tc">操作</th>
+                </tr>
+                <% }else if( type == 1 ){ %>
+                <tr>
+                    <th class="tc">ID</th>
+                    <th class="tc">用户名</th>
+                    <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                    <th class="tc">注册时间</th>
+                    <th class="tc">操作</th>
+                </tr>
+                <% }else if( type == 2 ){ %>
+                <tr>
+                    <th class="tc">优惠券名称</th>
+                    <th class="tc">面值（元）</th>
+                    <th class="tc">创建时间</th>
+                    <th class="tc">状态</th>
+                    <th class="tc">类型</th>
+                    <th class="tc">操作</th>
+                </tr>
+                <% }else if( type == 3 ){ %>
+                <tr>
+                    <th class="tc">ID</th>
+                    <th class="tc">简称</th>
+                    <th class="tc">全称</th>
+                    <th class="tc">地址</th>
+                    <th class="tc">状态</th>
+                    <th class="tc">操作</th>
+                </tr>
+                <% }else if( type == 10 ){ %>
+                <tr>
+                    <th class="tc">合约名称</th>
+                    <th>运营商<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                    <th class="tc">城市</th>
+                    <th class="tc">操作</th>
+                </tr>
+                <% } %>
+                </thead>
+                <tbody id="j-select-plugin-render">
+                <tr>
+                    <td colspan="18" class="tc">没有任何记录!</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- 页码开始 -->
     <div class="ui-box">
         <div class="widget-list">
-            <div>
+            <div class="fl">
                 <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-gsa-<%= type %>" style="display: none">全选本页</a>
                 <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-save-<%= type %>" style="display: none">确定使用</a>
                 <span style="margin-left: 20px;">提示：滚动鼠标查看隐藏部分</span>
             </div>
-            <div class="list-page">
+            <div class="list-page fr">
                 <div class="ui-pagination selectPluginPagination"></div>
             </div>
         </div>
