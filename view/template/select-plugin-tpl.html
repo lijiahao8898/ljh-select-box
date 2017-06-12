@@ -147,7 +147,7 @@
         <% if( isSku && isSku === true ){ %>
         <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-item_image_url="<%= item.icon_url %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
         <% }else{ %>
-        <td><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
         <% } %>
     </tr>
     <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
