@@ -2,7 +2,7 @@
 <!-- 弹窗模板 0 商品, 1 用户, 2 优惠券 , 3 仓库, 10 合约 -->
 <script type="text/template" id="j-select-plugin-popup-dialog">
     <div class="ui-box mb10">
-        <div class="ui-box form-inline select-plugin-search">
+        <div class="form-inline select-plugin-search">
             <% if( type == 0 && showCateAndBrand === true ){ %>
             &nbsp;
             <div class="form-group">
@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="select-plugin-table-wrapper">
-            <table class="table table-striped jambo_table bulk_action table-bordered">
+            <table class="ui-table table table-striped jambo_table bulk_action table-bordered">
                 <thead>
                 <% if( type == 0 ){ %>
                 <tr>
