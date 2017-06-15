@@ -2,8 +2,8 @@
  * Created by lijiahao on 16/8/16.
  * 选择插件 selectPlugin
  * 当前使用到的地方:
- *      渠道后台: 拼团.幸运大抽奖.直播.分享合伙人
- *      管控后台: 商品添加,渠道关联商品
+ *      渠道后台: 拼团(商品).幸运大抽奖(商品sku).直播(商品,用户).分享合伙人(用户)
+ *      管控后台: 商品添加(仓库),渠道关联商品(商品,品牌,类目)
  */
 
 ;(function ($, window, document) {
@@ -14,12 +14,14 @@
      * @type {boolean} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
      * @type {boolean} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
      * @type {boolean} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-     * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,10:合约)
+     * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,4:品牌,5:类目,10:合约)
      * @type {number}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
      * @type {string}  title                        // 商品选择弹窗的title
      * @type {boolean} isSelectAll                  // 判断是否显示全选按钮
      * @type {boolean} isRefresh                    // 判断是否显示刷新按钮
      * @type {Array}   selectedList                 // 选择的列表
+     * @type {string}  ajaxUrl                      // 请求的接口
+     * @type {string}  ajaxSkuUrl                   // 请求的SKU接口
      * @type {string}  ajaxType                     // ajax的请求类型默认 post
      * @type {string}  ajaxDataType                 // ajax的请求数据类型默认 json
      * @type {boolean} needFailureInfo              // 是否展示已经失效的东西-垃圾数据 ( 默认情况下是展示 )
@@ -47,6 +49,8 @@
             isSelectAll: true,                          // 判断是否显示全选按钮
             isRefresh: true,                            // 判断是否显示刷新按钮
             selectedList: [],                           // 选择的列表
+            ajaxUrl: '',                                // 请求的接口
+            ajaxSkuUrl: '',                             // 请求的SKU接口
             ajaxType: 'post',                           // ajax的请求类型默认 post
             ajaxDataType: 'json',                       // ajax的请求数据类型默认 json
             needFailureInfo: true,                      // 是否展示已经失效的东西-垃圾数据 ( 默认情况下是展示 )
@@ -71,13 +75,23 @@
          * init: 初始化
          */
         init: function () {
-            this.typeArr = [0, 1, 2, 3, 10];                                        // 类型数据
+            this.typeArr = [0, 1, 2, 3, 4, 5, 10];                                  // 类型数据
             this.search_key = {};                                                   // 搜索配置
             this.pageConfig = {                                                     // 翻页配置
                 pageSize: 20,
                 visiblePages: 6,
                 pageId: 1
             };
+
+            if (this.options.ajaxUrl == '') {
+                console.error('error: the ajaxUrl is null please check it again !');
+                return;
+            }
+
+            if( this.options.isSku === true && this.options.ajaxUrl == '' ){
+                console.error('error: the ajaxSkuUrl is null please check it again !');
+                return;
+            }
 
             // 在单选的情况下 不能全选本页
             if (this.options.single === true && this.options.isSelectAll === true) {
@@ -115,7 +129,11 @@
             this.selectPluginSelectBtn = 'j-select-plugin-g-' + this.options.type;          // 选择按钮
             this.refreshBtn = 'j-select-plugin-refresh-' + this.options.type;               // 刷新
 
-            this.templateRenderArea = 'j-select-plugin-render';                             // 模板渲染的地方
+            if (this.options.type !== 5) {
+                this.templateRenderArea = 'j-select-plugin-render';                         // 模板渲染的地方
+            } else {
+                this.templateRenderArea = 'j-select-plugin-cate-level-1';                   // 模板渲染的地方
+            }
             this.inputKeyword = 'select-plugin-keyword';                                    // 关键字
             this.template = 'j-select-plugin-table-template';                               // 商品模板
 
@@ -144,28 +162,9 @@
 
             this.selected_list = [];
 
-            // api
-            // todo dome json数据
-            this.ajaxApi = {
-                item: '../stub/demo.json',
-                item_sku: '../stub/demo_sku.json',
-                item_users: '../stub/demo_users.json',
-                item_coupon: '../stub/demo_coupon.json',
-                item_warehouse: '../stub/demo_warehouse.json'
-            };
-
-            if (location.host.indexOf('dev') == 0) {
-                //this.ajaxApi = {
-                //    item: '../stub/demo.json',
-                //    item_sku:'../stub/demo_sku.json'
-                //}
-            } else {
-                //this.ajaxApi = {
-                //    item: '../stub/demo.json',
-                //    item_sku:'../stub/demo_sku.json'
-                //}
-            }
-
+            // 请求的api
+            this.ajaxApi = this.options.ajaxUrl;
+            this.ajaxSkuApi = this.options.ajaxSkuUrl;
         },
         /**
          * 公共的默认事件监听
@@ -176,6 +175,7 @@
 
             // 显示弹窗
             $(that.body).on('click', that.$element, function () {
+                console.log(that.options.brandList);
                 if (that.options.selectedList.length > 0) {
                     that.selected_list = that.options.selectedList
                 }
@@ -196,21 +196,32 @@
                 var value = $.trim($('#' + that.inputKeyword).val());
                 switch (that.options.type) {
                     case 0:
+                        // 商品可查询关键字,品牌,类目
                         that.search_key.key = value;
                         that.search_key.brand_key = that.brand_key || '';
                         that.search_key.cate_key = that.cate_key || '';
                         break;
                     case 1:
+                        // 用户可查询用户关键字
                         that.search_key.user_key = value;
                         break;
                     case 2:
+                        // 优惠券可查询优惠券的关键字,优惠券的生命周期
                         that.search_key.coupon_key = value;
                         that.search_key.coupon_lifecycle = $('#' + that.coupon_lifecycle).find('option:selected').attr('data-value');
                         break;
                     case 3:
+                        // 仓库可查询仓库的关键字
                         that.search_key.warehouse_key = value;
                         break;
+                    case 4:
+                        that.search_key.brand_name = value;
+                        break;
+                    case 5:
+                        console.log('category');
+                        break;
                     case 10:
+                        // ...
                         that.search_key.contract_key = value;
                         break;
                 }
@@ -229,9 +240,20 @@
 
             // 弹窗 全选本页
             $(document).on('click', '.' + that.selectPluginSelectAllBtn, function () {
-                var selectBtn = $('.' + that.selectPluginSelectBtn);
-                var selectBtn1 = $('.' + that.selectPluginSelectBtn + '[data-status=1]');
-                var selectBtn0 = $('.' + that.selectPluginSelectBtn + '[data-status=0]');
+                var selectBtn, selectBtn1, selectBtn0
+                selectBtn = $('.' + that.selectPluginSelectBtn);
+                selectBtn1 = $('.' + that.selectPluginSelectBtn + '[data-status=1]');
+                selectBtn0 = $('.' + that.selectPluginSelectBtn + '[data-status=0]');
+
+                if (that.options.type == 5) {
+                    /**
+                     * 如果是全点,就点一级啦
+                     * @type {*|HTMLElement}
+                     */
+                    selectBtn1 = $('.' + that.selectPluginSelectBtn + '[data-status=1][data-parent_id=0]');
+                    selectBtn0 = $('.' + that.selectPluginSelectBtn + '[data-status=0][data-parent_id=0]');
+                }
+
                 if (selectBtn.length == 0) {
                     return false;
                 }
@@ -254,46 +276,151 @@
             });
 
             // 弹窗选择&取消选择
-            $(document).on('click', '.' + that.selectPluginSelectBtn, function () {
+            $(document).on('click', '.' + that.selectPluginSelectBtn, function (e) {
+                e.stopPropagation();
                 var data = JSON.parse(decodeURIComponent($(this).attr('data-info')));
                 var status = $(this).attr('data-status');
                 var id = data.id;
+                var parent = data.parent_id || null;
                 var selectedList = that.selected_list;
+                var level = $(this).attr('data-cate_level');
+                var length = $(this).attr('data-length');
 
-                if (status == '0') {
-                    // 选择
-                    // 选择的时候判断选择的个数
-                    if (that.options.selectLength != 0 && (that.options.selectLength <= selectedList.length)) {
-                        var info = '选择的数据超出上限了!';
-                        that.options.selectError(info);
-                        return false;
-                    }
-                    selectedList.push(data);
-                    $(this).attr('data-status', '1');
-                    $(this).text('取消');
-                    $(this).css({'background': '#5cb85c', 'border-color': '#5cb85c', 'color': '#fff'});
-                    // 判断是单选还是多选
-                    if (that.options.single === true) {
-                        that.options.selectSuccess(selectedList, that.target);
-                        that.dialog.close();
+                if (that.options.type != 5) {
+                    if (status == '0') {
+                        // 选择
+                        // 选择的时候判断选择的个数
+                        if (that.options.selectLength != 0 && (that.options.selectLength <= selectedList.length)) {
+                            var info = '选择的数据超出上限了!';
+                            that.options.selectError(info);
+                            return false;
+                        }
+                        selectedList.push(data);
+                        $(this).attr('data-status', '1');
+                        $(this).text('取消');
+                        $(this).css({'background': '#26B99A', 'border-color': '#169F85', 'color': '#fff'});
+                        // 判断是单选还是多选
+                        if (that.options.single === true) {
+                            that.options.selectSuccess(selectedList, that.target);
+                            that.dialog.close();
 
+                        }
+                    } else {
+                        // 取消
+
+                        // item_id  兼容部分商品的id可能是只有item_id的问题
+                        for (var i = 0; i < selectedList.length; i++) {
+                            if (id == selectedList[i].id || id == selectedList[i].item_id) {
+                                selectedList.splice(i, 1);
+                                i--
+                            }
+                        }
+                        $(this).attr('data-status', '0');
+                        $(this).text('选择');
+                        $(this).css({'background': '#fff', 'border-color': '#eee', 'color': '#333'})
                     }
                 } else {
-                    // 取消
+                    var selectBtn0, selectBtn1;
+                    if (status == '0') {
+                        // 选择
+                        selectedList.push(data);
+                        $(this).attr('data-status', '1');
+                        $(this).text('取消');
+                        $(this).css({'background': '#26B99A', 'border-color': '#169F85', 'color': '#fff'});
+                        // 判断是单选还是多选
+                        if (that.options.single === true) {
+                            that.options.selectSuccess(selectedList, that.target);
+                            that.dialog.close();
 
-                    // item_id  兼容部分商品的id可能是只有item_id的问题
-                    for (var i = 0; i < selectedList.length; i++) {
-                        if (id == selectedList[i].id || id == selectedList[i].item_id) {
-                            selectedList.splice(i, 1);
-                            i--
+                        }
+                        if (level) {
+                            if (level == 1) {
+                                // 如果是一级类目,二级类目全部选中
+                                selectBtn0 = $('.' + that.selectPluginSelectBtn + '[data-status=0][data-parent_id=' + id + ']');
+                                if (selectBtn0.length > 0) {
+                                    for (var n = 0; n < selectBtn0.length; n++) {
+                                        selectBtn0.eq(n).click();
+                                    }
+                                } else {
+                                    // 如果是没有展开的情况
+                                    for (var n = 0; n < data.sub_categorys.length; n++) {
+                                        selectedList.push(data.sub_categorys[n]);
+                                    }
+                                }
+                            } else if (level == 2) {
+                                // 如果是二级类目
+                                selectBtn1 = $('.' + that.selectPluginSelectBtn + '[data-status=1][data-parent_id=' + parent + ']');
+                                if (selectBtn1.length == length) {
+                                    $('.' + that.selectPluginSelectBtn + '[data-status=0][data-id=' + parent + ']').click();
+                                }
+                            }
+                        }
+                    } else {
+                        // 取消
+                        // item_id  兼容部分商品的id可能是只有item_id的问题
+                        for (var j = 0; j < selectedList.length; j++) {
+                            if (id == selectedList[j].id || id == selectedList[j].item_id) {
+                                selectedList.splice(j, 1);
+                                j--
+                            }
+                        }
+                        $(this).attr('data-status', '0');
+                        $(this).text('选择');
+                        $(this).css({'background': '#fff', 'border-color': '#eee', 'color': '#333'})
+                        if (level) {
+                            if (level == 1) {
+                                // 如果是一级类目,二级类目全部取消
+                                selectBtn0 = $('.' + that.selectPluginSelectBtn + '[data-status=1][data-parent_id=' + id + ']');
+                                if (selectBtn0.length > 0) {
+                                    for (var n = 0; n < selectBtn0.length; n++) {
+                                        selectBtn0.eq(n).click();
+                                    }
+                                } else {
+                                    // 如果是没有展开的情况
+                                    for (var n = 0; n < data.sub_categorys.length; n++) {
+                                        for (var j = 0; j < selectedList.length; j++) {
+                                            if (data.sub_categorys[n].id == selectedList[j].id || id == selectedList[j].item_id) {
+                                                selectedList.splice(j, 1);
+                                                j--
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (level == 2) {
+                                // 如果是二级类目
+                                selectBtn1 = $('.' + that.selectPluginSelectBtn + '[data-status=0][data-parent_id=' + parent + ']');
+                                if (selectBtn1.length < length) {
+                                    var parentDom = $('.' + that.selectPluginSelectBtn + '[data-status=1][data-id=' + parent + ']');
+                                    parentDom.attr('data-status', '0');
+                                    parentDom.text('选择');
+                                    parentDom.css({'background': '#fff', 'border-color': '#eee', 'color': '#333'});
+                                    for (var j = 0; j < selectedList.length; j++) {
+                                        if (parent == selectedList[j].id || id == selectedList[j].item_id) {
+                                            selectedList.splice(j, 1);
+                                            j--
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-                    $(this).attr('data-status', '0');
-                    $(this).text('选择');
-                    $(this).css({'background': '#fff', 'border-color': '#eee', 'color': '#333'})
+                    that.checkGsa();
                 }
-                that.checkGsa();
             });
+
+            // 点击一级类目出来二级类目
+            $(document).on('click', '.select-plugin-category-list', function () {
+                var level = $(this).attr('data-cate_level');
+                $('.select-plugin-category-list[data-cate_level=' + level + ']').removeClass('active');
+                $(this).addClass('active');
+                if (level == 1) {
+                    var cateLevel2 = JSON.parse(decodeURIComponent($(this).attr('data-level2')));
+                    that.renderCategoryLevel2(cateLevel2);
+                    that.checkSelected(that.selected_list);
+                } else if (level == 2) {
+
+                }
+            })
         },
 
         /**
@@ -403,7 +530,6 @@
             switch (that.options.type) {
                 // 商品
                 case 0:
-                    api = that.ajaxApi.item;
                     var itemStatus;
                     if (that.options.needFailureInfo == true) {
                         // 需要下架商品
@@ -421,7 +547,7 @@
                         category_id: that.search_key.cate_key || ''
                     };
 
-                    that.ajax(api, obj, function (data) {
+                    that.ajax(that.ajaxApi, obj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             isSku: that.options.isSku,
@@ -432,13 +558,12 @@
                     break;
                 // 用户
                 case 1:
-                    api = that.ajaxApi.item_users;
                     obj = {
                         offset: that.pageConfig.pageId <= 1 ? '0' : (that.pageConfig.pageId - 1) * 20,
                         page_size: that.pageConfig.pageSize,
                         key: that.search_key.user_key
                     };
-                    that.ajax(api, obj, function (data) {
+                    that.ajax(that.ajaxApi, obj, function (data) {
                         that.renderOption = {
                             items: data.data.module,
                             type: that.options.type
@@ -448,7 +573,6 @@
                     break;
                 // 优惠券
                 case 2:
-                    api = that.ajaxApi.item_coupon;
                     var coupon_lifecycle;
                     if (that.options.needFailureInfo === true) {
                         // 需要展示过期信息
@@ -464,7 +588,7 @@
                         name: that.search_key.coupon_key,
                         lifecycle: coupon_lifecycle
                     };
-                    that.ajax(api, obj, function (data) {
+                    that.ajax(that.ajaxApi, obj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             type: that.options.type,
@@ -473,15 +597,15 @@
                         that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
                     });
                     break;
+                // 仓库
                 case 3:
-                    api = that.ajaxApi.item_warehouse;
                     obj = {
                         current_page: that.pageConfig.pageId || 1,
                         page_size: that.pageConfig.pageSize,
                         has_code: 0,
                         name: that.search_key.warehouse_key
                     };
-                    that.ajax(api, obj, function (data) {
+                    that.ajax(that.ajaxApi, obj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             type: that.options.type
@@ -489,6 +613,32 @@
                         that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
                     });
                     break;
+                // 品牌
+                case 4:
+                    obj = {
+                        current_page: that.pageConfig.pageId || 1,
+                        page_size: that.pageConfig.pageSize,
+                        keywords: that.search_key.brand_name
+                    };
+                    that.ajax(that.ajaxApi, obj, function (data) {
+                        that.renderOption = {
+                            items: data.data.data,
+                            type: that.options.type
+                        };
+                        that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
+                    });
+                    break;
+                // 类目
+                case 5:
+                    console.log(template);
+                    obj = {};
+                    that.ajax(that.ajaxApi, obj, function (data) {
+                        that.renderOption = {
+                            items: data.data,
+                            type: that.options.type
+                        };
+                        that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
+                    });
                 // 合约
                 //case 10:
                 //    that.theAjaxContracts(function (data) {
@@ -518,12 +668,21 @@
         renderTemplateFunc: function (total_count, template, option, list) {
             var that = this;
             var $render = $('#' + that.templateRenderArea);
-            if (total_count && total_count != 0) {
-                $render.html(template(option));
-            } else {
-                that.noData(total_count);
+            if (option.type !== 5) {
+                if (total_count && total_count != 0) {
+                    $render.html(template(option));
+                } else {
+                    that.noData(total_count);
+                }
+                that.pagination(total_count);
+            } else if (option.type == 5) {
+                // 如果是类目
+                if (option.items && option.items.length > 0) {
+                    $render.html(template(option));
+                } else {
+                    that.noData(total_count, option);
+                }
             }
-            that.pagination(total_count);
             that.checkSelected(list);
             that.checkGsa();
         },
@@ -553,9 +712,9 @@
                 success: function (data) {
                     if (data.code == 10000) {
                         callback && callback(data)
-                    } else if( data.code == 40000 ) {
-                       location.href = '../seller_info/seller_login.html'
-                    } else{
+                    } else if (data.code == 40000) {
+                        location.href = '../seller_info/seller_login.html'
+                    } else {
                         console.log(data.msg);
                         that.options.ajaxError(data);
                     }
@@ -580,7 +739,7 @@
             var $skuTable = $('.sku-box-' + item_id);
             var $skuItem = $('.sku-item-' + item_id);
 
-            that.ajax(that.ajaxApi.item_sku, {
+            that.ajax(that.ajaxSkuApi, {
                 item_id: item_id
             }, function (data) {
                 if (data.code == 10000) {
@@ -635,18 +794,18 @@
                     },
                     onItemRemove: function (value) {
                         that.brand_key = '';
-                        console.log(that.brand_key,value)
+                        console.log(that.brand_key, value)
                     }
                 });
             } else {
                 // 没有拿到数据 可能对方的接口还没有返回
                 var timer = setInterval(function () {
-                    if( !that.timer ){
+                    if (!that.timer) {
                         that.timer = 0
-                    }else{
-                        if( that.timer > 5 ){
+                    } else {
+                        if (that.timer > 5) {
                             clearInterval(timer)
-                        }else{
+                        } else {
                             that.timer += 1;
                             that.renderBrand();
                         }
@@ -674,23 +833,37 @@
                     },
                     onItemRemove: function (value) {
                         that.cate_key = '';
-                        console.log(that.cate_key,value)
+                        console.log(that.cate_key, value)
                     }
                 });
             } else {
                 // 没有拿到数据 可能对方的接口还没有返回
                 var timer = setInterval(function () {
-                    if( !that.timerCate ){
+                    if (!that.timerCate) {
                         that.timerCate = 0
-                    }else{
-                        if( that.timerCate > 5 ){
+                    } else {
+                        if (that.timerCate > 5) {
                             clearInterval(timer)
-                        }else{
+                        } else {
                             that.timerCate += 1;
                             that.renderCategory();
                         }
                     }
                 }, 1000)
+            }
+        },
+        /**
+         * 点击一级类目的时候 去渲染二级类目
+         * @param data - 二级类目的data
+         */
+        renderCategoryLevel2: function (data) {
+            var that = this;
+            if (data && data.length > 0) {
+                var template = _.template($('#j-select-plugin-category2').html());
+                $('#j-select-plugin-cate-level-2').html(template({
+                    items: data,
+                    type: that.options.type
+                }))
             }
         },
         /**
@@ -743,6 +916,11 @@
                         // 将list重新定义到sku的tab上去
                         list = $('#' + that.templateRenderArea).find('.' + that.selectPluginSkuBox);
                     }
+                    if (that.options.type == 5) {
+                        // 如果是类目
+                        // 将list重新定义
+                        list = $('.' + that.selectPluginBox)
+                    }
                     for (var i = 0; i < selectedList.length; i++) {
                         for (var n = 0; n < list.length; n++) {
                             var selectedDom = list.eq(n).find('.' + that.selectPluginSelectBtn);
@@ -750,7 +928,7 @@
                             if ((selectedList[i].id || selectedList[i].sku_id || selectedList[i].item_id ) == selectedDom.attr('data-id')) {
                                 selectedDom.attr('data-status', '1');
                                 selectedDom.text('取消');
-                                selectedDom.css({'background': '#5cb85c', 'border-color': '#5cb85c', 'color': '#fff'})
+                                selectedDom.css({'background': '#26B99A', 'border-color': '#169F85', 'color': '#fff'})
                             }
                         }
                     }
@@ -796,10 +974,16 @@
         /**
          * 没有数据的显示情况
          */
-        noData: function (total) {
+        noData: function (total, option) {
             var content = '<tr style="text-align: center"><td colspan="18">没有任何记录!</td></tr>';
-            if (!total || total == 0) {
-                $('#' + this.templateRenderArea).html(content)
+            if (option && option.type !== 5) {
+                if (!total || total == 0) {
+                    $('#' + this.templateRenderArea).html(content)
+                }
+            } else if (option && option.type == 5) {
+                if (!option.items || option.items.length <= 5) {
+                    $('#' + this.templateRenderArea).html(content)
+                }
             }
         }
     };

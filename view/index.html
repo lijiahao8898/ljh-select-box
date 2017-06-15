@@ -22,6 +22,10 @@
 <button id="selectPluginButtonCoupon">选择优惠券</button>
 
 <button id="selectPluginButtonWarehouse">选择仓库</button>
+
+<button id="selectPluginButtonBrand">选择品牌</button>
+
+<button id="selectPluginButtonCategory">选择类目</button>
 </body>
 <script type="text/javascript" src="../src/plugin/jq.js"></script>
 <script type="text/javascript" src="../src/plugin/underscore.js"></script>
@@ -64,6 +68,8 @@
             isSelectAll: false,
             type: 0,
             title: '选择商品sku',
+            ajaxUrl: '../stub/demo.json',
+            ajaxSkuUrl: '../stub/demo_sku.json',
             ajaxType: 'get',
             ajaxDataType: 'json',
             brandList: [{
@@ -90,6 +96,7 @@
             type: 1,
             title: '选择用户',
             selectLength: 5,
+            ajaxUrl: '../stub/demo_users.json',
             ajaxType: 'get',
             ajaxDataType: 'json',
             selectSuccess: function (data) {
@@ -107,6 +114,7 @@
             type: 2,
             title: '选择优惠券',
             selectLength: 5,
+            ajaxUrl: '../stub/demo_coupon.json',
             ajaxType: 'get',
             ajaxDataType: 'json',
             selectSuccess: function (data) {
@@ -124,6 +132,43 @@
             type: 3,
             title: '选择仓库',
             selectLength: 5,
+            ajaxUrl: '../stub/demo_warehouse.json',
+            ajaxType: 'get',
+            ajaxDataType: 'json',
+            selectSuccess: function (data) {
+                console.log(data)
+            },
+            selectError: function (info) {
+                console.error(info);
+            }
+        })
+
+        $('#selectPluginButtonBrand').selectPlugin({
+            single: false,
+            isSku: false,
+            isSelectAll: true,
+            type: 4,
+            title: '选择品牌',
+            selectLength: 0,
+            ajaxUrl: '../stub/demo_brand.json',
+            ajaxType: 'get',
+            ajaxDataType: 'json',
+            selectSuccess: function (data) {
+                console.log(data)
+            },
+            selectError: function (info) {
+                console.error(info);
+            }
+        });
+
+        $('#selectPluginButtonCategory').selectPlugin({
+            single: false,
+            isSku: false,
+            isSelectAll: true,
+            type: 5,
+            title: '选择类目',
+            selectLength: 0,
+            ajaxUrl: '../stub/demo_category.json',
             ajaxType: 'get',
             ajaxDataType: 'json',
             selectSuccess: function (data) {
@@ -138,14 +183,35 @@
 </script>
 
 <!--------------------------- 选择弹框selectPlugin模板 ---------------------------------->
-<!-- 弹窗模板 0 商品, 1 用户, 2 优惠券 , 3 仓库, 10 合约 -->
+<!-- 弹窗模板 0 商品, 1 用户, 2 优惠券 , 3 仓库, 4 品牌, 5 类目, 10 合约 -->
 <script type="text/template" id="j-select-plugin-popup-dialog">
+    <% if( type == 5 ){ %>
+    <div class="select-plugin-category-wrapper mb10">
+        <div class="select-plugin-category">
+            <div class="select-plugin-category-title">
+                一级类目
+            </div>
+            <div class="select-plugin-category-content" id="j-select-plugin-cate-level-1">
+
+            </div>
+        </div>
+
+        <div class="select-plugin-category">
+            <div class="select-plugin-category-title">
+                二级类目
+            </div>
+            <div class="select-plugin-category-content" id="j-select-plugin-cate-level-2">
+
+            </div>
+        </div>
+    </div>
+    <% }else{ %>
     <div class="ui-box mb10">
         <div class="form-inline select-plugin-search">
             <% if( type == 0 && showCateAndBrand === true ){ %>
             &nbsp;
             <div class="form-group">
-                <div class="select-plugin-category-wrapper">
+                <div class="select-plugin-category-selectize-wrapper">
                     <select id="select-plugin-category-selectize">
 
                     </select>
@@ -187,10 +253,8 @@
             <% } %>
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-md" id="select-plugin-keyword"
-                           placeholder="请输入关键词">
-                    <div class="input-group-btn"><a class="btn btn-sm btn-default"
-                                                    id="j-select-plugin-search-<%= type %>">搜索</a></div>
+                    <input type="text" class="form-control form-control-md" id="select-plugin-keyword" placeholder="请输入关键词">
+                    <div class="input-group-btn"><a class="btn btn-sm btn-default" id="j-select-plugin-search-<%= type %>">搜索</a></div>
                 </div>
             </div>
         </div>
@@ -200,8 +264,7 @@
                 <% if( type == 0 ){ %>
                 <tr>
                     <th class="tc">图片</th>
-                    <th>标题<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a>
-                    </th>
+                    <th>标题<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
                     <th class="tc">创建时间</th>
                     <th class="tc">状态</th>
                     <th class="tc">类型</th>
@@ -211,8 +274,7 @@
                 <tr>
                     <th class="tc">ID</th>
                     <th class="tc">用户名</th>
-                    <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a>
-                    </th>
+                    <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
                     <th class="tc">注册时间</th>
                     <th class="tc">操作</th>
                 </tr>
@@ -234,11 +296,17 @@
                     <th class="tc">状态</th>
                     <th class="tc">操作</th>
                 </tr>
+                <% }else if( type == 4 ){ %>
+                <tr>
+                    <th class="tc">品牌名称</th>
+                    <th class="tc">icon</th>
+                    <th class="tc">描述</th>
+                    <th class="tc">操作</th>
+                </tr>
                 <% }else if( type == 10 ){ %>
                 <tr>
                     <th class="tc">合约名称</th>
-                    <th>运营商<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a>
-                    </th>
+                    <th>运营商<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
                     <th class="tc">城市</th>
                     <th class="tc">操作</th>
                 </tr>
@@ -252,14 +320,13 @@
             </table>
         </div>
     </div>
+    <% } %>
     <!-- 页码开始 -->
     <div class="ui-box">
         <div class="widget-list">
             <div class="fl">
-                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-gsa-<%= type %>"
-                   style="display: none">全选本页</a>
-                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-save-<%= type %>"
-                   style="display: none">确定使用</a>
+                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-gsa-<%= type %>" style="display: none">全选本页</a>
+                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-save-<%= type %>" style="display: none">确定使用</a>
                 <span style="margin-left: 20px;">提示：滚动鼠标查看隐藏部分</span>
             </div>
             <div class="list-page fr">
@@ -291,12 +358,9 @@
         </td>
         <td class="tc"><%= ['国内','跨境'][item.higo_mark] %></td>
         <% if( isSku && isSku === true ){ %>
-        <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>"
-                          data-item_image_url="<%= item.icon_url %>" data-sid="<%= item.seller_id %>"
-                          style="cursor: pointer">展开并添加</a></td>
+        <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-item_image_url="<%= item.icon_url %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
         <% }else{ %>
-        <td><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0"
-               data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
         <% } %>
     </tr>
     <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
@@ -325,9 +389,7 @@
         <td class="tc"><span><%= item.name %></span></td>
         <td class="tc"><span><%= item.mobile %></span></td>
         <td class="tc"><span><%= item.gmt_created %></span></td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0"
-                          data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a>
-        </td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }else if( type == 2 ){ %>
     <tr class="j-select-plugin-box">
@@ -344,8 +406,7 @@
             <% }else if( item.market_activity.lifecycle == 3){ %>
             <span>已结束</span>
             <% } %>
-            <% } %>
-        </td>
+            <% } %></td>
         <td class="tc">
             <% if( item.valid_duration ){ %>
             <span>领取日期</span>
@@ -353,9 +414,7 @@
             <span>固定时间</span>
             <% } %>
         </td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0"
-                          data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a>
-        </td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }else if( type == 3 ){ %>
     <tr class="j-select-plugin-box">
@@ -364,17 +423,27 @@
         <td class="tc"><%= item.name %></td>
         <td class="tc"><%= item.address %></td>
         <td class="tc"><%= ['关闭','开放'][item.status] %></td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0"
-                          data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a>
-        </td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
+    <% }else if( type == 4 ){ %>
+    <tr class="j-select-plugin-box">
+        <td class="tc"><%= item.brand_name %></td>
+        <td class="tc"><img class="select-plugin-image" src="<%= item.logo %>"></td>
+        <td class="tc"><p class="select-plugin-ellipsis" style="-webkit-box-orient: vertical;"><%= item.brand_desc || '-' %></p></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+    </tr>
+    <% }else if( type == 5 ){ %>
+    <ul class="select-plugin-category-list j-select-plugin-box" data-cate_level="<%= item.cate_level %>" data-level2="<%= encodeURIComponent(JSON.stringify(item.sub_categorys)) %>" data-id="<%= item.id %>">
+        <li class="select-plugin-category-li">
+            <span class="select-plugin-category-name"><%= item.cate_name %></span>
+            <span class="select-plugin-category-button"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-cate_level="<%= item.cate_level %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>" data-length="<%= item.sub_categorys.length %>" data-parent_id="<%= item.parent_id %>">选择</a></span>
+        </li>
+    </ul>
     <% }else if( type == 10 ){ %>
     <tr class="j-select-plugin-box">
         <td class="tc"><span><%= item.user_name %></span></td>
         <td class="tc"><span><%= item.mobile %></span></td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0"
-                          data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a>
-        </td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>" data-parent_id="<%= item.parent_id %>">选择</a></td>
     </tr>
     <% } %>
     <% }) %>
@@ -386,16 +455,24 @@
     <tr>
         <td class="tc"><img src="<%= item.image_url %>"></td>
         <td class="tc"><span><%= item.sku_id %></span></td>
-        <td class="tc">
-            <span><%= item.prop[0].prop_name || '-' %></span>:<span><%= item.prop[0].value_name || '-' %></span></td>
+        <td class="tc"><span><%= item.prop[0].prop_name || '-' %></span>:<span><%= item.prop[0].value_name || '-' %></span></td>
         <td class="tc"><span><%= Number(item.origin_price/100).toFixed(2) %></span></td>
         <td class="tc"><span><%= Number(item.price/100).toFixed(2) %></span></td>
         <td class="tc"><span><%= item.num %></span></td>
-        <td class="tc"><a href="javascript:;"
-                          class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0"
-                          data-id="<%= item.sku_id %>"
-                          data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a href="javascript:;" class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.sku_id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
+    <% }) %>
+</script>
+
+<!-- 弹窗 展开商品对应的sku -->
+<script type="text/template" id="j-select-plugin-category2">
+    <% _.each(items,function(item,index){ %>
+    <ul class="select-plugin-category-list j-select-plugin-box" data-cate_level="<%= item.cate_level %>" data-parent_id="<%= item.parent_id %>" data-id="<%= item.id %>">
+        <li class="select-plugin-category-li">
+            <span class="select-plugin-category-name"><%= item.cate_name %></span>
+            <span class="select-plugin-category-button"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-cate_level="<%= item.cate_level %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>"  data-parent_id="<%= item.parent_id %>" data-length="<%= items.length %>">选择</a></span>
+        </li>
+    </ul>
     <% }) %>
 </script>
 

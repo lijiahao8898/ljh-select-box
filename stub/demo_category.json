@@ -1,0 +1,741 @@
+{
+  "code": 10000,
+  "msg": "请求处理成功",
+  "data": [
+    {
+      "id": 446,
+      "cate_name": "饮料",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 449,
+          "cate_name": "奶茶",
+          "cate_level": 2,
+          "parent_id": 446,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201512%2F01%2F00%2F20151201002922624.png"
+        },
+        {
+          "id": 451,
+          "cate_name": "王老吉",
+          "cate_level": 2,
+          "parent_id": 446,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20170606/15/20170606151943282.jpg"
+        },
+        {
+          "id": 453,
+          "cate_name": "雪碧",
+          "cate_level": 2,
+          "parent_id": 446,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151552756.png"
+        },
+        {
+          "id": 454,
+          "cate_name": "果粒橙",
+          "cate_level": 2,
+          "parent_id": 446,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151601719.png"
+        }
+      ]
+    },
+    {
+      "id": 192,
+      "cate_name": "服饰",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 199,
+          "cate_name": "外套",
+          "cate_level": 2,
+          "parent_id": 192,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": ""
+        },
+        {
+          "id": 3030,
+          "cate_name": "2020",
+          "cate_level": 2,
+          "parent_id": 192,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201602%2F23%2F17%2F20160223173123196.jpg"
+        },
+        {
+          "id": 3031,
+          "cate_name": "3030",
+          "cate_level": 2,
+          "parent_id": 192,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201602%2F23%2F17%2F20160223173152992.jpg"
+        }
+      ]
+    },
+    {
+      "id": 193,
+      "cate_name": "生活用品",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 201,
+          "cate_name": "洗发露",
+          "cate_level": 2,
+          "parent_id": 193,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20170606/15/20170606152101708.jpg"
+        },
+        {
+          "id": 200,
+          "cate_name": "沐浴露",
+          "cate_level": 2,
+          "parent_id": 193,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201509%2F24%2F16%2F20150924164910937.png"
+        }
+      ]
+    },
+    {
+      "id": 445,
+      "cate_name": "水果蔬菜",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 447,
+          "cate_name": "水果",
+          "cate_level": 2,
+          "parent_id": 445,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151528989.png"
+        }
+      ]
+    },
+    {
+      "id": 191,
+      "cate_name": "食品",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 194,
+          "cate_name": "牛奶222",
+          "cate_level": 2,
+          "parent_id": 191,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": ""
+        },
+        {
+          "id": 198,
+          "cate_name": "巧克力",
+          "cate_level": 2,
+          "parent_id": 191,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201509%2F24%2F16%2F20150924164356187.png"
+        },
+        {
+          "id": 259,
+          "cate_name": "咖啡",
+          "cate_level": 2,
+          "parent_id": 191,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201510%2F16%2F16%2F20151016162724930.png"
+        },
+        {
+          "id": 455,
+          "cate_name": "辣条",
+          "cate_level": 2,
+          "parent_id": 191,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201602%2F22%2F17%2F20160222174201421.jpg"
+        },
+        {
+          "id": 10087,
+          "cate_name": "下午茶",
+          "cate_level": 2,
+          "parent_id": 191,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20170606/15/20170606151943282.jpg"
+        },
+        {
+          "id": 197,
+          "cate_name": "糖果",
+          "cate_level": 2,
+          "parent_id": 191,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201509%2F24%2F16%2F20150924164045804.png"
+        }
+      ]
+    },
+    {
+      "id": 456,
+      "cate_name": "电子产品",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 457,
+          "cate_name": "iPhone",
+          "cate_level": 2,
+          "parent_id": 456,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": ""
+        }
+      ]
+    },
+    {
+      "id": 631,
+      "cate_name": "女鞋",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 633,
+          "cate_name": "高跟鞋",
+          "cate_level": 2,
+          "parent_id": 631,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": ""
+        },
+        {
+          "id": 632,
+          "cate_name": "雪地靴",
+          "cate_level": 2,
+          "parent_id": 631,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151715213.png"
+        }
+      ]
+    },
+    {
+      "id": 634,
+      "cate_name": "海鲜",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 635,
+          "cate_name": "鱼",
+          "cate_level": 2,
+          "parent_id": 634,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151805551.png"
+        },
+        {
+          "id": 636,
+          "cate_name": "虾",
+          "cate_level": 2,
+          "parent_id": 634,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151750578.png"
+        },
+        {
+          "id": 637,
+          "cate_name": "蟹",
+          "cate_level": 2,
+          "parent_id": 634,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151757216.png"
+        }
+      ]
+    },
+    {
+      "id": 2173,
+      "cate_name": "厨房用品",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 2174,
+          "cate_name": "钢制品",
+          "cate_level": 2,
+          "parent_id": 2173,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": ""
+        }
+      ]
+    },
+    {
+      "id": 657,
+      "cate_name": "测试",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 658,
+          "cate_name": "测试",
+          "cate_level": 2,
+          "parent_id": 657,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151816490.png"
+        }
+      ]
+    },
+    {
+      "id": 3126,
+      "cate_name": "猴年猴赛雷",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 3127,
+          "cate_name": "啊啊",
+          "cate_level": 2,
+          "parent_id": 3126,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": ""
+        }
+      ]
+    },
+    {
+      "id": 3981,
+      "cate_name": "居家用品",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 3982,
+          "cate_name": "座椅",
+          "cate_level": 2,
+          "parent_id": 3981,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": ""
+        }
+      ]
+    },
+    {
+      "id": 4139,
+      "cate_name": "斯利博",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 4140,
+          "cate_name": "睡袋",
+          "cate_level": 2,
+          "parent_id": 4139,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": ""
+        }
+      ]
+    },
+    {
+      "id": 4705,
+      "cate_name": "男人",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "image_url": "http://img.mockuai.com/images/201512/25/10/20151225101521227.png",
+      "sub_categorys": [
+        {
+          "id": 4706,
+          "cate_name": "上衣",
+          "cate_level": 2,
+          "parent_id": 4705,
+          "top_id": 4705,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224205343.png"
+        }
+      ]
+    },
+    {
+      "id": 4365,
+      "cate_name": "食品",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "image_url": "http://img.mockuai.com/images/201512/25/10/20151225101521227.png",
+      "sub_categorys": [
+        {
+          "id": 4366,
+          "cate_name": "水果",
+          "cate_level": 2,
+          "parent_id": 4365,
+          "top_id": 4365,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224635884.png"
+        },
+        {
+          "id": 4469,
+          "cate_name": "茶饮",
+          "cate_level": 2,
+          "parent_id": 4365,
+          "top_id": 4365,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224614793.png"
+        },
+        {
+          "id": 4538,
+          "cate_name": "零食",
+          "cate_level": 2,
+          "parent_id": 4365,
+          "top_id": 4365,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224635264.png"
+        },
+        {
+          "id": 4539,
+          "cate_name": "生鲜",
+          "cate_level": 2,
+          "parent_id": 4365,
+          "top_id": 4365,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224635476.png"
+        },
+        {
+          "id": 4715,
+          "cate_name": "酒水",
+          "cate_level": 2,
+          "parent_id": 4365,
+          "top_id": 4365,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224614693.png"
+        },
+        {
+          "id": 5271,
+          "cate_name": "粮油米面",
+          "cate_level": 2,
+          "parent_id": 4365,
+          "top_id": 4365,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224614380.png"
+        }
+      ]
+    },
+    {
+      "id": 4363,
+      "cate_name": "女人",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "image_url": "http://img.mockuai.com/images/201512/25/10/20151225101521227.png",
+      "sub_categorys": [
+        {
+          "id": 4364,
+          "cate_name": "上衣",
+          "cate_level": 2,
+          "parent_id": 4363,
+          "top_id": 4363,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224257306.png"
+        },
+        {
+          "id": 4537,
+          "cate_name": "鞋靴",
+          "cate_level": 2,
+          "parent_id": 4363,
+          "top_id": 4363,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160331/18/20160331180511307.png"
+        },
+        {
+          "id": 5590,
+          "cate_name": "运动户外",
+          "cate_level": 2,
+          "parent_id": 4363,
+          "top_id": 4363,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160331/18/20160331180747493.png"
+        }
+      ]
+    },
+    {
+      "id": 4367,
+      "cate_name": "其他",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "image_url": "http://img.mockuai.com/images/201512/25/10/20151225101521227.png",
+      "sub_categorys": [
+        {
+          "id": 4368,
+          "cate_name": "婚庆摄影",
+          "cate_level": 2,
+          "parent_id": 4367,
+          "top_id": 4367,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160331/18/20160331180108197.png"
+        },
+        {
+          "id": 4700,
+          "cate_name": "未分类",
+          "cate_level": 2,
+          "parent_id": 4367,
+          "top_id": 4367,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/23/20160407231556467.png"
+        }
+      ]
+    },
+    {
+      "id": 12403,
+      "cate_name": "addtest",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 12404,
+          "cate_name": "addtestsecond",
+          "cate_level": 2,
+          "parent_id": 12403,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20170407/17/20170407172254360.png"
+        }
+      ]
+    },
+    {
+      "id": 626,
+      "cate_name": "女装",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 628,
+          "cate_name": "上衣",
+          "cate_level": 2,
+          "parent_id": 626,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201602%2F29%2F10%2F20160229104656952.jpg"
+        },
+        {
+          "id": 629,
+          "cate_name": "外套",
+          "cate_level": 2,
+          "parent_id": 626,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151648364.png"
+        },
+        {
+          "id": 630,
+          "cate_name": "裤子",
+          "cate_level": 2,
+          "parent_id": 626,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http%3A%2F%2Fimg.mockuai.com%2Fimages%2F201601%2F27%2F15%2F20160127151659393.png"
+        },
+        {
+          "id": 10789,
+          "cate_name": "ces",
+          "cate_level": 2,
+          "parent_id": 626,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20170309/11/20170309113732602.jpg"
+        }
+      ]
+    },
+    {
+      "id": 4708,
+      "cate_name": "亲子",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "image_url": "http://img.mockuai.com/images/201512/25/10/20151225101521227.png",
+      "sub_categorys": [
+        {
+          "id": 4709,
+          "cate_name": "宝宝洗护",
+          "cate_level": 2,
+          "parent_id": 4708,
+          "top_id": 4708,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224441721.png"
+        },
+        {
+          "id": 4755,
+          "cate_name": "穿衣/寝具",
+          "cate_level": 2,
+          "parent_id": 4708,
+          "top_id": 4708,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224441765.png"
+        }
+      ]
+    },
+    {
+      "id": 4710,
+      "cate_name": "生活娱乐",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "image_url": "http://img.mockuai.com/images/201512/25/10/20151225101521227.png",
+      "sub_categorys": [
+        {
+          "id": 4711,
+          "cate_name": "票务卡券",
+          "cate_level": 2,
+          "parent_id": 4710,
+          "top_id": 4710,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224530349.png"
+        }
+      ]
+    },
+    {
+      "id": 4829,
+      "cate_name": "数码家电",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "image_url": "http://img.mockuai.com/images/201512/25/10/20151225101521227.png",
+      "sub_categorys": [
+        {
+          "id": 4830,
+          "cate_name": "手机相机",
+          "cate_level": 2,
+          "parent_id": 4829,
+          "top_id": 4829,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224741475.png"
+        }
+      ]
+    },
+    {
+      "id": 5012,
+      "cate_name": "美妆",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "image_url": "http://img.mockuai.com/images/201512/25/10/20151225101521227.png",
+      "sub_categorys": [
+        {
+          "id": 5013,
+          "cate_name": "美容护肤",
+          "cate_level": 2,
+          "parent_id": 5012,
+          "top_id": 5012,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160407/22/20160407224107293.png"
+        },
+        {
+          "id": 5419,
+          "cate_name": "彩妆1234",
+          "cate_level": 2,
+          "parent_id": 5012,
+          "top_id": 5012,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160720/09/20160720095658603.jpg"
+        }
+      ]
+    },
+    {
+      "id": 5702,
+      "cate_name": "123",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 5703,
+          "cate_name": "1234455",
+          "cate_level": 2,
+          "parent_id": 5702,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20160707/20/20160707201503908.jpg"
+        }
+      ]
+    },
+    {
+      "id": 11023,
+      "cate_name": "1级类目",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": [
+        {
+          "id": 11024,
+          "cate_name": "2级",
+          "cate_level": 2,
+          "parent_id": 11023,
+          "top_id": 0,
+          "biz_code": "mockuai_test",
+          "image_url": "http://img.mockuai.com/images/20170309/11/20170309113647247.jpg"
+        }
+      ]
+    },
+    {
+      "id": 13687,
+      "cate_name": "sa",
+      "cate_level": 1,
+      "parent_id": 0,
+      "top_id": 0,
+      "biz_code": "mockuai_test",
+      "sub_categorys": []
+    }
+  ]
+}
