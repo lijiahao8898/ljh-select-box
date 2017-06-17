@@ -15,6 +15,8 @@
 
 <button id="selectPluginButtonGoods">选择商品</button>
 
+<button id="selectPluginButtonGoods2">选择商品2号</button>
+
 <button id="selectPluginButtonGoodsSku">选择商品sku</button>
 
 <button id="selectPluginButtonUsers">选择用户</button>
@@ -36,32 +38,44 @@
 <script type="text/javascript" src="../src/plugin/selectize/selectize.js"></script>
 <script type="text/javascript" src="../src/fn/select-plugin.js"></script>
 <script>
-    ;
-    (function () {
-//    var button = document.getElementById('selectPluginButton');
-//    $('#selectPluginButtonContract').selectPlugin({
-//        isSku:true,
-//        type:10,
-//        title:'全部合约',
-//        selectSuccess: function(data){
-//            console.log(data)
-//        }
-//    });
-//
-//    $('#selectPluginButtonGoods').selectPlugin({
-//        isSku:false,
-//        isSelectAll:true,
-//        type:0,
-//        title:'选择商品',
-//        ajaxType: 'get',
-//        ajaxDataType: 'json',
-//        selectSuccess: function(data){
-//            console.log(data)
-//        },
-//        selectError: function (info) {
-//            console.error(info);
-//        }
-//    });
+    ;(function () {
+        $('#selectPluginButtonGoods').selectPlugin({
+            isSku:false,
+            isSelectAll:true,
+            single: false,
+            type:0,
+            title:'选择商品',
+            ajaxUrl: '../stub/demo.json',
+            ajaxSkuUrl: '../stub/demo_sku.json',
+            ajaxType: 'get',
+            selectLength: 0,
+            ajaxDataType: 'json',
+            selectSuccess: function(data){
+                console.log(data)
+            },
+            selectError: function (info) {
+                console.error(info);
+            }
+        });
+
+        $('#selectPluginButtonGoods2').selectPlugin({
+            isSku:false,
+            isSelectAll:true,
+            single: false,
+            type:0,
+            title:'选择商品',
+            ajaxUrl: '../stub/demo.json',
+            ajaxSkuUrl: '../stub/demo_sku.json',
+            ajaxType: 'get',
+            selectLength: 0,
+            ajaxDataType: 'json',
+            selectSuccess: function(data){
+                console.log(data)
+            },
+            selectError: function (info) {
+                console.error(info);
+            }
+        });
 
         $('#selectPluginButtonGoodsSku').selectPlugin({
             isSku: true,
@@ -72,6 +86,7 @@
             ajaxSkuUrl: '../stub/demo_sku.json',
             ajaxType: 'get',
             ajaxDataType: 'json',
+            selectLength: 5,
             brandList: [{
                 text: 'hello world',
                 value: 1
@@ -254,7 +269,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <input type="text" class="form-control form-control-md" id="select-plugin-keyword" placeholder="请输入关键词">
-                    <div class="input-group-btn"><a class="btn btn-sm btn-default" id="j-select-plugin-search-<%= type %>">搜索</a></div>
+                    <div class="input-group-btn"><a class="btn btn-sm btn-default" id="j-select-plugin-search">搜索</a></div>
                 </div>
             </div>
         </div>
@@ -264,7 +279,7 @@
                 <% if( type == 0 ){ %>
                 <tr>
                     <th class="tc">图片</th>
-                    <th>标题<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                    <th>标题<a href="javascript:;" class="j-select-plugin-refresh">&nbsp;&nbsp;刷新&nbsp;</a></th>
                     <th class="tc">创建时间</th>
                     <th class="tc">状态</th>
                     <th class="tc">类型</th>
@@ -274,7 +289,7 @@
                 <tr>
                     <th class="tc">ID</th>
                     <th class="tc">用户名</th>
-                    <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                    <th class="tc">账号<a href="javascript:;" class="j-select-plugin-refresh">&nbsp;&nbsp;刷新&nbsp;</a></th>
                     <th class="tc">注册时间</th>
                     <th class="tc">操作</th>
                 </tr>
@@ -306,7 +321,7 @@
                 <% }else if( type == 10 ){ %>
                 <tr>
                     <th class="tc">合约名称</th>
-                    <th>运营商<a href="javascript:;" class="j-select-plugin-refresh-<%= type %>">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                    <th>运营商<a href="javascript:;" class="j-select-plugin-refresh">&nbsp;&nbsp;刷新&nbsp;</a></th>
                     <th class="tc">城市</th>
                     <th class="tc">操作</th>
                 </tr>
@@ -325,8 +340,8 @@
     <div class="ui-box">
         <div class="widget-list">
             <div class="fl">
-                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-gsa-<%= type %>" style="display: none">全选本页</a>
-                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-save-<%= type %>" style="display: none">确定使用</a>
+                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-gsa" style="display: none">全选本页</a>
+                <a href="javascript:;" class="btn btn-sm btn-success j-select-plugin-save" style="display: none">确定使用</a>
                 <span style="margin-left: 20px;">提示：滚动鼠标查看隐藏部分</span>
             </div>
             <div class="list-page fr">
@@ -360,7 +375,7 @@
         <% if( isSku && isSku === true ){ %>
         <td class="tc"><a class="j-open-sku" data-id="<%= item.id %>" data-name="<%= item.item_name %>" data-item_image_url="<%= item.icon_url %>" data-sid="<%= item.seller_id %>" style="cursor: pointer">展开并添加</a></td>
         <% }else{ %>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
         <% } %>
     </tr>
     <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
@@ -389,7 +404,7 @@
         <td class="tc"><span><%= item.name %></span></td>
         <td class="tc"><span><%= item.mobile %></span></td>
         <td class="tc"><span><%= item.gmt_created %></span></td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }else if( type == 2 ){ %>
     <tr class="j-select-plugin-box">
@@ -414,7 +429,7 @@
             <span>固定时间</span>
             <% } %>
         </td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }else if( type == 3 ){ %>
     <tr class="j-select-plugin-box">
@@ -423,27 +438,27 @@
         <td class="tc"><%= item.name %></td>
         <td class="tc"><%= item.address %></td>
         <td class="tc"><%= ['关闭','开放'][item.status] %></td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }else if( type == 4 ){ %>
     <tr class="j-select-plugin-box">
         <td class="tc"><%= item.brand_name %></td>
         <td class="tc"><img class="select-plugin-image" src="<%= item.logo %>"></td>
         <td class="tc"><p class="select-plugin-ellipsis" style="-webkit-box-orient: vertical;"><%= item.brand_desc || '-' %></p></td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }else if( type == 5 ){ %>
     <ul class="select-plugin-category-list j-select-plugin-box" data-cate_level="<%= item.cate_level %>" data-level2="<%= encodeURIComponent(JSON.stringify(item.sub_categorys)) %>" data-id="<%= item.id %>">
         <li class="select-plugin-category-li">
             <span class="select-plugin-category-name"><%= item.cate_name %></span>
-            <span class="select-plugin-category-button"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-cate_level="<%= item.cate_level %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>" data-length="<%= item.sub_categorys.length %>" data-parent_id="<%= item.parent_id %>">选择</a></span>
+            <span class="select-plugin-category-button"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-cate_level="<%= item.cate_level %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>" data-length="<%= item.sub_categorys.length %>" data-parent_id="<%= item.parent_id %>">选择</a></span>
         </li>
     </ul>
     <% }else if( type == 10 ){ %>
     <tr class="j-select-plugin-box">
         <td class="tc"><span><%= item.user_name %></span></td>
         <td class="tc"><span><%= item.mobile %></span></td>
-        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>" data-parent_id="<%= item.parent_id %>">选择</a></td>
+        <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>" data-parent_id="<%= item.parent_id %>">选择</a></td>
     </tr>
     <% } %>
     <% }) %>
@@ -459,7 +474,7 @@
         <td class="tc"><span><%= Number(item.origin_price/100).toFixed(2) %></span></td>
         <td class="tc"><span><%= Number(item.price/100).toFixed(2) %></span></td>
         <td class="tc"><span><%= item.num %></span></td>
-        <td class="tc"><a href="javascript:;" class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.sku_id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
+        <td class="tc"><a href="javascript:;" class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.sku_id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }) %>
 </script>
@@ -470,7 +485,7 @@
     <ul class="select-plugin-category-list j-select-plugin-box" data-cate_level="<%= item.cate_level %>" data-parent_id="<%= item.parent_id %>" data-id="<%= item.id %>">
         <li class="select-plugin-category-li">
             <span class="select-plugin-category-name"><%= item.cate_name %></span>
-            <span class="select-plugin-category-button"><a class="selectDialogPlugin select-group-goods j-select-plugin-g-<%= type %>" data-status="0" data-id="<%= item.id %>" data-cate_level="<%= item.cate_level %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>"  data-parent_id="<%= item.parent_id %>" data-length="<%= items.length %>">选择</a></span>
+            <span class="select-plugin-category-button"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-cate_level="<%= item.cate_level %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>"  data-parent_id="<%= item.parent_id %>" data-length="<%= items.length %>">选择</a></span>
         </li>
     </ul>
     <% }) %>
