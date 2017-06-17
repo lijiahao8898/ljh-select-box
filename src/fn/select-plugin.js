@@ -168,12 +168,20 @@
                     that.selected_list = that.options.selectedList
                 }
                 that.target = $(this);
+
+                // 清空上次的查询条件
+                for(var key in that.search_key){
+                    delete that.search_key[key];
+                }
+                that.pageConfig.pageId = 1;
                 that.addEventOff();
                 that.addEvent();
 
                 // 根据type 进行初始化设置
                 switch (that.options.type) {
                     case 0:
+                        that.brand_key = '';
+                        that.cate_key = '';
                         that.goodsAddEvent();
                         break;
                 }
@@ -188,7 +196,7 @@
             // 刷新
             $(that.body).off('click', ('.' + that.refreshBtn));
             // 搜索
-            $(document).off('click', ('.' + that.selectPluginSearchBtn));
+            $(document).off('click', ('#' + that.selectPluginSearchBtn));
             // 确定使用
             $(document).off('click', ('.' + that.selectPluginSaveBtn));
             // 弹窗 全选本页
@@ -330,7 +338,9 @@
                         // 判断是单选还是多选
                         if (that.options.single === true) {
                             that.options.selectSuccess(selectedList, that.target);
-                            that.dialog.close();
+                            if( that.dialog ){
+                                that.dialog.close();
+                            }
 
                         }
                     } else {
@@ -358,7 +368,9 @@
                         // 判断是单选还是多选
                         if (that.options.single === true) {
                             that.options.selectSuccess(selectedList, that.target);
-                            that.dialog.close();
+                            if( that.dialog ){
+                                that.dialog.close();
+                            }
 
                         }
                         if (level) {
@@ -700,7 +712,7 @@
                 if (total_count && total_count != 0) {
                     $render.html(template(option));
                 } else {
-                    that.noData(total_count);
+                    that.noData(total_count, option);
                 }
                 that.pagination(total_count);
             } else if (option.type == 5) {
