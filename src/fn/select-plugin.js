@@ -170,7 +170,7 @@
                 that.target = $(this);
 
                 // 清空上次的查询条件
-                for(var key in that.search_key){
+                for (var key in that.search_key) {
                     delete that.search_key[key];
                 }
                 that.pageConfig.pageId = 1;
@@ -198,7 +198,7 @@
             // 搜索
             $(document).off('click', ('#' + that.selectPluginSearchBtn));
             // 确定使用
-            $(document).off('click', ('.' + that.selectPluginSaveBtn));
+            $(that.body).off('click', ('.' + that.selectPluginSaveBtn));
             // 弹窗 全选本页
             $(document).off('click', ('.' + that.selectPluginSelectAllBtn));
             // 弹窗选择&取消选择
@@ -338,7 +338,7 @@
                         // 判断是单选还是多选
                         if (that.options.single === true) {
                             that.options.selectSuccess(selectedList, that.target);
-                            if( that.dialog ){
+                            if (that.dialog) {
                                 that.dialog.close();
                             }
 
@@ -361,14 +361,16 @@
                     var selectBtn0, selectBtn1;
                     if (status == '0') {
                         // 选择
-                        selectedList.push(data);
+                        if(that.isInArry(selectedList, data) === false){
+                            selectedList.push(data);
+                        }
                         $(this).attr('data-status', '1');
                         $(this).text('取消');
                         $(this).css({'background': '#26B99A', 'border-color': '#169F85', 'color': '#fff'});
                         // 判断是单选还是多选
                         if (that.options.single === true) {
                             that.options.selectSuccess(selectedList, that.target);
-                            if( that.dialog ){
+                            if (that.dialog) {
                                 that.dialog.close();
                             }
 
@@ -384,7 +386,9 @@
                                 } else {
                                     // 如果是没有展开的情况
                                     for (var n = 0; n < data.sub_categorys.length; n++) {
-                                        selectedList.push(data.sub_categorys[n]);
+                                        if(that.isInArry(selectedList, data) === false){
+                                            selectedList.push(data.sub_categorys[n]);
+                                        }
                                     }
                                 }
                             } else if (level == 2) {
@@ -1025,6 +1029,17 @@
                     $('#' + this.templateRenderArea).html(content)
                 }
             }
+        },
+        /**
+         *
+         */
+        isInArry: function (selectedList, data) {
+            for (var k = 0; k < selectedList.length; k++) {
+                if(selectedList[k].id == data.id){
+                    return true;
+                }
+            }
+            return false;
         }
     };
 
