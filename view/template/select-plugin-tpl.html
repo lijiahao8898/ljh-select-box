@@ -234,11 +234,11 @@
     </tr>
     <% }else if( type == 3 ){ %>
     <tr class="j-select-plugin-box">
-        <td class="tc"><%= item.id %></td>
-        <td class="tc"><%= item.sname %></td>
-        <td class="tc"><%= item.name %></td>
-        <td class="tc"><%= item.address %></td>
-        <td class="tc"><%= ['关闭','开放'][item.status] %></td>
+        <td class="tc"><%= item.storage_id %></td>
+        <td class="tl"><%= item.storage_short_name %></td>
+        <td class="tl"><%= item.storage_name %></td>
+        <td class="tl"><%= (item.address_country).split('|')[0] %><%= (item.address_province).split('|')[0] %><%= (item.address_city).split('|')[0] %><%= (item.address_district).split('|')[0] %><%= item.address_street %></td>
+        <td class="tc"><%= ['-','激活','关闭'][item.status] %></td>
         <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
     <% }else if( type == 4 ){ %>
@@ -280,7 +280,7 @@
     <% }) %>
 </script>
 
-<!-- 弹窗 展开商品对应的sku -->
+<!-- 弹窗 展开一级类目下对应的二级类目 -->
 <script type="text/template" id="j-select-plugin-category2">
     <% _.each(items,function(item,index){ %>
     <ul class="select-plugin-category-list j-select-plugin-box" data-cate_level="<%= item.cate_level %>" data-parent_id="<%= item.parent_id %>" data-id="<%= item.id %>">

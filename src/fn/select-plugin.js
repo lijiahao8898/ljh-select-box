@@ -386,7 +386,7 @@
                                 } else {
                                     // 如果是没有展开的情况
                                     for (var n = 0; n < data.sub_categorys.length; n++) {
-                                        if(that.isInArry(selectedList, data) === false){
+                                        if(that.isInArry(selectedList, data.sub_categorys[n]) === false){
                                             selectedList.push(data.sub_categorys[n]);
                                         }
                                     }
@@ -577,7 +577,7 @@
                     var itemStatus;
                     if (that.options.needFailureInfo == true) {
                         // 需要下架商品
-                        itemStatus = that.statusKey || ''
+                        itemStatus = that.statusKey
                     } else {
                         // 不需要下架商品
                         itemStatus = that.statusKey || 4
@@ -587,8 +587,8 @@
                         page_size: that.pageConfig.pageSize,
                         item_status: itemStatus,
                         key: that.search_key.key,
-                        brand_key: that.search_key.brand_key || '',
-                        category_id: that.search_key.cate_key || ''
+                        brand_key: that.search_key.brand_key,
+                        category_id: that.search_key.cate_key
                     };
 
                     that.ajax(that.ajaxApi, obj, function (data) {
@@ -908,6 +908,8 @@
                     items: data,
                     type: that.options.type
                 }))
+            }else{
+                $('#j-select-plugin-cate-level-2').html('<p class="tc">当前一级类目下无二级类目~</p>')
             }
         },
         /**
