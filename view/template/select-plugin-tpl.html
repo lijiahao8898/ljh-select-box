@@ -63,8 +63,8 @@
             <% } %>
             <% if( type == 3 ){ %>
             <div class="form-group">
-                <input type="checkbox" id="warehouse">
-                <label class="ui-label ui-label-lg" for="warehouse">只显示开放仓库</label>
+                <input type="checkbox" id="select-plugin-warehouse-input">
+                <label class="ui-label ui-label-lg" for="select-plugin-warehouse-input">只显示开放仓库</label>
             </div>
             <% } %>
             <div class="form-group">
@@ -181,7 +181,7 @@
     </tr>
     <tr class="j-select-plugin-sku-box sku-box-<%= item.id %>" style="display: none;">
         <td colspan="20">
-            <table class="ui-table">
+            <table class="ui-table table table-striped jambo_table bulk_action table-bordered">
                 <thead>
                 <tr>
                     <th class="tc">图片</th>
@@ -237,7 +237,12 @@
         <td class="tc"><%= item.storage_id %></td>
         <td class="tl"><%= item.storage_short_name %></td>
         <td class="tl"><%= item.storage_name %></td>
-        <td class="tl"><%= (item.address_country).split('|')[0] %><%= (item.address_province).split('|')[0] %><%= (item.address_city).split('|')[0] %><%= (item.address_district).split('|')[0] %><%= item.address_street %></td>
+        <td class="tl">
+            <%= item.address_country ? (item.address_country).split('|')[0] : '' %>
+            <%= item.address_province ? (item.address_province).split('|')[0] : '' %>
+            <%= item.address_city ? (item.address_city).split('|')[0] : '' %>
+            <%= item.address_district ? (item.address_district).split('|')[0] : '' %>
+            <%= item.address_street %></td>
         <td class="tc"><%= ['-','激活','关闭'][item.status] %></td>
         <td class="tc"><a class="selectDialogPlugin select-group-goods j-select-plugin-g" data-status="0" data-id="<%= item.id %>" data-info="<%= encodeURIComponent(JSON.stringify(item)) %>">选择</a></td>
     </tr>
