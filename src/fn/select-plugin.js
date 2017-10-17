@@ -28,6 +28,7 @@
      * @type {Array}   categoryList                 // 需要展示的类目列表
      * @type {Array}   brandList                    // 需要展示的品牌列表
      * @type {boolean} showCateAndBrand             // 是否展示类目列表和品牌列表的搜索 ( 默认false )
+     * @type {object}  postData                     // 需要提交的额外的参数
      * function selectSuccess                       // 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针
      * function selectError                         // 失败选择之后的回调 返回一条错误信息info
      * function ajaxError                           // 接口请求报错后的回调
@@ -57,6 +58,7 @@
             categoryList: [],                           // 需要展示的二级类目列表
             brandList: [],                              // 需要展示的品牌列表
             showCateAndBrand: false,                    // 是否展示类目列表和品牌列表的搜索 ( 默认false )
+            postData: {},                               // 需要提交的额外的参数
             selectSuccess: function (data, target) {    // 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针
             },
             selectError: function (info) {              // 失败选择之后的回调 返回一条错误信息info
@@ -576,7 +578,7 @@
          */
         prepareHttpRequest: function (template) {
             var that = this;
-            var obj, api;
+            var obj, api, combineObj;
             switch (that.options.type) {
                 // 商品
                 case 0:
@@ -596,8 +598,8 @@
                         brand_key: that.search_key.brand_key,
                         category_id: that.search_key.cate_key
                     };
-
-                    that.ajax(that.ajaxApi, obj, function (data) {
+                    combineObj = $.extend({}, that.options.postData, obj);
+                    that.ajax(that.ajaxApi, combineObj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             isSku: that.options.isSku,
@@ -613,7 +615,8 @@
                         page_size: that.pageConfig.pageSize,
                         key: that.search_key.user_key
                     };
-                    that.ajax(that.ajaxApi, obj, function (data) {
+                    combineObj = $.extend({}, that.options.postData, obj);
+                    that.ajax(that.ajaxApi, combineObj, function (data) {
                         that.renderOption = {
                             items: data.data.module,
                             type: that.options.type
@@ -638,7 +641,8 @@
                         name: that.search_key.coupon_key,
                         lifecycle: coupon_lifecycle
                     };
-                    that.ajax(that.ajaxApi, obj, function (data) {
+                    combineObj = $.extend({}, that.options.postData, obj);
+                    that.ajax(that.ajaxApi, combineObj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             type: that.options.type,
@@ -655,7 +659,8 @@
                         has_code: 0,
                         name: that.search_key.warehouse_key
                     };
-                    that.ajax(that.ajaxApi, obj, function (data) {
+                    combineObj = $.extend({}, that.options.postData, obj);
+                    that.ajax(that.ajaxApi, combineObj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             type: that.options.type
@@ -670,7 +675,8 @@
                         page_size: that.pageConfig.pageSize,
                         keywords: that.search_key.brand_name
                     };
-                    that.ajax(that.ajaxApi, obj, function (data) {
+                    combineObj = $.extend({}, that.options.postData, obj);
+                    that.ajax(that.ajaxApi, combineObj, function (data) {
                         that.renderOption = {
                             items: data.data.data,
                             type: that.options.type
@@ -682,7 +688,8 @@
                 case 5:
                     console.log(template);
                     obj = {};
-                    that.ajax(that.ajaxApi, obj, function (data) {
+                    combineObj = $.extend({}, that.options.postData, obj);
+                    that.ajax(that.ajaxApi, combineObj, function (data) {
                         that.renderOption = {
                             items: data.data,
                             type: that.options.type

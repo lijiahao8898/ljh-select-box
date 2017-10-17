@@ -50,6 +50,9 @@
             ajaxType: 'get',
             selectLength: 0,
             ajaxDataType: 'json',
+            postData: {
+                name: 1
+            },
             selectSuccess: function(data){
                 console.log(data)
             },
@@ -186,6 +189,9 @@
             ajaxUrl: '../stub/demo_category.json',
             ajaxType: 'get',
             ajaxDataType: 'json',
+            postData: {
+                name: 1
+            },
             selectSuccess: function (data) {
                 console.log(data)
             },
