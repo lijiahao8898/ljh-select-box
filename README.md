@@ -85,32 +85,32 @@ css:
 ### update & bugFix
 
 - 2017.10.17 &nbsp; v2.0.0
-    * 增加了额外的参数携带 `postData`
+    * 新增 `postData` 携带额外的参数
 - 2017.07.07 &nbsp; v2.0.0
-    * 修复了在没有展开二级类目的情况下,二级类目不选中的问题
-    * 修复了在二级类目没有数据的情况下,二级类目数据不变的问题(应该展示无当前数据)
+    * 修复 在没有展开二级类目的情况下,二级类目不选中的问题
+    * 修复 在二级类目没有数据的情况下,二级类目数据不变的问题(应该展示无当前数据)
 
 - 2017.06.29 &nbsp; v2.0.0
-    * 修复了再二级类目请求的时候.在 `selectList` 重复添加数据的问题
+    * 修复 再二级类目请求的时候.在 `selectList` 重复添加数据的问题
 
 - 2017.06.15 &nbsp; v2.0.0
-    * 增加了品牌和类目的 `type` 类型
-    * 将接口更改为参数
-    * 修复同一个 `type` 类型不能同时出现2个或者以上的bug 导致选择的时候多次点击
-    ps: 选择类目后一二级类目都会返回.请自行处理
+    * 新增 品牌和类目的 `type` 类型
+    * 修改 将接口更改为参数
+    - 修复 同一个 `type` 类型不能同时出现2个或者以上的bug 导致选择的时候多次点击
+        * ps: 选择类目后一二级类目都会返回.请自行处理
 
 - 2017.06.12 &nbsp; v1.0.0
-    * 增加了 `categoryList` 的配置项
-    * 增加了 `categoryList` 的配置项
-    * 增加了 `showCateAndBrand` 的配置项用于控制 `categoryList` 和 `brandList` 的展示
+    * 新增 `categoryList` 的配置项
+    * 新增 `categoryList` 的配置项
+    * 新增 `showCateAndBrand` 的配置项用于控制 `categoryList` 和 `brandList` 的展示
 
 - 2017.05.26 &nbsp; v1.0.0
-    * 增加了 `needFailureInfo` 的配置项
+    * 新增 `needFailureInfo` 的配置项
 
 - 2017.05.18 &nbsp; v1.0.0
-    * 增加了 `ajaxType` 的类型
-    * 增加了 `ajaxDataType` 的类型
-    * 增加接口请求错误后的回调ajaxError
+    * 新增 `ajaxType` 的类型
+    * 新增 `ajaxDataType` 的类型
+    * 新增 接口请求错误后的回调 `ajaxError`
     * 相关优化
 
 ### 版本相关:
