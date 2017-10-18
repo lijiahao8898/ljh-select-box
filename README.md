@@ -1,9 +1,3 @@
-<style>
-    .markdown-body{
-        font-size: 14px;
-    }
-</style>
-
 ## 选择插件 ljh-select-box
 
 ### 插件简介
