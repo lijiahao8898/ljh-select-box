@@ -1,0 +1,23 @@
+{
+  "name": "ljh-select-box",
+  "version": "1.0.0",
+  "description": "选择插件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lijiahao8898/ljh-select-box.git"
+  },
+  "author": "lijiahao8898",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lijiahao8898/ljh-select-box/issues"
+  },
+  "homepage": "https://github.com/lijiahao8898/ljh-select-box#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-file-include": "^1.2.0"
+  }
+}
