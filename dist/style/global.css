@@ -1,0 +1,759 @@
+/*布局*/
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+    float: left;
+}
+.col-12 {
+    width: 100%;
+}
+.col-11 {
+    width: 91.66666667%;
+}
+.col-10 {
+    width: 83.33333333%;
+}
+.col-9 {
+    width: 75%;
+}
+.col-8 {
+    width: 66.66666667%;
+}
+.col-7 {
+    width: 58.33333333%;
+}
+.col-6 {
+    width: 50%;
+}
+.col-5 {
+    width: 41.66666667%;
+}
+.col-4 {
+    width: 33.33333333%;
+}
+.col-3 {
+    width: 25%;
+}
+.col-2 {
+    width: 16.66666667%;
+}
+.col-1 {
+    width: 8.33333333%;
+}
+.col-offset-12 {
+    margin-left: 100%;
+}
+.col-offset-11 {
+    margin-left: 91.66666667%;
+}
+.col-offset-10 {
+    margin-left: 83.33333333%;
+}
+.col-offset-9 {
+    margin-left: 75%;
+}
+.col-offset-8 {
+    margin-left: 66.66666667%;
+}
+.col-offset-7 {
+    margin-left: 58.33333333%;
+}
+.col-offset-6 {
+    margin-left: 50%;
+}
+.col-offset-5 {
+    margin-left: 41.66666667%;
+}
+.col-offset-4 {
+    margin-left: 33.33333333%;
+}
+.col-offset-3 {
+    margin-left: 25%;
+}
+.col-offset-2 {
+    margin-left: 16.66666667%;
+}
+.col-offset-1 {
+    margin-left: 8.33333333%;
+}
+
+.has-feedback {
+    position: relative;
+}
+.form-control-feedback {
+    visibility: hidden;
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    display: block;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    background: url(../images/close.png) no-repeat;
+    background-position: 0 0;
+}
+.form-control-feedback:hover {
+    background-position: 0 -22px;
+}
+.input-lg {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+}
+.input-sm {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+.input-long, .input-group .input-long {
+    width: 300px;
+}
+.input-long+.input-group-addon, .input-long+.input-group-btn {
+    width: auto;
+}
+.input-middle, .input-group .input-middle {
+    width: 200px;
+}
+.input-middle+.input-group-addon, .input-middle+.input-group-btn {
+    width: auto;
+}
+.input-short, .input-group .input-short {
+    width: 100px;
+}
+.input-short+.input-group-addon, .input-short+.input-group-btn{
+    width: auto;
+}
+.control-label {
+    text-align: right;
+    padding: 7px 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+.form-control-static {
+    padding: 7px 0;
+    font-size: 14px;
+    line-height: 20px
+}
+.form-required {
+    font-family: SimSun;
+    color: #f00;
+    margin-right: 5px;
+    vertical-align: top;
+    font-size: 12px;
+}
+.form-other {
+    margin: 0 5px;
+}
+.form-hint {
+    color: #888;
+}
+.checkbox, .radio {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 20px;
+}
+.checkbox label, .radio label {
+    min-height: 20px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: -20px;
+}
+.checkbox+.checkbox, .radio+.radio {
+    /* margin-top: -5px; */
+}
+.checkbox-inline, .radio-inline {
+    position: relative;
+    display: inline-block;
+    padding-left: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    line-height: 20px;
+}
+.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline {
+    margin-top: 0;
+    margin-left: 10px;
+}
+textarea.form-control {
+    height: auto;
+    resize: none;
+}
+.cbox>* {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+.cbox span {
+    width: 18px;
+    height: 18px;
+    margin-right: 3px;
+    border-radius: 3px;
+}
+.cbox span.uncheck {
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+.cbox span.checked {
+    border: 0;
+    background: url(../../images/checked.png) no-repeat;
+}
+.cbox label {
+    color: #666;
+}
+.select-list {
+    float: left;
+    margin-bottom: -10px;
+}
+.select-list li {
+    float: left;
+    width: 108px;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid #e7e7eb;
+    text-align: center;
+    margin: 0 10px 10px 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.select-list li[selected] {
+    border-color: #00aeef;
+}
+
+/*UI*/
+
+.ui-box {
+    margin-bottom: 15px;
+}
+.ui-box:last-child {
+    margin-bottom: 0;
+}
+.ui-tab {
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+}
+.ui-tab ul {
+    margin-bottom: -1px;
+    margin-left: 1px;
+}
+.ui-tab ul:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.ui-tab li {
+    float: left;
+    margin-left: -1px;
+}
+.ui-tab li.active a {
+    border-bottom-color: #fff;
+    background: #fff;
+}
+.ui-tab li.pull-right {
+    float: right
+}
+.ui-tab li a {
+    display: inline-block;
+    padding: 0 12px;
+    line-height: 32px;
+    color: #333;
+    border: 1px solid #e5e5e5;
+    background: #f8f8f8;
+    text-align: center;
+}
+.ui-nav-tab {
+    margin-bottom: 15px;
+}
+.ui-nav-tab ul:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.ui-nav-tab li {
+    float: left;
+    margin-left: -1px;
+    width: 50%;
+}
+.ui-nav-tab li.active a {
+    border-bottom-color: #fff;
+    background: #fff;
+}
+.ui-nav-tab li a {
+    display: block;
+    line-height: 32px;
+    color: #333;
+    border: 1px solid #e5e5e5;
+    background: #f8f8f8;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+.widget-list {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.tip {
+    position: relative;
+    padding: 10px 30px 10px 15px;
+    margin-bottom: 10px;
+}
+.tip:last-child {
+    margin-bottom: 0;
+}
+.tip .cancel {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: 15px;
+    top: 14px;
+    cursor: pointer;
+    background: url(../../images/close.png) no-repeat;
+    background-size: 16px;
+}
+.tip .cancel:hover {
+    background-position: 0 -16px;
+}
+.tip .tip-cont {
+    line-height: 24px;
+}
+.tip .tip-cont .light {
+    color: #ff6600;
+}
+.tip-primary {
+    background: #e0eaf6;
+}
+.tip-warning {
+    background: #ffffdc;
+}
+.tip-primary .icon-primary {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 5px;
+    background: url(../../images/icon_primary.png) no-repeat;
+}
+/***自行添加**/
+/*.form-group{
+    margin-bottom: 10px!important;
+}*/
+
+.ui-box-container {
+    padding: 20px;
+    background: #f2f8fe;
+    border: 1px solid #ccc;
+}
+.ui-box-container p{
+    float: left;
+    width:850px;
+    color:#666;
+}
+.ui-box-container p.title{
+    font-size: 16px;
+    margin: 5px 0;
+}
+/*
+ *
+ *todo 公共部分样式
+ *
+ *
+ */
+.ui-form-required{
+    color: red;
+}
+.ui-label{
+    display: inline-block;
+    width: 70px;
+}
+.ui-label-sm{
+    width: 70px;
+
+}
+.ui-label-md{
+    width: 100px;
+}
+.ui-label-lg{
+    width: 140px;
+}
+.ui-label-left{
+    text-align: left;
+}
+.ui-label-right{
+    text-align: right;
+}
+.checkbox-wrapper{
+    display: inline-block;
+    vertical-align: top;
+}
+.checkbox-wrapper li{
+    margin-bottom: 5px;
+}
+.select-wrapper{
+    margin-left: 70px;
+}
+.button-group{
+    position: absolute;
+    left: 230px;
+    bottom: 25px;
+    padding: 25px;
+    right: 20px;
+    background: #f8f8f8;
+    text-align: center;
+}
+.button-group .btn{
+    padding: 6px 24px;
+}
+.example{
+    vertical-align: top;
+    margin-bottom: 100px;
+}
+.table-line{
+     color:#459ae9
+}
+.ui-box.button-wrapper{
+    height: 100px;
+}
+.ui-box .button-group .btn:first-child{
+    margin-right:25px;
+}
+.poptip-info{
+    font-size: 12px;
+    color: #999;
+}
+.label-block{
+    display: inline-block;
+}
+.size-info{
+    font-size: 12px;
+    color: #BA9292;
+}
+/*
+ *
+ *todo 头部常驻
+ *
+ */
+.fixed-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    right: 0;
+    z-index: 1025;
+}
+.header.fixed-header .mainnav{
+    float: left;
+    margin: 20px 0 0 10px;
+}
+.header.fixed-header .logo{
+    margin: 10px 0 0 10px;
+}
+.header.fixed-header .mainnav li .line{
+    bottom: -20px;
+}
+.header.fixed-header .user{
+    margin-top: 0;
+}
+/*
+ *
+ *todo 开关功能样式
+ *
+ */
+.ui-box-container .switch{
+    float: right;
+}
+.ui-table .switch {
+    float: none;
+}
+.switch {
+    cursor: pointer;
+    overflow: hidden;
+    display: inline-block;
+    width: 47px;
+    height: 22px;
+    border-radius: 12px;
+    border: 1px solid #999;
+    background: #fff;
+}
+.switch label {
+    display: block;
+    width: 45px;
+    height: 20px;
+    text-align: right;
+    -webkit-transition: margin-left .5s ease;
+}
+.switch i {
+    cursor: pointer;
+    display: block;
+    width: 47px;
+    height: 22px;
+    border-radius: 12px;
+    background: rgba(0,184,0,0.8);
+}
+.switch i::after {
+    position: relative;
+    display: inline-block;
+    top: -1px;
+    left: 1px;
+    content: '';
+    width: 22px;
+    height: 20px;
+    border: 1px solid #999;
+    border-radius: 12px;
+    background: #fff;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.switch.close {
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+.switch.open label {
+    margin-left: 0;
+}
+.switch.close label {
+    margin-left: -25px;
+}
+.switch.small, .switch.small label, .switch.small i {
+    width: 32px;
+    height: 18px;
+}
+.switch.small i::after {
+    width: 18px;
+    height: 16px;
+}
+.switch.small.close label {
+    margin-left: -16px;
+}
+
+/*
+ *
+ *todo 营销部分
+ *
+ *
+ */
+.market-title {
+    background: #f2f2f2;
+    padding: 10px 15px;
+}
+.market-title h1 {
+    font-size: 14px;
+}
+.mobile-wrapper {
+    width: 360px;
+}
+.mobile-wrapper img {
+    width: 360px;
+}
+.form-wrapper {
+    width: 560px;
+    background: #f8f8f8;
+    padding: 20px;
+    border: 1px solid #d1d1d1;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.gallery-list ul {
+    margin-bottom: -10px;
+}
+.gallery-list li {
+    float: left;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #dedede;
+    margin: 0 10px 10px 0;
+    background: url(../../images/icon_add.png) no-repeat center #fff;
+    cursor: pointer;
+    position: relative;
+}
+.gallery-list li img {
+    width: 48px;
+    height: 48px;
+}
+.form-cont {
+    background: #fff;
+    padding-top: 10px;
+    border: 1px solid #f2f2f2;
+}
+.market-footer {
+    background: #f8f8f8;
+    text-align: center;
+    padding: 20px;
+}
+.market-footer .btn:nth-child(2){
+    margin-left: 50px;
+}
+.select-goods {
+    height: 525px;
+    overflow-x: hidden;
+}
+
+/*
+ *
+ *todo 数据中心部分
+ *
+ *
+ */
+.plate-title {
+    overflow: hidden;
+    background: #f8f8f8;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.plate-title h1 {
+    float: left;
+    border-left: 3px solid #ff6600;
+    padding-left: 10px;
+    font-weight: bold;
+}
+.plate-title span{
+    float: right;
+    background: #ccc;
+    color: #fff;
+    padding: 0 6px;
+    border-radius: 100%;
+    cursor:pointer;
+}
+.plate-title span:hover{
+    background: #44b549;
+}
+/*
+ *
+ *todo 图片上传弹出框
+ *
+ *
+ */
+.popup-upload{
+    padding:0 30px;
+}
+.popup-upload .form-inline .form-group{
+    padding: 30px 0;
+}
+.popup-upload .form-control{
+    width: 468px!important;
+}
+.popup-upload .line{
+    width: 600px;
+    border-bottom: 1px solid #ccc;
+}
+.upload-btn{
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+.img-upload , .img-import{
+    text-align: center;
+    vertical-align: top;
+    margin: 0 5px 0 0;
+    display: inline-block;
+    width: 81px;
+    height: 81px;;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #ccc;
+    transition: background 0.5s;
+    overflow: hidden;
+}
+.img-upload.upload-ok{
+    background: #fff;
+}
+.img-upload p , .img-import p{
+    height: 80px;
+    line-height: 80px;
+    color: #fff;
+}
+.img-upload .img ,.img-import .img{
+    width: 100%;
+    height: 100%;
+}
+.upload-footer{
+    margin: 20px 0;
+    text-align: right;
+}
+.j-close,.pic-close,.j-close-image{
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    background: rgba(0,0,0,0.3);
+    border-radius: inherit;
+    display: none;
+}
+.j-sort img{
+    position: relative;
+    top: 2px;
+    right: 2px;
+    width: 6px!important;
+    height: 12px!important;
+}
+.j-close img,.pic-close img,.j-close-image img{
+    cursor: pointer;
+    margin-top: 24px;
+    width: 32px!important;
+    height: 32px!important;
+}
+.img-upload:hover .j-close-image ,.img-import:hover .j-close-image{
+    display: inline-block;
+}
+.s-line{
+    color: #459ae9;
+}
+.j-upload-info{
+    position: absolute;
+    background: #fff;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+.img-import,.img-upload{
+    position: relative;
+}
+/*
+ *
+ *todo 注意的感叹号样式
+ *
+ *
+ */
+.attention{
+    background: #00aeef;
+    border-radius: 100%;
+    color: #fff;
+    padding: 1px 7px;
+    margin-right: 10px;
+}
+.attention-o.attention{
+    background: #fff;
+    border: 1px solid #ff8c41;
+    color: #ff8c41;
+}
+/*
+ *
+ *todo 功能菜单模块
+ *
+ *
+ */
+.j-fun-block{
+    display: none;
+}

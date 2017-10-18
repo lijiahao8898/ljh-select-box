@@ -1,0 +1,113 @@
+#ljh-select-box table.ljh-select-box-table > tbody {
+    display:block;
+    height: 280px;
+    overflow: scroll;
+}
+
+#ljh-select-box table.ljh-select-box-table > thead, table.ljh-select-box-table > tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+#ljh-select-box .selectize-input{
+    border-radius: 0;
+}
+
+#ljh-select-box .select-group-goods {
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    text-align: center;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+}
+
+#ljh-select-box .popup-g-name, .g-name {
+    width: 250px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#ljh-select-box .select-plugin-search {
+    padding: 10px 0;
+    /*border-bottom: 1px solid #ccc;*/
+    /*box-shadow: 0 2px 1px rgba(0,0,0,0.2);*/
+    /*position: relative;*/
+    /*z-index: 10;*/
+}
+
+#ljh-select-box .select-plugin-table-wrapper {
+    /*height: 320px;*/
+    /*overflow: scroll;*/
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    -o-box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    -ms-box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+#ljh-select-box .select-plugin-brand-wrapper,.select-plugin-category-selectize-wrapper{
+    width: 150px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 31px;
+}
+#ljh-select-box .select-plugin-image{
+    width: 45px;
+    height: 45px;
+    border-radius: 4px;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+#ljh-select-box .select-plugin-ellipsis{
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow : hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient:vertical
+}
+
+/************** 类型为5 类目的样式 ***************/
+#ljh-select-box .select-plugin-category{
+    width: 48%;
+    float: left;
+    text-align: center;
+    margin: 0 5px 15px 5px;
+    border: 1px solid #ccc;
+}
+#ljh-select-box .select-plugin-category-title{
+    color: #fff;
+    padding: 5px;
+    margin-bottom: 5px;
+    background: #26B99A;
+}
+#ljh-select-box .select-plugin-category-content{
+    height: 330px;
+    overflow: scroll;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list{
+    list-style-type: none;
+    overflow: hidden;
+    padding: 8px 10px;
+    margin-bottom: 0;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list.active{
+    background: #eee;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list .select-plugin-category-name{
+    float: left;
+    display: inline-block;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list .select-plugin-category-button{
+    float: right;
+    display: inline-block;
+}
+#ljh-select-box .select-plugin-category-wrapper{
+    overflow: hidden;
+}
