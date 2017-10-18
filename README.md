@@ -1,26 +1,36 @@
 ## 选择插件 ljh-select-box
 
-### 插件描述
-该插件主要实现的功能是根据选择的内容返回选择的数组对象，有单选，多选等相应的功能。
+### 插件简介
+- 插件介绍
+    * 该插件主要实现的功能是根据选择的内容返回选择的数组对象，有单选，多选等相应的功能。查看[demo](https://lijiahao8898.github.io/ljh-select-box/dist/view/)。
+- 插件功能
+    * 支持 单选、多选、sku单选、sku多选、商品选择、用户选择、类目选择、品牌选择、仓库选择、优惠券选择。
+    * 支持 类型选择（默认是0,其他【0：商品，1：用户，2：优惠券，3：仓库，4：品牌，5：类目】）。
+    * 支持 标题自定义。
+    * 支持 全选、单选的判断（单选情况下是否直接关闭弹窗）。
+    * 支持 刷新按钮的判断（暂未涉及）。
+    * 支持 多个调用并且返回当前点击的指针位置。
+    * 支持 多选情况下选择的个数限制 (0 为无限)。
+    * 支持 将请求的借口作为参数传入。
+    * 支持 品牌、类目的搜索（需要自己传入品牌、类目的list。并且根据showCateAndBrand判断是否展示）。
+    * 支持 下架商品、过期优惠券的隐藏不展示功能。排除无用数据。
+    * 支持 请求接口的参数自定义 `postData`。
+    * 返回一个cb：selectSuccess ( 单选 和 多选 )。
+    * 返回一个cb：selectError ( 数据超出上限会报这个错误 )。
+    * 返回一个cb：ajaxError （ ajax请求报错回调 ）。
 
-### demo
+### Getting started
+```
+git clone https://github.com/lijiahao8898/ljh-select-box.git
 
-[demo](https://lijiahao8898.github.io/ljh-select-box/view/)
+cd ljh-select-box
 
-### 插件要实现的功能：
-* 支持单选、多选、sku单选、sku多选、商品选择、用户选择、类目选择、品牌选择、仓库选择、优惠券选择。
-* 传入选择框展示的内容type（默认是0,其他【0：商品，1：用户，2：优惠券，3：仓库，4：品牌，5：类目】）
-* 支持标题自定义
-* 支持全选、单选的判断（单选情况下是否直接关闭弹窗）
-* 支持刷新按钮的判断（暂未涉及）
-* 支持多个调用并且返回当前点击的指针位置
-* 支持多选情况下选择的个数限制 (0 为无限)
-* 将请求的借口作为参数传入
-* 支持品牌、类目的搜索（需要自己传入品牌、类目的list。并且根据showCateAndBrand判断是否展示）
-* 支持下架商品、过期优惠券的隐藏不展示功能。排除无用数据
-* 返回一个cb：selectSuccess ( 单选 和 多选 )
-* 返回一个cb：selectError ( 数据超出上限会报这个错误 )
-* 返回一个cb：ajaxError （ ajax请求报错回调 ）
+npm install
+
+gulp dist
+
+// and then open the dist/view/index.html to look the demo
+```
 
 ### 引用：
 只需要引用对应的 `js` ， `css`， `html模板`即可。
@@ -38,13 +48,9 @@ css:
 用到的其他插件：
 
 * `jquery.dialog`
-
 * `jquery.paginator`
-
 * `selectize`
-
 * `underscore`
-
 * `jquery`
 
 ### 调用：
@@ -53,6 +59,7 @@ css:
     // options
 })
 ```
+
 ### 传参
 ```
     /**
@@ -80,9 +87,9 @@ css:
         * function ajaxError                           // 接口请求报错后的回调
         */
  ```
+
 ### 需要修改
  1. 支持出商品外的其他数据的选择
-
 
 ### update & bugFix
 - 2017.10.18 &nbsp; v2.0.0
@@ -121,7 +128,6 @@ css:
     * 相关优化
 
 ### 版本相关:
-
 当前只有 `master` 版本
 
 
