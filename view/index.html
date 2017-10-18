@@ -5,9 +5,7 @@
     <title>选择弹窗插件</title>
     <link rel="stylesheet" href="../src/plugin/selectize/selectize.bootstrap3.css">
     <link rel="stylesheet" href="../src/plugin/jquery.dialog/jquery.dialog.css">
-    <link rel="stylesheet" href="../style/common.css">
     <link rel="stylesheet" href="../style/default.css">
-    <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/ljh-select-box.css">
 </head>
 <style>
@@ -34,7 +32,11 @@
 <div id="demo">
     <div class="info">选择完的数据会在控制台打印出来</div>
     <ul>
-        <li><button id="selectPluginButtonGoods" class="btn btn-success btn-sm">选择商品一号</button></li>
+        <li>
+            <button id="selectPluginButtonGoods" class="btn btn-success btn-sm">选择商品一号</button>
+
+            <p>最简单的选择框</p>
+        </li>
         <li><button id="selectPluginButtonGoods2" class="btn btn-success btn-sm">选择商品二号</button></li>
         <li><button id="selectPluginButtonGoodsSku" class="btn btn-success btn-sm">选择商品sku</button></li>
         <li><button id="selectPluginButtonUsers" class="btn btn-success btn-sm">选择用户</button></li>
@@ -83,7 +85,6 @@
             isSelectAll:true,
             single: false,
             type:0,
-            title:'选择商品',
             ajaxUrl: '../stub/demo.json',
             ajaxSkuUrl: '../stub/demo_sku.json',
             ajaxType: 'get',

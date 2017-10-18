@@ -75,12 +75,12 @@
             </div>
         </div>
         <div class="select-plugin-table-wrapper">
-            <table class="ui-table table table-striped jambo_table bulk_action table-bordered">
+            <table class="ljh-select-box-table ui-table table table-striped jambo_table bulk_action table-bordered">
                 <thead>
                 <% if( type == 0 ){ %>
                 <tr>
                     <th class="tc">图片</th>
-                    <th>标题<a href="javascript:;" class="j-select-plugin-refresh">&nbsp;&nbsp;刷新&nbsp;</a></th>
+                    <th class="w250">标题<a href="javascript:;" class="j-select-plugin-refresh">&nbsp;&nbsp;刷新&nbsp;</a></th>
                     <th class="tc">创建时间</th>
                     <th class="tc">状态</th>
                     <th class="tc">类型</th>
@@ -153,7 +153,7 @@
     <% if( type == 0 ){ %>
     <tr class="j-select-plugin-box">
         <td class="tc"><span><img src="<%= item.icon_url %>" style="width: 50px;height: 50px;"></span></td>
-        <td><span class="popup-g-name"><%= item.item_name %></span></td>
+        <td class="w250"><span class="popup-g-name"><%= item.item_name %></span></td>
         <td class="tc"><span><%= item.gmt_created %></span></td>
         <td class="tc">
             <% if( item.item_status == 4 ){ %>

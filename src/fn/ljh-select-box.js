@@ -35,7 +35,7 @@
      */
     var selectPluginFunc = function (ele, opt) {
 
-        var title = '全部商品&nbsp;|&nbsp;<a href="goods.html">新建商品</a><label>&nbsp;&nbsp;&nbsp;' +
+        var title = '全部商品&nbsp;<label>&nbsp;&nbsp;' +
             '<input data-type="4" type="checkbox" class="j-select-plugin-checkbox"/>&nbsp;只要上架商品</label>';
 
         this.$element = ele.selector;                   // 点击弹窗的element
@@ -526,11 +526,11 @@
         popupDialog: function () {
             var that = this;
             var dialogHtml = that.theDialogRenderHtml();
-            var blankContent = '<div id="'+ that.pluginIdName +'"></div>';
+            var blankContent = '<div id="' + that.pluginIdName + '"></div>';
             that.search_key = {};               // 在页面不刷新的情况下重置搜索条件.
             that.pageConfig.pageId = 1;         // 在页面不刷新的情况下重置翻页数据.
             that.dialog = jDialog.dialog({
-                title: that.options.title,
+                title: that.options.title === '' ? '选择商品' : that.options.title,
                 content: blankContent,
                 width: 740,
                 height: 500,

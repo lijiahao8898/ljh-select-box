@@ -1,4 +1,20 @@
-.select-group-goods {
+#ljh-select-box table.ljh-select-box-table > tbody {
+    display:block;
+    height: 280px;
+    overflow: scroll;
+}
+
+#ljh-select-box table.ljh-select-box-table > thead, table.ljh-select-box-table > tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+#ljh-select-box .selectize-input{
+    border-radius: 0;
+}
+
+#ljh-select-box .select-group-goods {
     display: inline-block;
     width: 50px;
     height: 20px;
@@ -10,7 +26,7 @@
     cursor: pointer;
 }
 
-.popup-g-name, .g-name {
+#ljh-select-box .popup-g-name, .g-name {
     width: 250px;
     display: inline-block;
     overflow: hidden;
@@ -18,32 +34,37 @@
     white-space: nowrap;
 }
 
-.select-plugin-search {
-    padding: 15px 0;
-    border-bottom: 1px solid #ccc;
-    box-shadow: 0 2px 1px rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 10;
+#ljh-select-box .select-plugin-search {
+    padding: 10px 0;
+    /*border-bottom: 1px solid #ccc;*/
+    /*box-shadow: 0 2px 1px rgba(0,0,0,0.2);*/
+    /*position: relative;*/
+    /*z-index: 10;*/
 }
 
-.select-plugin-table-wrapper {
-    height: 320px;
-    overflow: scroll;
+#ljh-select-box .select-plugin-table-wrapper {
+    /*height: 320px;*/
+    /*overflow: scroll;*/
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    -o-box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    -ms-box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
-.select-plugin-brand-wrapper,.select-plugin-category-selectize-wrapper{
+#ljh-select-box .select-plugin-brand-wrapper,.select-plugin-category-selectize-wrapper{
     width: 150px;
     display: inline-block;
     vertical-align: middle;
     height: 31px;
 }
-.select-plugin-image{
+#ljh-select-box .select-plugin-image{
     width: 45px;
     height: 45px;
     border-radius: 4px;
     padding: 2px;
     border: 1px solid #ccc;
 }
-.select-plugin-ellipsis{
+#ljh-select-box .select-plugin-ellipsis{
     -webkit-box-orient: vertical;
     display: -webkit-box;
     text-overflow: ellipsis;
@@ -53,40 +74,40 @@
 }
 
 /************** 类型为5 类目的样式 ***************/
-.select-plugin-category{
+#ljh-select-box .select-plugin-category{
     width: 48%;
     float: left;
     text-align: center;
     margin: 0 5px 15px 5px;
     border: 1px solid #ccc;
 }
-.select-plugin-category-title{
+#ljh-select-box .select-plugin-category-title{
     color: #fff;
     padding: 5px;
     margin-bottom: 5px;
     background: #26B99A;
 }
-.select-plugin-category-content{
+#ljh-select-box .select-plugin-category-content{
     height: 330px;
     overflow: scroll;
 }
-.select-plugin-category-content .select-plugin-category-list{
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list{
     list-style-type: none;
     overflow: hidden;
     padding: 8px 10px;
     margin-bottom: 0;
 }
-.select-plugin-category-content .select-plugin-category-list.active{
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list.active{
     background: #eee;
 }
-.select-plugin-category-content .select-plugin-category-list .select-plugin-category-name{
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list .select-plugin-category-name{
     float: left;
     display: inline-block;
 }
-.select-plugin-category-content .select-plugin-category-list .select-plugin-category-button{
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list .select-plugin-category-button{
     float: right;
     display: inline-block;
 }
-.select-plugin-category-wrapper{
+#ljh-select-box .select-plugin-category-wrapper{
     overflow: hidden;
 }
