@@ -14,7 +14,7 @@
      * @type {boolean} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
      * @type {boolean} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
      * @type {boolean} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-     * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,4:品牌,5:类目,10:合约)
+     * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,4:品牌,5:类目)
      * @type {number}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
      * @type {string}  title                        // 商品选择弹窗的title
      * @type {boolean} isSelectAll                  // 判断是否显示全选按钮
@@ -44,7 +44,7 @@
             needSkuGoodsInfo: false,                    // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
             single: false,                              // 判断 selectPlugin 是单选还是多选 默认是多选
             isSku: false,                               // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
-            type: 0,                                    // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,10:合约)
+            type: 0,                                    // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库)
             selectLength: 0,                            // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
             title: title,                               // 商品选择弹窗的title
             isSelectAll: true,                          // 判断是否显示全选按钮
@@ -77,11 +77,13 @@
          * init: 初始化
          */
         init: function () {
-            this.typeArr = [0, 1, 2, 3, 4, 5, 10];                                  // 类型数据
+
+            // 通用内容
+            this.typeArr = [0, 1, 2, 3, 4, 5];                                      // 类型数据
             this.search_key = {};                                                   // 搜索配置
             this.pageConfig = {                                                     // 翻页配置
                 pageSize: 20,
-                visiblePages: 6,
+                visiblePages: 5,
                 pageId: 1
             };
 
@@ -122,6 +124,7 @@
              */
             this.renderOption = {};                                                         // 渲染的option条件 example: item:data.data
             this.body = 'body';
+            this.pluginIdName = 'ljh-select-box';                                           // 插件的id
             this.selectPluginBox = 'j-select-plugin-box';                                   // 一条商品
             this.templatePopupDialog = 'j-select-plugin-popup-dialog';                      // 弹窗模板
             this.selectPluginSaveBtn = 'j-select-plugin-save';                              // 确定使用按钮
@@ -257,10 +260,6 @@
                         break;
                     case 5:
                         console.log('category');
-                        break;
-                    case 10:
-                        // ...
-                        that.search_key.contract_key = value;
                         break;
                 }
                 that.selected_list = [];
@@ -527,17 +526,17 @@
         popupDialog: function () {
             var that = this;
             var dialogHtml = that.theDialogRenderHtml();
-            var blankContent = '<div id="select-plugin-dialog-content"></div>';
+            var blankContent = '<div id="'+ that.pluginIdName +'"></div>';
             that.search_key = {};               // 在页面不刷新的情况下重置搜索条件.
             that.pageConfig.pageId = 1;         // 在页面不刷新的情况下重置翻页数据.
             that.dialog = jDialog.dialog({
                 title: that.options.title,
                 content: blankContent,
-                width: 850,
+                width: 740,
                 height: 500,
                 draggable: false
             });
-            $('#select-plugin-dialog-content').html(dialogHtml.content({
+            $('#' + that.pluginIdName).html(dialogHtml.content({
                 type: that.options.type,
                 needFailureInfo: that.options.needFailureInfo,
                 showCateAndBrand: that.options.showCateAndBrand
@@ -696,17 +695,7 @@
                         };
                         that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
                     });
-                // 合约
-                //case 10:
-                //    that.theAjaxContracts(function (data) {
-                //        that.renderOption = {
-                //            items: data.data.data,
-                //            isSku: that.options.isSku,
-                //            type: that.options.type
-                //        };
-                //        that.renderTemplateFunc(data.data.total_count, template, that.renderOption, that.selected_list);
-                //    });
-                //    break;
+                    break;
             }
         },
 
@@ -767,9 +756,9 @@
                 dataType: that.options.ajaxDataType,
                 data: obj,
                 success: function (data) {
-                    if (data.code == 10000) {
+                    if (data.code === 10000) {
                         callback && callback(data)
-                    } else if (data.code == 40000) {
+                    } else if (data.code === 40000) {
                         location.href = '../seller_info/seller_login.html'
                     } else {
                         console.log(data.msg);
@@ -799,7 +788,7 @@
             that.ajax(that.ajaxSkuApi, {
                 item_id: item_id
             }, function (data) {
-                if (data.code == 10000) {
+                if (data.code === 10000) {
 
                     // todo 将商品名称.商品id.商品主图塞入sku里面
                     if (item_name) {

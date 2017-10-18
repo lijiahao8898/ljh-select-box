@@ -1,15 +1,15 @@
-## 自用选择插件 select-plugin
+## 选择插件 ljh-select-box
 
 ### 插件描述
 该插件主要实现的功能是根据选择的内容返回选择的数组对象，有单选，多选等相应的功能。
 
 ### demo
 
-[demo](https://lijiahao8898.github.io/selfplugin-dialog-select/view/)
+[demo](https://lijiahao8898.github.io/ljh-select-box/view/)
 
 ### 插件要实现的功能：
 * 支持单选、多选、sku单选、sku多选、商品选择、用户选择、类目选择、品牌选择、仓库选择、优惠券选择。
-* 传入选择框展示的内容type（默认是0,其他【0：商品，1：用户，2：优惠券，3：仓库，4：品牌，5：类目，10：合约-未开发】）
+* 传入选择框展示的内容type（默认是0,其他【0：商品，1：用户，2：优惠券，3：仓库，4：品牌，5：类目】）
 * 支持标题自定义
 * 支持全选、单选的判断（单选情况下是否直接关闭弹窗）
 * 支持刷新按钮的判断（暂未涉及）
@@ -28,11 +28,11 @@
 
 js:
 ```
-<script type="text/javascript" src="../src/plugin/select-plugin/select-plugin.js"></script>
+<script type="text/javascript" src="../src/plugin/select-plugin/ljh-select-box.js"></script>
 ```
 css:
 ```
-<link rel="stylesheet" href="../style/css/selectplugin.css">
+<link rel="stylesheet" href="../style/css/ljh-select-box.css">
 ```
 
 用到的其他插件：
@@ -49,7 +49,9 @@ css:
 
 ### 调用：
 ```
-('#plugin').selectPlugin({})
+('#plugin').selectPlugin({
+    // options
+})
 ```
 ### 传参
 ```
@@ -58,7 +60,7 @@ css:
         * @type {boolean} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
         * @type {boolean} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
         * @type {boolean} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-        * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,4:品牌,5:类目,10:合约)
+        * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,4:品牌,5:类目)
         * @type {number}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
         * @type {string}  title                        // 商品选择弹窗的title
         * @type {boolean} isSelectAll                  // 判断是否显示全选按钮
@@ -83,9 +85,14 @@ css:
 
 
 ### update & bugFix
+- 2017.10.18 &nbsp; v2.0.0
+    * 删除 合约类型
+    * 删除 老版本
+    * 修改 样式名称
 
 - 2017.10.17 &nbsp; v2.0.0
     * 新增 `postData` 携带额外的参数
+
 - 2017.07.07 &nbsp; v2.0.0
     * 修复 在没有展开二级类目的情况下,二级类目不选中的问题
     * 修复 在二级类目没有数据的情况下,二级类目数据不变的问题(应该展示无当前数据)
@@ -114,9 +121,8 @@ css:
     * 相关优化
 
 ### 版本相关:
-develop-1.0.0 - 1.0.0版本通用后台使用
 
-master - 2.0.0版本 管控,渠道后台使用
+当前只有 `master` 版本
 
 
  
