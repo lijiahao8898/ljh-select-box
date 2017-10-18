@@ -1,0 +1,30 @@
+{
+  "code": 10000,
+  "msg": "请求处理成功",
+  "data":{
+    "data": [
+      {
+        "id":1,
+        "sname":"杭仓1",
+        "name":"杭州仓库1",
+        "address":"杭州金昌大道口",
+        "status":"1"
+      },
+      {
+        "id":2,
+        "sname":"杭仓2",
+        "name":"杭州仓库2",
+        "address":"杭州金昌大道口",
+        "status":"1"
+      },
+      {
+        "id":3,
+        "sname":"杭仓3",
+        "name":"杭州仓库3",
+        "address":"杭州金昌大道口",
+        "status":"0"
+      }
+    ],
+    "total_count":3
+  }
+}
