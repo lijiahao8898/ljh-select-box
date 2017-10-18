@@ -63,7 +63,7 @@
             },
             selectError: function (info) {              // 失败选择之后的回调 返回一条错误信息info
             },
-            ajaxError: function (data) {                // 接口请求报错后的回调
+            ajaxError: function (error) {                // 接口请求报错后的回调
 
             }
         };

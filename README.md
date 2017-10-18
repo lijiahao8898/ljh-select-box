@@ -18,6 +18,12 @@
     * 返回一个cb：selectSuccess ( 单选 和 多选 )。
     * 返回一个cb：selectError ( 数据超出上限会报这个错误 )。
     * 返回一个cb：ajaxError （ ajax请求报错回调 ）。
+- 插件依赖
+    * `jquery.dialog`
+    * `jquery.paginator`
+    * `selectize`
+    * `underscore`
+    * `jquery`
 
 ### Getting started
 ```
@@ -45,14 +51,6 @@ css:
 <link rel="stylesheet" href="../style/css/ljh-select-box.css">
 ```
 
-用到的其他插件：
-
-* `jquery.dialog`
-* `jquery.paginator`
-* `selectize`
-* `underscore`
-* `jquery`
-
 #### 调用：
 ```
 ('#plugin').selectPlugin({
@@ -60,29 +58,29 @@ css:
 })
 ```
 
-#### 传参：
+#### options：
 | 参数              | 类型             | 作用                                                     |
 |:---------------- |:-----------------|:---------------------------------------------------------|
-| single           | `boolean`        | 默认：`false`。 判断 selectPlugin 是单选还是多选 默认是多选。 |
-| isSku            | `boolean`        | 默认：`false`。 判断 selectPlugin 是否支持到sku级别 (主要用于商品)。 |
-| needSkuGoodsInfo | `boolean`        | 默认：`false`。 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回。 |
-| type             | `number`         | 默认：`0`。 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,4:品牌,5:类目)。 |
-| selectLength     | `number`         | 默认：`0`。 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)。 |
-| title            | `string`         | 商品选择弹窗的title。 |
-| isSelectAll      | `boolean`        | 判断是否显示全选按钮。 |
-| isRefresh        | `boolean`        | 判断是否显示刷新按钮。 |
-| selectedList     | `Array`          | 选择的列表。例如：[ { id:1 },{ id:2 } ];  |
-| ajaxUrl          | `string`         | 请求的接口。 |
-| ajaxSkuUrl       | `string`         | 请求的SKU接口。 |
+| single           | `boolean`        | 默认：`false`多选。 是单选还是多选。|
+| isSku            | `boolean`        | 默认：`false`。 是否支持到sku级别 (主要用于商品 type：0)。 |
+| needSkuGoodsInfo | `boolean`        | 默认：`false`不返回。 是否在选择sku的时候默认返回商品的名字。 |
+| type             | `number`         | 默认：`0`。 需要渲染的是内容类型 (0：商品,1：用户,2：优惠券,3：仓库,4：品牌,5：类目)。 |
+| selectLength     | `number`         | 默认：`0`无限。 多选情况下选择的个数限制。 |
+| title            | `string`         | 默认：`商品的信息`。商品选择弹窗的title。 |
+| isSelectAll      | `boolean`        | 默认：`true`展示。判断是否显示全选按钮。 |
+| isRefresh        | `boolean`        | 默认：`true`展示。判断是否显示刷新按钮。 |
+| selectedList     | `Array`          | 默认：`[]`。选择的列表。例如：[ { id:1 },{ id:2 } ];  |
+| ajaxUrl          | `string`         | 默认：`''`。请求的接口。 |
+| ajaxSkuUrl       | `string`         | 默认：`''`。请求的SKU接口。 |
 | ajaxType         | `string`         | 默认：`post`。 ajax的请求类型。 |
 | needFailureInfo  | `boolean`        | 默认：`true`。 是否展示已经失效的东西-垃圾数据。 |
-| ArrayArray       | `Array`          | 需要展示的类目列表。 |
-| brandList        | `Array`          | 需要展示的品牌列表。 |
+| ArrayArray       | `Array`          | 默认：`[]`。需要展示的类目列表。 |
+| brandList        | `Array`          | 默认：`[]`。需要展示的品牌列表。 |
 | showCateAndBrand | `boolean`        | 默认：`false`。是否展示类目列表和品牌列表的搜索。 |
 | postData         | `object`         | 默认：`{}`。 需要提交的额外的参数。 |
-| selectSuccess    | `function`       | 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针。 |
-| selectError      | `function`       | 失败选择之后的回调 返回一条错误信息info。 |
-| ajaxError        | `function`       | 接口请求报错后的回调。 |
+| selectSuccess    | `function`       | 成功选择之后的回调。 返回选择的数据 `data` ,和当前选择弹框的指针 `target` 。 |
+| selectError      | `function`       | 失败选择之后的回调。 返回一条错误信息 `info` 。 |
+| ajaxError        | `function`       | 接口请求报错后的回调。 返回除10000以外的报错 `error`。 |
 
 ### what to do next ?
 1. 支持出商品外的其他数据的选择。
@@ -124,7 +122,7 @@ css:
     * 新增 接口请求错误后的回调 `ajaxError`
     * 相关优化
 
-### 版本相关:
+### version
 当前只有 `master` 版本
 
 
