@@ -32,7 +32,7 @@ gulp dist
 // and then open the dist/view/index.html to look the demo
 ```
 
-### 引用：
+#### 引用：
 只需要引用对应的 `js` ， `css`， `html模板`即可。
 其中 `html模板` 使用的是 `underscore`。
 
@@ -53,43 +53,40 @@ css:
 * `underscore`
 * `jquery`
 
-### 调用：
+#### 调用：
 ```
 ('#plugin').selectPlugin({
     // options
 })
 ```
 
-### 传参
-```
-    /**
-        * 插件的默认配置项
-        * @type {boolean} single: false,               // 判断 selectPlugin 是单选还是多选 默认是多选
-        * @type {boolean} isSku: false,                // 判断 selectPlugin 是否支持到sku级别 (主要用于商品)
-        * @type {boolean} needSkuGoodsInfo: false      // 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回
-        * @type {number}  type: 0                      // 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,4:品牌,5:类目)
-        * @type {number}  selectLength: 0              // 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)
-        * @type {string}  title                        // 商品选择弹窗的title
-        * @type {boolean} isSelectAll                  // 判断是否显示全选按钮
-        * @type {boolean} isRefresh                    // 判断是否显示刷新按钮
-        * @type {Array}   selectedList                 // 选择的列表
-        * @type {string}  ajaxUrl                      // 请求的接口
-        * @type {string}  ajaxSkuUrl                   // 请求的SKU接口
-        * @type {string}  ajaxType                     // ajax的请求类型默认 post
-        * @type {string}  ajaxDataType                 // ajax的请求数据类型默认 json
-        * @type {boolean} needFailureInfo              // 是否展示已经失效的东西-垃圾数据 ( 默认情况下是展示 )
-        * @type {Array}   categoryList                 // 需要展示的类目列表
-        * @type {Array}   brandList                    // 需要展示的品牌列表
-        * @type {boolean} showCateAndBrand             // 是否展示类目列表和品牌列表的搜索 ( 默认false )
-        * @type {object}  postData                     // 需要提交的额外的参数
-        * function selectSuccess                       // 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针
-        * function selectError                         // 失败选择之后的回调 返回一条错误信息info
-        * function ajaxError                           // 接口请求报错后的回调
-        */
- ```
+#### 传参：
+| 参数              | 类型             | 作用                                                     |
+| ---------------- |:----------------:| --------------------------------------------------------:|
+| single           | `boolean`        | 默认：`false`。 判断 selectPlugin 是单选还是多选 默认是多选。 |
+| isSku            | `boolean`        | 默认：`false`。 判断 selectPlugin 是否支持到sku级别 (主要用于商品)。 |
+| needSkuGoodsInfo | `boolean`        | 默认：`false`。 判断 selectPlugin 是否在选择sku的时候默认返回商品的名字 默认不返回。 |
+| type             | `number`         | 默认：`0`。 判断 selectPlugin 需要渲染的是什么 (0:商品,1:用户,2:优惠券,3:仓库,4:品牌,5:类目)。 |
+| selectLength     | `number`         | 默认：`0`。 判断 selectPlugin 多选情况下选择的个数限制 (0 为无限)。 |
+| title            | `string`         | 商品选择弹窗的title。 |
+| isSelectAll      | `boolean`        | 判断是否显示全选按钮。 |
+| isRefresh        | `boolean`        | 判断是否显示刷新按钮。 |
+| selectedList     | `Array`          | 选择的列表。例如：[ { id:1 },{ id:2 } ];  |
+| ajaxUrl          | `string`         | 请求的接口。 |
+| ajaxSkuUrl       | `string`         | 请求的SKU接口。 |
+| ajaxType         | `string`         | 默认：`post`。 ajax的请求类型。 |
+| needFailureInfo  | `boolean`        | 默认：`true`。 是否展示已经失效的东西-垃圾数据。 |
+| ArrayArray       | `Array`          | 需要展示的类目列表。 |
+| brandList        | `Array`          | 需要展示的品牌列表。 |
+| showCateAndBrand | `boolean`        | 默认：`false`。是否展示类目列表和品牌列表的搜索。 |
+| postData         | `object`         | 默认：`{}`。 需要提交的额外的参数。 |
+| selectSuccess    | `function`       | 成功选择之后的回调 返回选择的数据data,和当前选择弹框的指针。 |
+| selectError      | `function`       | 失败选择之后的回调 返回一条错误信息info。 |
+| ajaxError        | `function`       | 接口请求报错后的回调。 |
 
-### 需要修改
- 1. 支持出商品外的其他数据的选择
+### what to do next ?
+1. 支持出商品外的其他数据的选择。
+2. 增加loadding。
 
 ### update & bugFix
 - 2017.10.18 &nbsp; v2.0.0
