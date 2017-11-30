@@ -2,7 +2,8 @@
  * gulpfile
  */
 var gulp = require('gulp'),
-    path = require('path');
+    path = require('path'),
+    less = require('gulp-less');
 fileinclude = require('gulp-file-include');
 
 var ROOT_PATH = path.resolve(__dirname);
@@ -19,6 +20,14 @@ gulp.task('includeFile', function () {
         .pipe(gulp.dest(DEST + '/view'));
 });
 
+gulp.task('less', function () {
+    return gulp.src('./style/less/**')
+        .pipe(less({
+            paths: [path.join(__dirname, 'less', 'includes')]
+        }))
+        .pipe(gulp.dest('./style/css'));
+});
+
 gulp.task('copy:js', function () {
     return gulp.src('./src/**')
         .pipe(gulp.dest(DEST + '/src/'));
@@ -29,9 +38,9 @@ gulp.task('copy:stub', function () {
         .pipe(gulp.dest(DEST + '/stub/'));
 });
 
-gulp.task('copy:css', function () {
-    return (gulp.src('./style/*'))
-        .pipe(gulp.dest(DEST + '/style/'));
+gulp.task('copy:css', ['less'], function () {
+    return (gulp.src('./style/css/*'))
+        .pipe(gulp.dest(DEST + '/style/css/'));
 });
 
 gulp.task('dist', function () {

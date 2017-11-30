@@ -1,0 +1,821 @@
+#ljh-select-box {
+  font-size: 12px;
+  /************** 类型为5 类目的样式 ***************/
+  /* button */
+  /* input */
+  /* UI */
+  /* pagination */
+  /*定位*/
+}
+#ljh-select-box table.ljh-select-box-table > tbody {
+  display: block;
+  height: 280px;
+  overflow: scroll;
+}
+#ljh-select-box table.ljh-select-box-table > thead,
+#ljh-select-box table.ljh-select-box-table > tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+#ljh-select-box table td.w250 {
+  width: 250px;
+}
+#ljh-select-box .selectize-input {
+  border-radius: 0;
+}
+#ljh-select-box .select-group-goods {
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  text-align: center;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+#ljh-select-box .popup-g-name {
+  width: 250px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#ljh-select-box .select-plugin-search {
+  padding: 10px 0;
+  /*border-bottom: 1px solid #ccc;*/
+  /*box-shadow: 0 2px 1px rgba(0,0,0,0.2);*/
+  /*position: relative;*/
+  /*z-index: 10;*/
+}
+#ljh-select-box .select-plugin-table-wrapper {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+#ljh-select-box .select-plugin-brand-wrapper,
+#ljh-select-box .select-plugin-category-selectize-wrapper {
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  height: 31px;
+}
+#ljh-select-box .select-plugin-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 4px;
+  padding: 2px;
+  border: 1px solid #ccc;
+}
+#ljh-select-box .select-plugin-ellipsis {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+#ljh-select-box .select-plugin-category {
+  width: 48%;
+  float: left;
+  text-align: center;
+  margin: 0 5px 15px 5px;
+  border: 1px solid #ccc;
+}
+#ljh-select-box .select-plugin-category-title {
+  color: #fff;
+  padding: 5px;
+  margin-bottom: 5px;
+  background: #26B99A;
+}
+#ljh-select-box .select-plugin-category-content {
+  height: 330px;
+  overflow: scroll;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list {
+  list-style-type: none;
+  overflow: hidden;
+  padding: 8px 10px;
+  margin-bottom: 0;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list.active {
+  background: #eee;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list .select-plugin-category-name {
+  float: left;
+  display: inline-block;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list .select-plugin-category-button {
+  float: right;
+  display: inline-block;
+}
+#ljh-select-box .select-plugin-category-content .select-plugin-category-list .select-plugin-category-wrapper {
+  overflow: hidden;
+}
+#ljh-select-box .btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+}
+#ljh-select-box .btn:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+  color: #333;
+}
+#ljh-select-box .btn:active {
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+#ljh-select-box .btn:hover {
+  color: #333;
+}
+#ljh-select-box .btn[disabled],
+#ljh-select-box .btn.disabled {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
+}
+#ljh-select-box .btn-default {
+  color: #333;
+  background-color: #f6f6f6;
+  border-color: #ccc;
+}
+#ljh-select-box .btn-default:focus,
+#ljh-select-box .btn-default:active,
+#ljh-select-box .btn-default:hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+#ljh-select-box .btn-default[disabled] {
+  color: #333;
+  background-color: #f6f6f6;
+  border-color: #ccc;
+}
+#ljh-select-box .btn-default[disabled]:active,
+#ljh-select-box .btn-default[disabled]:focus,
+#ljh-select-box .btn-default[disabled]:hover {
+  color: #333;
+  background-color: #f6f6f6;
+  border-color: #ccc;
+}
+#ljh-select-box .btn-default.disabled {
+  color: #333;
+  background-color: #f6f6f6;
+  border-color: #ccc;
+}
+#ljh-select-box .btn-default.disabled:active,
+#ljh-select-box .btn-default.disabled:focus,
+#ljh-select-box .btn-default.disabled:hover {
+  color: #333;
+  background-color: #f6f6f6;
+  border-color: #ccc;
+}
+#ljh-select-box .btn-success {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+#ljh-select-box .btn-success:focus,
+#ljh-select-box .btn-success:active,
+#ljh-select-box .btn-success:hover {
+  color: #fff;
+  background-color: #449d44;
+  border-color: #255625;
+}
+#ljh-select-box .btn-success[disabled]:focus,
+#ljh-select-box .btn-success.disabled:focus,
+#ljh-select-box .btn-success[disabled]:hover,
+#ljh-select-box .btn-success.disabled:hover,
+#ljh-select-box .btn-success[disabled]:active,
+#ljh-select-box .btn-success.disabled:active {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+#ljh-select-box .btn-danger {
+  color: #fff;
+  background-color: #f86161;
+  border-color: #d95555;
+}
+#ljh-select-box .btn-danger:hover,
+#ljh-select-box .btn-danger:active,
+#ljh-select-box .btn-danger:focus {
+  color: #fff;
+  background-color: #e83a3a;
+  border-color: #ab3838;
+}
+#ljh-select-box .btn-danger[disabled]:hover,
+#ljh-select-box .btn-danger.disabled:hover,
+#ljh-select-box .btn-danger[disabled]:active,
+#ljh-select-box .btn-danger.disabled:active,
+#ljh-select-box .btn-danger[disabled]:focus,
+#ljh-select-box .btn-danger.disabled:focus {
+  color: #fff;
+  background-color: #f86161;
+  border-color: #d95555;
+}
+#ljh-select-box .btn-lg {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+}
+#ljh-select-box .btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+#ljh-select-box .btn-xs {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+#ljh-select-box select.form-control {
+  width: 160px;
+  height: 30px;
+}
+#ljh-select-box .form-control {
+  height: 34px;
+  padding: 6px 12px;
+  border: 1px solid #e0e0e0;
+  font-size: 12px;
+  color: #555;
+  background-color: #fff;
+  width: 100%;
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+#ljh-select-box .form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+#ljh-select-box .form-control:focus::-webkit-input-placeholder {
+  color: #e5e5e5;
+}
+#ljh-select-box .form-control[disabled],
+#ljh-select-box .form-control[readonly] {
+  background-color: #eee;
+  opacity: 1;
+}
+#ljh-select-box .form-control.form-control-sm {
+  height: 30px;
+  width: 100px !important;
+}
+#ljh-select-box .form-control.form-control-md {
+  height: 30px;
+  width: 150px !important;
+}
+#ljh-select-box .form-control.form-control-lg {
+  height: 30px;
+  width: 200px !important;
+}
+#ljh-select-box .form-control.form-control-hg {
+  height: 30px;
+  width: 400px;
+}
+#ljh-select-box .form-inline .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+#ljh-select-box .form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+#ljh-select-box .form-inline .input-group {
+  display: inline-table;
+  vertical-align: middle;
+}
+#ljh-select-box .form-inline .input-group .form-control,
+#ljh-select-box .form-inline .input-group .input-group-addon,
+#ljh-select-box .form-inline .input-group .input-group-btn,
+#ljh-select-box .form-inline .input-group .input-group-img {
+  width: auto;
+}
+#ljh-select-box .form-inline .input-group > .form-control {
+  width: 100%;
+}
+#ljh-select-box .form-group {
+  margin-bottom: 10px;
+  zoom: 1;
+}
+#ljh-select-box .form-group:after {
+  content: " ";
+  display: block;
+  clear: both;
+  height: 0;
+}
+#ljh-select-box .input-group {
+  display: table;
+}
+#ljh-select-box .input-group .form-control,
+#ljh-select-box .input-group .input-group-addon,
+#ljh-select-box .input-group .input-group-btn,
+#ljh-select-box .input-group .input-group-img {
+  display: table-cell;
+}
+#ljh-select-box .input-group .form-control {
+  width: 100%;
+}
+#ljh-select-box .input-group-addon,
+#ljh-select-box .input-group-btn,
+#ljh-select-box .input-group-img {
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 0;
+}
+#ljh-select-box .input-group-addon {
+  border: 1px solid #e0e0e0;
+  background-color: #eee;
+  text-align: center;
+  font-size: 14px;
+  line-height: 0;
+}
+#ljh-select-box .input-group-addon:first-child {
+  border-right: 0;
+}
+#ljh-select-box .input-group-addon:last-child {
+  border-left: 0;
+}
+#ljh-select-box .input-group-addon font {
+  padding: 6px 10px;
+  color: #555;
+}
+#ljh-select-box .input-group-btn:first-child > .btn {
+  margin-right: -1px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+#ljh-select-box .input-group-btn:last-child > .btn {
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+#ljh-select-box .ui-box {
+  margin-bottom: 15px;
+}
+#ljh-select-box .ui-box:last-child {
+  margin-bottom: 0;
+}
+#ljh-select-box .ui-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+}
+#ljh-select-box .ui-table tbody tr:nth-child(even) {
+  background: #f8f8f8;
+}
+#ljh-select-box .ui-table tbody tr:last-of-type {
+  border-bottom: none;
+}
+#ljh-select-box .ui-table tbody tr:hover {
+  background-color: #e8eff7;
+}
+#ljh-select-box .ui-table th,
+#ljh-select-box .ui-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  vertical-align: middle;
+}
+#ljh-select-box .ui-table th {
+  background: #f8f8f8;
+}
+#ljh-select-box .ui-table img {
+  width: 58px;
+  height: 58px;
+}
+#ljh-select-box .ui-table td .checkbox-inline input[type=checkbox] {
+  top: 20px;
+}
+#ljh-select-box .ui-table .orderby-arrow.down::before {
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 3px;
+  content: url('../images/icon_down.png');
+}
+#ljh-select-box .ui-table .orderby-arrow.up::before {
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 3px;
+  content: url('../images/icon_up.png');
+}
+#ljh-select-box .ui-table .cell-1 {
+  width: 1%;
+}
+#ljh-select-box .ui-table .cell-2 {
+  width: 2%;
+}
+#ljh-select-box .ui-table .cell-3 {
+  width: 3%;
+}
+#ljh-select-box .ui-table .cell-4 {
+  width: 4%;
+}
+#ljh-select-box .ui-table .cell-5 {
+  width: 5%;
+}
+#ljh-select-box .ui-table .cell-6 {
+  width: 6%;
+}
+#ljh-select-box .ui-table .cell-7 {
+  width: 7%;
+}
+#ljh-select-box .ui-table .cell-8 {
+  width: 8%;
+}
+#ljh-select-box .ui-table .cell-9 {
+  width: 9%;
+}
+#ljh-select-box .ui-table .cell-10 {
+  width: 10%;
+}
+#ljh-select-box .ui-table .cell-11 {
+  width: 11%;
+}
+#ljh-select-box .ui-table .cell-12 {
+  width: 12%;
+}
+#ljh-select-box .ui-table .cell-13 {
+  width: 13%;
+}
+#ljh-select-box .ui-table .cell-14 {
+  width: 14%;
+}
+#ljh-select-box .ui-table .cell-15 {
+  width: 15%;
+}
+#ljh-select-box .ui-table .cell-16 {
+  width: 16%;
+}
+#ljh-select-box .ui-table .cell-17 {
+  width: 17%;
+}
+#ljh-select-box .ui-table .cell-18 {
+  width: 18%;
+}
+#ljh-select-box .ui-table .cell-19 {
+  width: 19%;
+}
+#ljh-select-box .ui-table .cell-20 {
+  width: 20%;
+}
+#ljh-select-box .ui-table .cell-21 {
+  width: 21%;
+}
+#ljh-select-box .ui-table .cell-22 {
+  width: 22%;
+}
+#ljh-select-box .ui-table .cell-23 {
+  width: 23%;
+}
+#ljh-select-box .ui-table .cell-24 {
+  width: 24%;
+}
+#ljh-select-box .ui-table .cell-25 {
+  width: 25%;
+}
+#ljh-select-box .ui-table .cell-26 {
+  width: 26%;
+}
+#ljh-select-box .ui-table .cell-27 {
+  width: 27%;
+}
+#ljh-select-box .ui-table .cell-28 {
+  width: 28%;
+}
+#ljh-select-box .ui-table .cell-29 {
+  width: 29%;
+}
+#ljh-select-box .ui-table .cell-30 {
+  width: 30%;
+}
+#ljh-select-box .ui-table .cell-31 {
+  width: 31%;
+}
+#ljh-select-box .ui-table .cell-32 {
+  width: 32%;
+}
+#ljh-select-box .ui-table .cell-33 {
+  width: 33%;
+}
+#ljh-select-box .ui-table .cell-34 {
+  width: 34%;
+}
+#ljh-select-box .ui-table .cell-35 {
+  width: 35%;
+}
+#ljh-select-box .ui-table .cell-36 {
+  width: 36%;
+}
+#ljh-select-box .ui-table .cell-37 {
+  width: 37%;
+}
+#ljh-select-box .ui-table .cell-38 {
+  width: 38%;
+}
+#ljh-select-box .ui-table .cell-39 {
+  width: 39%;
+}
+#ljh-select-box .ui-table .cell-40 {
+  width: 40%;
+}
+#ljh-select-box .ui-table .cell-41 {
+  width: 41%;
+}
+#ljh-select-box .ui-table .cell-42 {
+  width: 42%;
+}
+#ljh-select-box .ui-table .cell-43 {
+  width: 43%;
+}
+#ljh-select-box .ui-table .cell-44 {
+  width: 44%;
+}
+#ljh-select-box .ui-table .cell-45 {
+  width: 45%;
+}
+#ljh-select-box .ui-table .cell-46 {
+  width: 46%;
+}
+#ljh-select-box .ui-table .cell-47 {
+  width: 47%;
+}
+#ljh-select-box .ui-table .cell-48 {
+  width: 48%;
+}
+#ljh-select-box .ui-table .cell-49 {
+  width: 49%;
+}
+#ljh-select-box .ui-table .cell-50 {
+  width: 50%;
+}
+#ljh-select-box .ui-table .cell-51 {
+  width: 51%;
+}
+#ljh-select-box .ui-table .cell-52 {
+  width: 52%;
+}
+#ljh-select-box .ui-table .cell-53 {
+  width: 53%;
+}
+#ljh-select-box .ui-table .cell-54 {
+  width: 54%;
+}
+#ljh-select-box .ui-table .cell-55 {
+  width: 55%;
+}
+#ljh-select-box .ui-table .cell-56 {
+  width: 56%;
+}
+#ljh-select-box .ui-table .cell-57 {
+  width: 57%;
+}
+#ljh-select-box .ui-table .cell-58 {
+  width: 58%;
+}
+#ljh-select-box .ui-table .cell-59 {
+  width: 59%;
+}
+#ljh-select-box .ui-table .cell-60 {
+  width: 60%;
+}
+#ljh-select-box .ui-table .cell-61 {
+  width: 61%;
+}
+#ljh-select-box .ui-table .cell-62 {
+  width: 62%;
+}
+#ljh-select-box .ui-table .cell-63 {
+  width: 63%;
+}
+#ljh-select-box .ui-table .cell-64 {
+  width: 64%;
+}
+#ljh-select-box .ui-table .cell-65 {
+  width: 65%;
+}
+#ljh-select-box .ui-table .cell-66 {
+  width: 66%;
+}
+#ljh-select-box .ui-table .cell-67 {
+  width: 67%;
+}
+#ljh-select-box .ui-table .cell-68 {
+  width: 68%;
+}
+#ljh-select-box .ui-table .cell-69 {
+  width: 69%;
+}
+#ljh-select-box .ui-table .cell-70 {
+  width: 70%;
+}
+#ljh-select-box .ui-table .cell-71 {
+  width: 71%;
+}
+#ljh-select-box .ui-table .cell-72 {
+  width: 72%;
+}
+#ljh-select-box .ui-table .cell-73 {
+  width: 73%;
+}
+#ljh-select-box .ui-table .cell-74 {
+  width: 74%;
+}
+#ljh-select-box .ui-table .cell-75 {
+  width: 75%;
+}
+#ljh-select-box .ui-table .cell-76 {
+  width: 76%;
+}
+#ljh-select-box .ui-table .cell-77 {
+  width: 77%;
+}
+#ljh-select-box .ui-table .cell-78 {
+  width: 78%;
+}
+#ljh-select-box .ui-table .cell-79 {
+  width: 79%;
+}
+#ljh-select-box .ui-table .cell-80 {
+  width: 80%;
+}
+#ljh-select-box .ui-table .cell-81 {
+  width: 81%;
+}
+#ljh-select-box .ui-table .cell-82 {
+  width: 82%;
+}
+#ljh-select-box .ui-table .cell-83 {
+  width: 83%;
+}
+#ljh-select-box .ui-table .cell-84 {
+  width: 84%;
+}
+#ljh-select-box .ui-table .cell-85 {
+  width: 85%;
+}
+#ljh-select-box .ui-table .cell-86 {
+  width: 86%;
+}
+#ljh-select-box .ui-table .cell-87 {
+  width: 87%;
+}
+#ljh-select-box .ui-table .cell-88 {
+  width: 88%;
+}
+#ljh-select-box .ui-table .cell-89 {
+  width: 89%;
+}
+#ljh-select-box .ui-table .cell-90 {
+  width: 90%;
+}
+#ljh-select-box .ui-table .cell-91 {
+  width: 91%;
+}
+#ljh-select-box .ui-table .cell-92 {
+  width: 92%;
+}
+#ljh-select-box .ui-table .cell-93 {
+  width: 93%;
+}
+#ljh-select-box .ui-table .cell-94 {
+  width: 94%;
+}
+#ljh-select-box .ui-table .cell-95 {
+  width: 95%;
+}
+#ljh-select-box .ui-table .cell-96 {
+  width: 96%;
+}
+#ljh-select-box .ui-table .cell-97 {
+  width: 97%;
+}
+#ljh-select-box .ui-table .cell-98 {
+  width: 98%;
+}
+#ljh-select-box .ui-table .cell-99 {
+  width: 99%;
+}
+#ljh-select-box .ui-table .cell-100 {
+  width: 100%;
+}
+#ljh-select-box .ui-pagination a {
+  display: inline-block;
+  height: 30px;
+  min-width: 30px;
+  line-height: 30px;
+  background: #fff;
+  text-align: center;
+  color: #333;
+  margin: 0 1px;
+}
+#ljh-select-box .ui-pagination a.active,
+#ljh-select-box .ui-pagination a:hover {
+  background: #44b549;
+  color: #fff;
+}
+#ljh-select-box .ui-pagination a.disabled {
+  color: #ccc;
+}
+#ljh-select-box .ui-pagination a.disabled.active,
+#ljh-select-box .ui-pagination a.disabled:hover {
+  background: #ccc;
+  color: #fff;
+}
+#ljh-select-box .tl {
+  text-align: left;
+}
+#ljh-select-box .tc {
+  text-align: center;
+}
+#ljh-select-box .tr {
+  text-align: right;
+}
+#ljh-select-box .fl {
+  float: left;
+  display: inline;
+}
+#ljh-select-box .fr {
+  float: right;
+  display: inline;
+}
+#ljh-select-box .cb {
+  clear: both;
+}
+#ljh-select-box .cl {
+  clear: left;
+}
+#ljh-select-box .cr {
+  clear: right;
+}
+#ljh-select-box .clearfix:before,
+#ljh-select-box .clearfix:after {
+  clear: both;
+  content: " ";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+#ljh-select-box .clearfix {
+  zoom: 1;
+}
+#ljh-select-box .vt {
+  vertical-align: top;
+}
+#ljh-select-box .vm {
+  vertical-align: middle;
+}
+#ljh-select-box .vb {
+  vertical-align: bottom;
+}
+#ljh-select-box .pr {
+  position: relative;
+}
+#ljh-select-box .pa {
+  position: absolute;
+}
+#ljh-select-box .abs-right {
+  position: absolute;
+  right: 0;
+}
+#ljh-select-box .zoom {
+  zoom: 1;
+}
+#ljh-select-box .hidden {
+  visibility: hidden;
+}
+#ljh-select-box .none {
+  display: none;
+}
+#ljh-select-box .inb {
+  display: inline-block;
+  vertical-align: middle;
+}
+#ljh-select-box .mb10 {
+  margin-bottom: 10px;
+}

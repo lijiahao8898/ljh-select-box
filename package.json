@@ -18,6 +18,7 @@
   "homepage": "https://github.com/lijiahao8898/ljh-select-box#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-file-include": "^1.2.0"
+    "gulp-file-include": "^1.2.0",
+    "gulp-less": "^3.3.2"
   }
 }

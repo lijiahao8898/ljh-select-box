@@ -5,45 +5,206 @@
     <title>选择弹窗插件</title>
     <link rel="stylesheet" href="../src/plugin/selectize/selectize.bootstrap3.css">
     <link rel="stylesheet" href="../src/plugin/jquery.dialog/jquery.dialog.css">
-    <link rel="stylesheet" href="../style/default.css">
-    <link rel="stylesheet" href="../style/ljh-select-box.css">
+    <link rel="stylesheet" href="../style/css/reset.css">
+    <link rel="stylesheet" href="../style/css/ljh-select-box.css">
 </head>
-<style>
-    body{
-        background: #666!important;
-    }
-    #demo{
-        padding: 10px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    #demo ul li{
-        padding: 15px 0;
-    }
-    button{
-        min-width: 100px;
-        border: 1px solid #fff!important;
-    }
-    .info{
-        color: #fff;
-    }
-</style>
 <body>
 <div id="demo">
     <div class="info">选择完的数据会在控制台打印出来</div>
     <ul>
         <li>
-            <button id="selectPluginButtonGoods" class="btn btn-success btn-sm">选择商品一号</button>
-
-            <p>最简单的选择框</p>
+            <h2>最简单的选择框</h2>
+            <button id="selectPluginButtonGoods" class="preview">预览</button>
+            <pre>
+                $('#selectPluginButtonGoods').selectPlugin({
+                    isSku: false,
+                    isSelectAll: true,
+                    single: false,
+                    type: 0,
+                    title: '选择商品',
+                    ajaxUrl: '../stub/demo.json',
+                    ajaxSkuUrl: '../stub/demo_sku.json',
+                    ajaxType: 'get',
+                    selectLength: 0,
+                    ajaxDataType: 'json',
+                    postData: {
+                        name: 1
+                    },
+                    selectSuccess: function (data) {
+                        console.log(data)
+                    },
+                    selectError: function (info) {
+                        console.error(info);
+                    }
+                });
+            </pre>
         </li>
-        <li><button id="selectPluginButtonGoods2" class="btn btn-success btn-sm">选择商品二号</button></li>
-        <li><button id="selectPluginButtonGoodsSku" class="btn btn-success btn-sm">选择商品sku</button></li>
-        <li><button id="selectPluginButtonUsers" class="btn btn-success btn-sm">选择用户</button></li>
-        <li><button id="selectPluginButtonCoupon" class="btn btn-success btn-sm">选择优惠券</button></li>
-        <li><button id="selectPluginButtonWarehouse" class="btn btn-success btn-sm">选择仓库</button></li>
-        <li><button id="selectPluginButtonBrand" class="btn btn-success btn-sm">选择品牌</button></li>
-        <li><button id="selectPluginButtonCategory" class="btn btn-success btn-sm">选择类目</button></li>
+        <li>
+            <button id="selectPluginButtonGoods2" class="preview">选择商品</button>
+            <pre>
+                $('#selectPluginButtonGoods2').selectPlugin({
+                    isSku: false,
+                    isSelectAll: true,
+                    single: false,
+                    type: 0,
+                    ajaxUrl: '../stub/demo.json',
+                    ajaxSkuUrl: '../stub/demo_sku.json',
+                    ajaxType: 'get',
+                    selectLength: 0,
+                    ajaxDataType: 'json',
+                    selectSuccess: function (data) {
+                        console.log(data)
+                    },
+                    selectError: function (info) {
+                        console.error(info);
+                    }
+                });
+            </pre>
+        </li>
+        <li>
+            <button id="selectPluginButtonGoodsSku" class="preview">选择商品sku</button>
+            <pre>
+                $('#selectPluginButtonGoodsSku').selectPlugin({
+                    isSku: true,
+                    isSelectAll: false,
+                    type: 0,
+                    title: '选择商品sku',
+                    ajaxUrl: '../stub/demo.json',
+                    ajaxSkuUrl: '../stub/demo_sku.json',
+                    ajaxType: 'get',
+                    ajaxDataType: 'json',
+                    selectLength: 5,
+                    brandList: [{
+                        text: 'hello world',
+                        value: 1
+                    }],
+                    categoryList: [{
+                        text: 'hello world',
+                        value: 2
+                    }],
+                    showCateAndBrand: true,
+                    selectSuccess: function (data) {
+                        console.log(data)
+                    },
+                    selectError: function (info) {
+                        console.error(info);
+                    }
+                });
+            </pre>
+        </li>
+        <li>
+            <button id="selectPluginButtonUsers" class="preview">选择用户</button>
+            <pre>
+                $('#selectPluginButtonUsers').selectPlugin({
+                    single: true,
+                    isSku: false,
+                    isSelectAll: false,
+                    type: 1,
+                    title: '选择用户',
+                    selectLength: 5,
+                    ajaxUrl: '../stub/demo_users.json',
+                    ajaxType: 'get',
+                    ajaxDataType: 'json',
+                    selectSuccess: function (data) {
+                        console.log(data)
+                    },
+                    selectError: function (info) {
+                        console.error(info);
+                    }
+                });
+            </pre>
+        </li>
+        <li>
+            <button id="selectPluginButtonCoupon" class="preview">选择优惠券</button>
+            <pre>
+                $('#selectPluginButtonCoupon').selectPlugin({
+                    single: true,
+                    isSku: false,
+                    isSelectAll: false,
+                    type: 2,
+                    title: '选择优惠券',
+                    selectLength: 5,
+                    ajaxUrl: '../stub/demo_coupon.json',
+                    ajaxType: 'get',
+                    ajaxDataType: 'json',
+                    selectSuccess: function (data) {
+                        console.log(data)
+                    },
+                    selectError: function (info) {
+                        console.error(info);
+                    }
+                });
+            </pre>
+        </li>
+        <li>
+            <button id="selectPluginButtonWarehouse" class="preview">选择仓库</button>
+            <pre>
+                $('#selectPluginButtonWarehouse').selectPlugin({
+                    single: false,
+                    isSku: false,
+                    isSelectAll: true,
+                    type: 3,
+                    title: '选择仓库',
+                    selectLength: 5,
+                    ajaxUrl: '../stub/demo_warehouse.json',
+                    ajaxType: 'get',
+                    ajaxDataType: 'json',
+                    selectSuccess: function (data) {
+                        console.log(data)
+                    },
+                    selectError: function (info) {
+                        console.error(info);
+                    }
+                })
+            </pre>
+        </li>
+        <li>
+            <button id="selectPluginButtonBrand" class="preview">选择品牌</button>
+            <pre>
+                $('#selectPluginButtonBrand').selectPlugin({
+                    single: false,
+                    isSku: false,
+                    isSelectAll: true,
+                    type: 4,
+                    title: '选择品牌',
+                    selectLength: 0,
+                    ajaxUrl: '../stub/demo_brand.json',
+                    ajaxType: 'get',
+                    ajaxDataType: 'json',
+                    selectSuccess: function (data) {
+                        console.log(data)
+                    },
+                    selectError: function (info) {
+                        console.error(info);
+                    }
+                });
+            </pre>
+        </li>
+        <li>
+            <button id="selectPluginButtonCategory" class="preview">选择类目</button>
+            <pre>
+                $('#selectPluginButtonCategory').selectPlugin({
+                    single: false,
+                    isSku: false,
+                    isSelectAll: true,
+                    type: 5,
+                    title: '选择类目',
+                    selectLength: 0,
+                    ajaxUrl: '../stub/demo_category.json',
+                    ajaxType: 'get',
+                    ajaxDataType: 'json',
+                    postData: {
+                        name: 1
+                    },
+                    selectSuccess: function (data) {
+                        console.log(data)
+                    },
+                    selectError: function (info) {
+                        console.error(info);
+                    }
+                })
+            </pre>
+        </li>
     </ul>
 
 </div>
@@ -57,13 +218,13 @@
 <script type="text/javascript" src="../src/plugin/selectize/selectize.js"></script>
 <script type="text/javascript" src="../src/fn/ljh-select-box.js"></script>
 <script>
-    ;(function () {
+    ;(function ($) {
         $('#selectPluginButtonGoods').selectPlugin({
-            isSku:false,
-            isSelectAll:true,
+            isSku: false,
+            isSelectAll: true,
             single: false,
-            type:0,
-            title:'选择商品',
+            type: 0,
+            title: '选择商品',
             ajaxUrl: '../stub/demo.json',
             ajaxSkuUrl: '../stub/demo_sku.json',
             ajaxType: 'get',
@@ -72,7 +233,7 @@
             postData: {
                 name: 1
             },
-            selectSuccess: function(data){
+            selectSuccess: function (data) {
                 console.log(data)
             },
             selectError: function (info) {
@@ -81,16 +242,16 @@
         });
 
         $('#selectPluginButtonGoods2').selectPlugin({
-            isSku:false,
-            isSelectAll:true,
+            isSku: false,
+            isSelectAll: true,
             single: false,
-            type:0,
+            type: 0,
             ajaxUrl: '../stub/demo.json',
             ajaxSkuUrl: '../stub/demo_sku.json',
             ajaxType: 'get',
             selectLength: 0,
             ajaxDataType: 'json',
-            selectSuccess: function(data){
+            selectSuccess: function (data) {
                 console.log(data)
             },
             selectError: function (info) {
@@ -217,8 +378,7 @@
                 console.error(info);
             }
         })
-
-    })();
+    })($);
 </script>
 @@include('template/ljh-select-box-tpl.html')
 </html>
