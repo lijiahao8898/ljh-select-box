@@ -21,6 +21,9 @@
 #ljh-select-box table td.w250 {
   width: 250px;
 }
+#ljh-select-box table th.w250 {
+  width: 250px;
+}
 #ljh-select-box .selectize-input {
   border-radius: 0;
 }
@@ -818,4 +821,7 @@
 }
 #ljh-select-box .mb10 {
   margin-bottom: 10px;
+}
+#ljh-select-box .mt5 {
+  margin-top: 5px;
 }
