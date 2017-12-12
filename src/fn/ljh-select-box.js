@@ -35,7 +35,7 @@
      */
     var selectPluginFunc = function (ele, opt) {
 
-        var title = '全部商品&nbsp;<label>&nbsp;&nbsp;' +
+        var title = '全部商品&nbsp;<label>&nbsp;' +
             '<input data-type="4" type="checkbox" class="j-select-plugin-checkbox"/>&nbsp;只要上架商品</label>';
 
         this.$element = ele.selector;                   // 点击弹窗的element

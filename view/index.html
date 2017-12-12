@@ -14,6 +14,20 @@
     <ul>
         <li>
             <h2>最简单的选择框</h2>
+            <button id="selectPluginSingle" class="preview">预览</button>
+            <pre>
+                $('#selectPluginSingle').selectPlugin({
+                    ajaxUrl: '../stub/demo.json',
+                    selectSuccess: function (d) {
+                        console.log(d);
+                    },
+                    selectError: function (i) {
+                        console.log(i);
+                    }
+                });
+            </pre>
+        </li>
+        <li>
             <button id="selectPluginButtonGoods" class="preview">预览</button>
             <pre>
                 $('#selectPluginButtonGoods').selectPlugin({
@@ -219,6 +233,15 @@
 <script type="text/javascript" src="../src/fn/ljh-select-box.js"></script>
 <script>
     ;(function ($) {
+        $('#selectPluginSingle').selectPlugin({
+            ajaxUrl: '../stub/demo.json',
+            selectSuccess: function (d) {
+                console.log(d);
+            },
+            selectError: function (i) {
+                console.log(i);
+            }
+        });
         $('#selectPluginButtonGoods').selectPlugin({
             isSku: false,
             isSelectAll: true,
